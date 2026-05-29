@@ -1,311 +1,174 @@
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Physio Richmond | Bridge Road Physiotherapy</title>
-  <meta name="description" content="Sports and movement physiotherapy in Richmond, inside Uplift Gym on Bridge Road. One-on-one care from a physio with elite-sport experience. Book online.">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Physio Richmond | Bridge Road Physiotherapy</title>
+<meta name="description" content="Sports and movement physiotherapy in Richmond, inside Uplift Gym on Bridge Road. One-on-one care from a physio with elite-sport experience. Book online.">
+<link rel="icon" href="logo-badge.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-
-  <!-- HEADER -->
-  <header class="site-header">
-    <div class="container nav">
-      <a href="index.html" class="nav__logo">Bridge Road<span>Physiotherapy</span></a>
-      <nav class="nav__links">
-        <a href="index.html" class="active">Home</a>
-        <a href="about.html">About</a>
-        <a href="services.html">Services</a>
-        <a href="sessions.html">Sessions</a>
-        <a href="contact.html">Contact</a>
-      </nav>
-      <div class="nav__right">
-        <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary">Book online</a>
-        <button class="nav__toggle" aria-label="Menu" onclick="toggleMenu()">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-    <div class="nav__mobile" id="mobileMenu">
-      <a href="index.html">Home</a>
+<header class="hdr" id="hdr">
+  <div class="container nav">
+    <a href="index.html" class="logo" aria-label="Bridge Road Physiotherapy">
+      <img src="logo.svg" alt="Bridge Road Physiotherapy logo" style="height:44px;width:auto">
+      <b>Bridge Road<span>Physiotherapy</span></b>
+    </a>
+    <nav class="nav__links">
+      <a href="index.html" class="active">Home</a>
       <a href="about.html">About</a>
       <a href="services.html">Services</a>
       <a href="sessions.html">Sessions</a>
       <a href="contact.html">Contact</a>
+    </nav>
+    <div class="nav__right">
+      <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary">Book online</a>
+      <button class="burger" aria-label="Menu" onclick="document.getElementById('m').classList.toggle('open')"><span></span><span></span><span></span></button>
     </div>
-  </header>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero__inner">
-      <span class="hero__eyebrow">Richmond · Inside Uplift Gym</span>
-      <h1 class="hero__title">Get back to training, properly.</h1>
-      <p class="hero__sub">Boutique physiotherapy inside Uplift Gym on Bridge Road. One-on-one care, built around strength and movement, run by a physio who has worked in professional sport.</p>
-      <div class="hero__ctas">
-        <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary">Book online</a>
-        <a href="sessions.html" class="btn btn--ghost">See how a first session works</a>
-      </div>
-      <p class="hero__cred">Elite-sport background, applied to your knee, your shoulder, your next run.</p>
+  </div>
+</header>
+<nav class="mobile" id="m">
+  <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="sessions.html">Sessions</a><a href="contact.html">Contact</a>
+  <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary" style="margin-top:1rem;justify-content:center">Book online</a>
+</nav>
+<section class="hero">
+  <div class="hero__bg"><span class="blob b1"></span><span class="blob b2"></span></div>
+  <div class="container hero__inner">
+    <span class="eyebrow fade-up" style="animation-delay:.1s"><span class="dot"></span>Richmond &middot; Inside Uplift Gym</span>
+    <h1>
+      <span class="reveal-word"><span style="animation-delay:.15s">Get</span></span>
+      <span class="reveal-word"><span style="animation-delay:.23s">back</span></span>
+      <span class="reveal-word"><span style="animation-delay:.31s">to</span></span>
+      <span class="reveal-word"><span style="animation-delay:.39s">training,</span></span><br>
+      <span class="reveal-word"><span style="animation-delay:.5s;color:var(--green)">properly.</span></span>
+    </h1>
+    <p class="hero__sub fade-up" style="animation-delay:.7s">Boutique physiotherapy inside Uplift Gym on Bridge Road. One-on-one care, built around strength and movement, run by a physio who has worked in professional sport.</p>
+    <div class="hero__ctas fade-up" style="animation-delay:.85s">
+      <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary">Book online <span class="arr">&rarr;</span></a>
+      <a href="sessions.html" class="btn btn--ghost">See how a first session works</a>
     </div>
-  </section>
+  </div>
+  <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
+</section>
 
-  <!-- WHO THIS IS FOR -->
-  <section class="section">
-    <div class="container">
-      <p class="section-label">Who we help</p>
-      <h2 class="section-title">You don't need to be an athlete. You just need to want to move well.</h2>
-      <p class="section-intro">We work best with people who have something they want to get back to.</p>
-      <div class="cards">
-        <div class="card">
-          <span class="card__icon">🏃</span>
-          <h3 class="card__title">Runners</h3>
-          <p class="card__body">A niggle that won't settle, or a plan to run further without breaking down.</p>
-        </div>
-        <div class="card">
-          <span class="card__icon">🏋️</span>
-          <h3 class="card__title">Lifters &amp; gym-goers</h3>
-          <p class="card__body">A shoulder, knee or back that flares under load, without being told to just stop.</p>
-        </div>
-        <div class="card">
-          <span class="card__icon">⚡</span>
-          <h3 class="card__title">Returning to sport</h3>
-          <p class="card__body">Coming back from a layoff or injury, and wanting to return once, properly.</p>
-        </div>
-        <div class="card">
-          <span class="card__icon">💺</span>
-          <h3 class="card__title">Desk-bound &amp; sore</h3>
-          <p class="card__body">Done with putting up with it, and ready to move without a setback every season.</p>
-        </div>
-      </div>
+<section class="section">
+  <div class="container">
+    <p class="label r">Who we help</p>
+    <h2 class="r d1">You don't need to be an athlete.<br>You just need to want to move well.</h2>
+    <p class="lead r d2">We work best with people who have something they want to get back to.</p>
+    <div class="aud">
+      <div class="aud__card r d1"><span class="aud__emoji">&#127939;</span><h3>Runners</h3><p>A niggle that won't settle, or a plan to run further without breaking down.</p></div>
+      <div class="aud__card r d2"><span class="aud__emoji">&#127947;</span><h3>Lifters &amp; gym-goers</h3><p>A shoulder, knee or back that flares under load, without being told to just stop.</p></div>
+      <div class="aud__card r d3"><span class="aud__emoji">&#9889;</span><h3>Returning to sport</h3><p>Coming back from a layoff or injury, and wanting to return once, properly.</p></div>
+      <div class="aud__card r d4"><span class="aud__emoji">&#128186;</span><h3>Desk-bound &amp; sore</h3><p>Done with putting up with it, ready to move without a setback every season.</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- SERVICES OVERVIEW -->
-  <section class="section section--paper">
-    <div class="container">
-      <p class="section-label">What we help with</p>
-      <h2 class="section-title">Six common reasons people book</h2>
-      <p class="section-intro">Each links to the detail on our services page.</p>
-      <div class="services-grid">
-        <div class="service-tile">
-          <h3 class="service-tile__title">Sports injuries</h3>
-          <p class="service-tile__body">Acute and overuse injuries from team and individual sport, diagnosed and rebuilt for return to performance.</p>
-          <a href="services.html#sports" class="service-tile__link">Learn more →</a>
-        </div>
-        <div class="service-tile">
-          <h3 class="service-tile__title">Gym &amp; lifting injuries</h3>
-          <p class="service-tile__body">Shoulders, backs and knees that flare under load. We fix the driver and keep you training.</p>
-          <a href="services.html#gym" class="service-tile__link">Learn more →</a>
-        </div>
-        <div class="service-tile">
-          <h3 class="service-tile__title">Running injuries</h3>
-          <p class="service-tile__body">Shin, knee, calf and Achilles pain, managed with load and capacity, not just rest.</p>
-          <a href="services.html#running" class="service-tile__link">Learn more →</a>
-        </div>
-        <div class="service-tile">
-          <h3 class="service-tile__title">Strength-based rehab</h3>
-          <p class="service-tile__body">Structured, progressive loading for problems that keep coming back.</p>
-          <a href="services.html#strength" class="service-tile__link">Learn more →</a>
-        </div>
-        <div class="service-tile">
-          <h3 class="service-tile__title">Return to sport</h3>
-          <p class="service-tile__body">Criteria-based clearance so you come back ready, not just pain-free.</p>
-          <a href="services.html#return" class="service-tile__link">Learn more →</a>
-        </div>
-        <div class="service-tile">
-          <h3 class="service-tile__title">Physio for active adults</h3>
-          <p class="service-tile__body">Practical care for the aches and niggles of staying active through a busy life.</p>
-          <a href="services.html#adults" class="service-tile__link">Learn more →</a>
-        </div>
+<section class="section section--paper">
+  <div class="container">
+    <p class="label r">What we help with</p>
+    <h2 class="r d1">Six reasons people book</h2>
+    <div class="svc-wrap">
+      <div class="svc r d1"><span class="svc__num">01</span><h3>Sports injuries</h3><p>Acute and overuse injuries from team and individual sport, diagnosed and rebuilt for return to performance.</p><a href="services.html#sports" class="svc__link">Learn more <span class="arr">&rarr;</span></a></div>
+      <div class="svc r d2"><span class="svc__num">02</span><h3>Gym &amp; lifting injuries</h3><p>Shoulders, backs and knees that flare under load. We fix the driver and keep you training.</p><a href="services.html#gym" class="svc__link">Learn more <span class="arr">&rarr;</span></a></div>
+      <div class="svc r d3"><span class="svc__num">03</span><h3>Running injuries</h3><p>Shin, knee, calf and Achilles pain, managed with load and capacity, not just rest.</p><a href="services.html#running" class="svc__link">Learn more <span class="arr">&rarr;</span></a></div>
+      <div class="svc r d1"><span class="svc__num">04</span><h3>Strength-based rehab</h3><p>Structured, progressive loading for problems that keep coming back.</p><a href="services.html#strength" class="svc__link">Learn more <span class="arr">&rarr;</span></a></div>
+      <div class="svc r d2"><span class="svc__num">05</span><h3>Return to sport</h3><p>Criteria-based clearance so you come back ready, not just pain-free.</p><a href="services.html#return" class="svc__link">Learn more <span class="arr">&rarr;</span></a></div>
+      <div class="svc r d3"><span class="svc__num">06</span><h3>Physio for active adults</h3><p>Practical care for the aches and niggles of staying active through a busy life.</p><a href="services.html#adults" class="svc__link">Learn more <span class="arr">&rarr;</span></a></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--ink">
+  <div class="container">
+    <p class="label r">How we work</p>
+    <h2 class="r d1" style="color:#fff">Movement over passivity</h2>
+    <div class="prin">
+      <div class="r d1"><div class="prin__n">01</div><h3>Movement over passivity</h3><p>Hands-on treatment has its place, but it's a start, not a plan. The work that lasts is the work you do.</p></div>
+      <div class="r d2"><div class="prin__n">02</div><h3>You leave knowing what's going on</h3><p>A clear explanation of the problem and a plan you can repeat without us.</p></div>
+      <div class="r d3"><div class="prin__n">03</div><h3>One physio, start to finish</h3><p>You see the same person every visit. No handovers, no repeating your story.</p></div>
+      <div class="r d4"><div class="prin__n">04</div><h3>A gym through the door</h3><p>Rehab that needs load and space has both, right here.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="founder">
+      <div class="founder__img r"><span class="ph">TC</span><span class="tag">[PLACEHOLDER: your photo]</span></div>
+      <div>
+        <p class="founder__role r d1">Founder &middot; Physiotherapist</p>
+        <h2 class="r d1">Thihan Chandramohan</h2>
+        <p class="r d2">I've spent years in high-performance sport, including professional cricket, working out what gets people back to performing and what only looks like progress. Bridge Road Physiotherapy brings that thinking to Richmond, for anyone who trains.</p>
+        <a href="about.html" class="btn btn--ghost r d3">More about me <span class="arr">&rarr;</span></a>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- HOW WE WORK -->
-  <section class="section">
-    <div class="container">
-      <p class="section-label">How we work</p>
-      <h2 class="section-title">Movement over passivity</h2>
-      <div class="principles mt-md">
-        <div class="principle">
-          <div class="principle__number">01</div>
-          <h3 class="principle__title">Movement over passivity</h3>
-          <p class="principle__body">Hands-on treatment has its place, but it's a start, not a plan. The work that lasts is the work you do.</p>
-        </div>
-        <div class="principle">
-          <div class="principle__number">02</div>
-          <h3 class="principle__title">You leave knowing what's going on</h3>
-          <p class="principle__body">A clear explanation of the problem and a plan you can repeat without us.</p>
-        </div>
-        <div class="principle">
-          <div class="principle__number">03</div>
-          <h3 class="principle__title">One physio, start to finish</h3>
-          <p class="principle__body">You see the same person every visit. No handovers, no repeating your story.</p>
-        </div>
-        <div class="principle">
-          <div class="principle__number">04</div>
-          <h3 class="principle__title">A gym on the other side of the door</h3>
-          <p class="principle__body">Rehab that needs load and space has both, right here.</p>
-        </div>
-      </div>
+<section class="section section--paper">
+  <div class="container">
+    <p class="label r">Inside the clinic</p>
+    <h2 class="r d1">Where the work happens</h2>
+    <p class="lead r d2">Real training, real load, real space.</p>
+    <div class="gallery">
+      <div class="gal big r d1"><div class="gal__ph">[PLACEHOLDER: large photo]</div><div class="gal__cap">Treatment &amp; assessment space</div></div>
+      <div class="gal r d2"><div class="gal__ph">[PLACEHOLDER: photo]</div><div class="gal__cap">Strength work</div></div>
+      <div class="gal r d3"><div class="gal__ph">[PLACEHOLDER: photo]</div><div class="gal__cap">Rehab in the gym</div></div>
+      <div class="gal wide r d2"><div class="gal__ph">[PLACEHOLDER: wide photo]</div><div class="gal__cap">The Uplift Gym floor</div></div>
+      <div class="gal r d3"><div class="gal__ph">[PLACEHOLDER: photo]</div><div class="gal__cap">One-on-one sessions</div></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOUNDER STRIP -->
-  <section class="section section--paper">
-    <div class="container">
-      <div class="founder">
-        <div class="founder__photo--placeholder">TC</div>
-        <div>
-          <p class="founder__role">Founder · Physiotherapist</p>
-          <h2 class="founder__name">Thihan Chandramohan</h2>
-          <p class="founder__bio">I've spent years in high-performance sport, including professional cricket, working out what gets people back to performing and what only looks like progress. Bridge Road Physiotherapy brings that thinking to Richmond, for anyone who trains.</p>
-          <a href="about.html" class="btn btn--ghost">More about me and the clinic</a>
-        </div>
-      </div>
+<section class="section">
+  <div class="container">
+    <div class="stats">
+      <div class="r d1"><div class="stat__n" data-count="10">0</div><div class="stat__l">Years in high-performance sport</div></div>
+      <div class="r d2"><div class="stat__n" data-count="1">0</div><div class="stat__l">Physio, every single visit</div></div>
+      <div class="r d3"><div class="stat__n" data-count="45">0</div><div class="stat__l">Minute first sessions</div></div>
+      <div class="r d4"><div class="stat__n">No</div><div class="stat__l">Referral needed to book</div></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- PROOF -->
-  <section class="section">
-    <div class="container">
-      <p class="section-label">What people say</p>
-      <h2 class="section-title">Trusted by Richmond locals</h2>
-      <div class="testimonials mt-md">
-        <div class="testimonial">
-          <div class="testimonial__stars">★★★★★</div>
-          <p class="testimonial__text">[PLACEHOLDER: Replace with a real, attributed Google review.]</p>
-          <p class="testimonial__author">[PLACEHOLDER: Name, context]</p>
-        </div>
-        <div class="testimonial">
-          <div class="testimonial__stars">★★★★★</div>
-          <p class="testimonial__text">[PLACEHOLDER: Replace with a real, attributed Google review.]</p>
-          <p class="testimonial__author">[PLACEHOLDER: Name, context]</p>
-        </div>
-        <div class="testimonial">
-          <div class="testimonial__stars">★★★★★</div>
-          <p class="testimonial__text">[PLACEHOLDER: Replace with a real, attributed Google review.]</p>
-          <p class="testimonial__author">[PLACEHOLDER: Name, context]</p>
-        </div>
-      </div>
-      <div class="creds">
-        <span class="cred">AHPRA registered</span>
-        <span class="cred">Member, Sports Medicine Australia</span>
-        <span class="cred">[PLACEHOLDER: other membership]</span>
-      </div>
+<section class="cta">
+  <div class="container">
+    <h2 class="r">Ready when you are.</h2>
+    <p class="r d1">Book online in under a minute, or call the clinic.</p>
+    <div class="cta__row r d2">
+      <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--white">Book online <span class="arr">&rarr;</span></a>
+      <a href="tel:[PLACEHOLDER: PHONE]" class="btn btn--ghost" style="border-color:rgba(255,255,255,.5);color:#fff">Call the clinic</a>
     </div>
-  </section>
-
-  <!-- LOCATION -->
-  <section class="section section--paper">
-    <div class="container">
-      <p class="section-label">Find us</p>
-      <h2 class="section-title">On Bridge Road, inside Uplift Gym</h2>
-      <div class="location-grid mt-md">
-        <div class="map-embed">
-          <iframe
-            src="https://www.google.com/maps?q=507+Bridge+Road,+Richmond+VIC+3121&output=embed"
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-            title="Map to Bridge Road Physiotherapy"></iframe>
-        </div>
-        <div class="location-details">
-          <div class="location-item">
-            <p class="location-item__label">Address</p>
-            <p class="location-item__value">Inside Uplift Gym, 507 Bridge Road, Richmond VIC 3121</p>
-          </div>
-          <div class="location-item">
-            <p class="location-item__label">Getting here</p>
-            <p class="location-item__value">A short walk from the 48 and 75 trams, with street parking nearby.</p>
-          </div>
-          <div class="location-item">
-            <p class="location-item__label">Phone</p>
-            <p class="location-item__value"><a href="tel:[PLACEHOLDER: PHONE]" class="text-green">[PLACEHOLDER: PHONE]</a></p>
-          </div>
-          <a href="contact.html" class="btn btn--ghost">Full location &amp; parking details</a>
-        </div>
+  </div>
+</section>
+<footer class="foot">
+  <div class="container">
+    <div class="foot__grid">
+      <div>
+        <img src="logo.svg" alt="Bridge Road Physiotherapy" class="foot__logo">
+        <p style="color:rgba(255,255,255,.55)">Inside Uplift Gym<br>507 Bridge Road, Richmond VIC 3121</p>
+        <p style="margin-top:.5rem"><a href="tel:[PLACEHOLDER: PHONE]">[PLACEHOLDER: PHONE]</a><br><a href="mailto:[PLACEHOLDER: EMAIL]">[PLACEHOLDER: EMAIL]</a></p>
       </div>
+      <div><h4>Pages</h4><a href="about.html">About</a><a href="services.html">Services</a><a href="sessions.html">Sessions</a><a href="contact.html">Contact</a></div>
+      <div><h4>Hours</h4><p style="color:rgba(255,255,255,.55)">[PLACEHOLDER: opening hours]</p><a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary" style="margin-top:1rem">Book online</a></div>
     </div>
-  </section>
-
-  <!-- FAQ PREVIEW -->
-  <section class="section">
-    <div class="container">
-      <p class="section-label">Common questions</p>
-      <h2 class="section-title">Before you book</h2>
-      <div class="faq mt-md">
-        <div class="faq-item">
-          <button class="faq-item__q" onclick="toggleFaq(this)">Do I need a referral?<span class="faq-item__icon">+</span></button>
-          <div class="faq-item__a">No. You can book a private appointment directly. A referral is only needed for specific schemes such as a GP care plan.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-item__q" onclick="toggleFaq(this)">Can I claim private health?<span class="faq-item__icon">+</span></button>
-          <div class="faq-item__a">Yes, if your extras cover includes physiotherapy. We provide a receipt for your claim.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-item__q" onclick="toggleFaq(this)">What should I wear?<span class="faq-item__icon">+</span></button>
-          <div class="faq-item__a">Clothes you can move and train in. If the problem is a knee or ankle, shorts help.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-item__q" onclick="toggleFaq(this)">Do you only treat athletes?<span class="faq-item__icon">+</span></button>
-          <div class="faq-item__a">No. Active adults of any level are welcome. If you want to move better, you're in the right place.</div>
-        </div>
-      </div>
-      <a href="contact.html#faq" class="btn btn--ghost mt-md">See all questions</a>
-    </div>
-  </section>
-
-  <!-- CLOSING CTA -->
-  <section class="cta-band">
-    <div class="container">
-      <h2>Ready when you are.</h2>
-      <p>Book online in under a minute, or call the clinic.</p>
-      <div class="cta-band__actions">
-        <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--white">Book online</a>
-        <a href="tel:[PLACEHOLDER: PHONE]" class="btn btn--ghost" style="border-color:rgba(255,255,255,0.5);color:#fff;">Call [PLACEHOLDER: PHONE]</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <h3 class="footer-col__heading">Bridge Road Physiotherapy</h3>
-          <p>Inside Uplift Gym<br>507 Bridge Road, Richmond VIC 3121</p>
-          <p><a href="tel:[PLACEHOLDER: PHONE]">[PLACEHOLDER: PHONE]</a></p>
-          <p><a href="mailto:[PLACEHOLDER: EMAIL]">[PLACEHOLDER: EMAIL]</a></p>
-        </div>
-        <div class="footer-col">
-          <h3 class="footer-col__heading">Pages</h3>
-          <a href="about.html">About</a>
-          <a href="services.html">Services</a>
-          <a href="sessions.html">Sessions</a>
-          <a href="contact.html">Contact</a>
-        </div>
-        <div class="footer-col">
-          <h3 class="footer-col__heading">Hours</h3>
-          <p>[PLACEHOLDER: opening hours]</p>
-          <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary mt-sm">Book online</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <span>© 2026 Bridge Road Physiotherapy. ABN [PLACEHOLDER: ABN].</span>
-        <span>AHPRA registered physiotherapist.</span>
-      </div>
-    </div>
-  </footer>
-
-  <!-- SHARED SCRIPT (same on every page) -->
-  <script>
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.toggle('open');
-    }
-    function toggleFaq(btn) {
-      btn.parentElement.classList.toggle('open');
-    }
-  </script>
-
-</body>
-</html>
+    <div class="foot__bottom"><span>&copy; 2026 Bridge Road Physiotherapy. ABN [PLACEHOLDER: ABN].</span><span>AHPRA registered physiotherapist</span></div>
+  </div>
+</footer>
+<script>
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>20));
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.r').forEach(el=>io.observe(el));
+const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target,t=+el.dataset.count;if(t){let n=0;const s=Math.max(1,t/40);const k=()=>{n+=s;if(n>=t)el.textContent=t;else{el.textContent=Math.floor(n);requestAnimationFrame(k)}};k()}cio.unobserve(el)}}),{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+function faq(b){b.parentElement.classList.toggle('open')}
+</script>
+</body></html>
