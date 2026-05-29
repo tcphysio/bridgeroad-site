@@ -1,242 +1,88 @@
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Book a Physio in Richmond | Bridge Road Physiotherapy</title>
-  <meta name="description" content="One-on-one sports and movement physiotherapy in Richmond. Book your first session or request a call back.">
-  <!-- Stop ads pages being indexed so they don't compete with your main site in organic search -->
-  <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="style.css">
-  <style>
-    /* Landing-page-only tweaks */
-    .lp-header {
-      padding: 1.25rem 0;
-      border-bottom: 1px solid var(--line);
-    }
-    .lp-header .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .lp-hero {
-      background: var(--paper);
-      padding-block: clamp(2.5rem, 7vw, 5rem);
-    }
-    .lp-grid {
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: clamp(2rem, 5vw, 4rem);
-      align-items: start;
-    }
-    @media (max-width: 760px) {
-      .lp-grid { grid-template-columns: 1fr; }
-    }
-    .lp-points {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin: 1.75rem 0 2rem;
-    }
-    .lp-point {
-      display: grid;
-      grid-template-columns: auto 1fr;
-      gap: 0.75rem;
-      align-items: start;
-      font-size: 1rem;
-    }
-    .lp-point::before {
-      content: '✓';
-      color: var(--green);
-      font-weight: 700;
-      font-size: 1.05rem;
-      line-height: 1.5;
-    }
-    .lp-form-card {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      padding: clamp(1.5rem, 4vw, 2.25rem);
-      box-shadow: 0 8px 30px rgba(28,28,26,0.06);
-    }
-    .lp-form-card h2 {
-      font-size: 1.4rem;
-      margin-bottom: 0.5rem;
-    }
-    .lp-form-card .form-note { margin-bottom: 1.25rem; }
-    .lp-trust {
-      margin-top: 2.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--line);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem 1.5rem;
-    }
-    .lp-success {
-      display: none;
-      background: var(--green-pale);
-      border: 1px solid var(--green);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      text-align: center;
-    }
-    .lp-success h3 { color: var(--green-dark); margin-bottom: 0.5rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Book a Physio in Richmond | Bridge Road Physiotherapy</title>
+<meta name="description" content="One-on-one sports and movement physiotherapy in Richmond. Book your first session or request a call back.">
+<link rel="icon" href="logo-badge.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<meta name="robots" content="noindex">
 </head>
 <body>
-
-  <!-- MINIMAL HEADER: logo + book button only, no nav -->
-  <header class="lp-header">
-    <div class="container">
-      <a href="index.html" class="nav__logo">Bridge Road<span>Physiotherapy</span></a>
-      <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary" id="bookBtnTop">Book online</a>
-    </div>
-  </header>
-
-  <!-- HERO + FORM -->
-  <section class="lp-hero">
-    <div class="container">
-      <div class="lp-grid">
-
-        <!-- LEFT: pitch -->
-        <div>
-          <span class="hero__eyebrow">Richmond · Inside Uplift Gym</span>
-          <h1 class="hero__title" style="margin-bottom:1rem;">Back to training, with a physio who's been there.</h1>
-          <p class="hero__sub" style="margin-bottom:0;">One-on-one physiotherapy built around strength and movement. Elite-sport experience, applied to your injury and your goal.</p>
-
-          <div class="lp-points">
-            <div class="lp-point">A clear diagnosis and a plan you'll understand by the end of the first session.</div>
-            <div class="lp-point">The same physio every visit. No handovers, no repeating your story.</div>
-            <div class="lp-point">A fully equipped gym next door for rehab that needs real load.</div>
-          </div>
-
-          <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary" id="bookBtnHero" style="font-size:1.05rem;padding:0.85em 2em;">Book your first session</a>
-
-          <div class="lp-trust">
-            <span class="cred">AHPRA registered</span>
-            <span class="cred">Private health rebates</span>
-            <span class="cred">No referral needed</span>
-          </div>
-        </div>
-
-        <!-- RIGHT: lead form -->
-        <div>
-          <div class="lp-form-card" id="formCard">
-            <h2>Request a call back</h2>
-            <p class="form-note">Not ready to book online? Leave your details and we'll be in touch.</p>
-            <form class="form" id="leadForm" action="https://formspree.io/f/[PLACEHOLDER: FORMSPREE_ID]" method="POST">
-              <div class="form-group">
-                <label for="lp-name">Name</label>
-                <input type="text" id="lp-name" name="name" required>
-              </div>
-              <div class="form-group">
-                <label for="lp-email">Email</label>
-                <input type="email" id="lp-email" name="email" required>
-              </div>
-              <div class="form-group">
-                <label for="lp-phone">Phone</label>
-                <input type="tel" id="lp-phone" name="phone" required>
-              </div>
-              <div class="form-group">
-                <label for="lp-issue">What's bothering you?</label>
-                <textarea id="lp-issue" name="issue" required></textarea>
-              </div>
-              <div class="form-group">
-                <label for="lp-pref">Preferred contact method</label>
-                <select id="lp-pref" name="contact_preference">
-                  <option>Phone</option>
-                  <option>Email</option>
-                  <option>Either</option>
-                </select>
-              </div>
-              <button type="submit" class="btn btn--primary" style="width:100%;justify-content:center;">Send my details</button>
-            </form>
-          </div>
-
-          <!-- Shown after successful submit -->
-          <div class="lp-form-card lp-success" id="formSuccess">
-            <h3>Thanks, we've got it.</h3>
-            <p>We'll be in touch shortly. If it's urgent, call us on <a href="tel:[PLACEHOLDER: PHONE]" class="text-green"><strong>[PLACEHOLDER: PHONE]</strong></a>.</p>
-          </div>
-        </div>
-
+<header class="hdr scrolled" style="position:sticky">
+  <div class="container nav">
+    <a href="index.html" class="logo"><img src="logo-badge.jpg" alt="Bridge Road Physiotherapy"><b>Bridge Road<span>Physiotherapy</span></b></a>
+    <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary">Book online</a>
+  </div>
+</header>
+<section class="hero" style="min-height:auto;padding-block:7rem 4rem">
+  <div class="hero__bg"><span class="blob b1"></span><span class="blob b2"></span></div>
+  <div class="container hero__inner" style="max-width:1180px">
+    <div style="display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4rem);align-items:start" class="lpgrid">
+      <div>
+        <span class="eyebrow fade-up"><span class="dot"></span>Richmond &middot; Inside Uplift Gym</span>
+        <h1 class="fade-up" style="animation-delay:.15s;margin-bottom:1rem">Back to training, with a physio who's been there.</h1>
+        <p class="hero__sub fade-up" style="animation-delay:.3s;margin-bottom:1.75rem">One-on-one physiotherapy built around strength and movement. Elite-sport experience, applied to your injury and your goal.</p>
+        <ul class="plist fade-up" style="animation-delay:.45s">
+          <li>A clear diagnosis and a plan you'll understand by the end of the first session.</li>
+          <li>The same physio every visit. No handovers, no repeating your story.</li>
+          <li>A fully equipped gym next door for rehab that needs real load.</li>
+        </ul>
+        <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary fade-up" style="animation-delay:.6s;font-size:1.05rem;padding:.85em 2em;margin-top:.5rem">Book your first session <span class="arr">&rarr;</span></a>
       </div>
-    </div>
-  </section>
-
-  <!-- SOCIAL PROOF -->
-  <section class="section">
-    <div class="container">
-      <div class="testimonials">
-        <div class="testimonial">
-          <div class="testimonial__stars">★★★★★</div>
-          <p class="testimonial__text">[PLACEHOLDER: Real, attributed Google review.]</p>
-          <p class="testimonial__author">[PLACEHOLDER: Name, context]</p>
+      <div class="fade-up" style="animation-delay:.4s">
+        <div class="form" id="formCard">
+          <h2 style="font-size:1.4rem;margin-bottom:.4rem">Request a call back</h2>
+          <p class="note" style="margin-bottom:.5rem">Not ready to book online? Leave your details and we'll be in touch.</p>
+          <form id="leadForm" action="https://formspree.io/f/[PLACEHOLDER: FORMSPREE_ID]" method="POST" style="display:flex;flex-direction:column;gap:1rem">
+            <div class="fg"><label for="n">Name</label><input id="n" name="name" required></div>
+            <div class="fg"><label for="e">Email</label><input id="e" type="email" name="email" required></div>
+            <div class="fg"><label for="p">Phone</label><input id="p" type="tel" name="phone" required></div>
+            <div class="fg"><label for="i">What's bothering you?</label><textarea id="i" name="issue" required></textarea></div>
+            <div class="fg"><label for="pr">Preferred contact</label><select id="pr" name="contact_preference"><option>Phone</option><option>Email</option><option>Either</option></select></div>
+            <button class="btn btn--primary" type="submit" style="width:100%;justify-content:center">Send my details</button>
+          </form>
         </div>
-        <div class="testimonial">
-          <div class="testimonial__stars">★★★★★</div>
-          <p class="testimonial__text">[PLACEHOLDER: Real, attributed Google review.]</p>
-          <p class="testimonial__author">[PLACEHOLDER: Name, context]</p>
-        </div>
-        <div class="testimonial">
-          <div class="testimonial__stars">★★★★★</div>
-          <p class="testimonial__text">[PLACEHOLDER: Real, attributed Google review.]</p>
-          <p class="testimonial__author">[PLACEHOLDER: Name, context]</p>
+        <div class="form" id="formSuccess" style="display:none;text-align:center;background:var(--green-pale);border-color:var(--green)">
+          <h3 style="color:var(--green-dark);margin-bottom:.5rem">Thanks, we've got it.</h3>
+          <p style="margin:0 auto">We'll be in touch shortly. If it's urgent, call <a href="tel:[PLACEHOLDER: PHONE]" style="color:var(--green)"><strong>[PLACEHOLDER: PHONE]</strong></a>.</p>
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- FINAL CTA -->
-  <section class="cta-band">
-    <div class="container">
-      <h2>Get back to it.</h2>
-      <p>Book your first session online, or call the clinic on [PLACEHOLDER: PHONE].</p>
-      <div class="cta-band__actions">
-        <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--white">Book online</a>
-        <a href="tel:[PLACEHOLDER: PHONE]" class="btn btn--ghost" style="border-color:rgba(255,255,255,0.5);color:#fff;">Call now</a>
-      </div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <p class="label r">What people say</p>
+    <div class="svc-wrap" style="margin-top:1.5rem">
+      <div class="svc r d1"><div style="color:var(--ochre);letter-spacing:2px">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p style="font-family:var(--serif);font-style:italic;color:var(--ink);flex:1">[PLACEHOLDER: real attributed review]</p><p class="note">[PLACEHOLDER: Name]</p></div>
+      <div class="svc r d2"><div style="color:var(--ochre);letter-spacing:2px">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p style="font-family:var(--serif);font-style:italic;color:var(--ink);flex:1">[PLACEHOLDER: real attributed review]</p><p class="note">[PLACEHOLDER: Name]</p></div>
+      <div class="svc r d3"><div style="color:var(--ochre);letter-spacing:2px">&#9733;&#9733;&#9733;&#9733;&#9733;</div><p style="font-family:var(--serif);font-style:italic;color:var(--ink);flex:1">[PLACEHOLDER: real attributed review]</p><p class="note">[PLACEHOLDER: Name]</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- MINIMAL FOOTER -->
-  <footer class="site-footer" style="padding-block:2rem;">
-    <div class="container">
-      <div class="footer-bottom" style="border:none;padding-top:0;">
-        <span>Bridge Road Physiotherapy · Inside Uplift Gym, 507 Bridge Road, Richmond VIC 3121</span>
-        <span>© 2026 · AHPRA registered</span>
-      </div>
+<section class="cta">
+  <div class="container">
+    <h2 class="r">Get back to it.</h2>
+    <p class="r d1">Book your first session online, or call the clinic.</p>
+    <div class="cta__row r d2">
+      <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--white">Book online <span class="arr">&rarr;</span></a>
+      <a href="tel:[PLACEHOLDER: PHONE]" class="btn btn--ghost" style="border-color:rgba(255,255,255,.5);color:#fff">Call now</a>
     </div>
-  </footer>
-
-  <!-- LANDING PAGE SCRIPT: handle form submit + success message -->
-  <script>
-    const leadForm = document.getElementById('leadForm');
-    if (leadForm) {
-      leadForm.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        const data = new FormData(leadForm);
-        try {
-          const res = await fetch(leadForm.action, {
-            method: 'POST',
-            body: data,
-            headers: { 'Accept': 'application/json' }
-          });
-          if (res.ok) {
-            document.getElementById('formCard').style.display = 'none';
-            document.getElementById('formSuccess').style.display = 'block';
-            // CONVERSION TRACKING HOOK — we add the tracking calls here in Step 6
-            if (typeof trackLead === 'function') { trackLead(); }
-          } else {
-            alert('Something went wrong. Please call us on [PLACEHOLDER: PHONE].');
-          }
-        } catch (err) {
-          alert('Something went wrong. Please call us on [PLACEHOLDER: PHONE].');
-        }
-      });
-    }
-  </script>
-
-</body>
-</html>
+  </div>
+</section>
+<footer class="foot" style="padding-block:2rem"><div class="container"><div class="foot__bottom" style="border:none;padding-top:0"><span>Bridge Road Physiotherapy &middot; Inside Uplift Gym, 507 Bridge Road, Richmond VIC 3121</span><span>&copy; 2026 &middot; AHPRA registered</span></div></div></footer>
+<style>@media(max-width:760px){.lpgrid{grid-template-columns:1fr!important}}</style>
+<script>
+const hdr=document.getElementById('hdr');
+const lf=document.getElementById('leadForm');
+if(lf){lf.addEventListener('submit',async e=>{e.preventDefault();const d=new FormData(lf);try{const r=await fetch(lf.action,{method:'POST',body:d,headers:{'Accept':'application/json'}});if(r.ok){document.getElementById('formCard').style.display='none';document.getElementById('formSuccess').style.display='block';if(typeof trackLead==='function')trackLead();}else{alert('Something went wrong. Please call us.');}}catch(x){alert('Something went wrong. Please call us.');}});}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.r').forEach(el=>io.observe(el));
+</script>
+</body></html>
