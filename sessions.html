@@ -10,87 +10,17 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
-<header class="hdr" id="hdr">
-  <div class="container nav">
-    <a href="index.html" class="logo" aria-label="Bridge Road Physiotherapy">
-      <img src="logo.svg" alt="Bridge Road Physiotherapy logo" style="height:44px;width:auto">
-      <b>Bridge Road<span>Physiotherapy</span></b>
-    </a>
-    <nav class="nav__links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="services.html">Services</a>
-      <a href="sessions.html" class="active">Sessions</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <div class="nav__right">
-      <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary">Book online</a>
-      <button class="burger" aria-label="Menu" onclick="document.getElementById('m').classList.toggle('open')"><span></span><span></span><span></span></button>
-    </div>
-  </div>
-</header>
-<nav class="mobile" id="m">
-  <a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="sessions.html">Sessions</a><a href="contact.html">Contact</a>
-  <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary" style="margin-top:1rem;justify-content:center">Book online</a>
-</nav><section class="page-hero"><div class="container"><p class="label">Sessions</p><h1 class="r in">What happens when you come in</h1></div></section>
-<section class="section"><div class="container prose r"><p style="font-size:1.1rem;color:var(--ink)">Two things people want to know before they book: what actually happens, and what it costs. Here's both, without the runaround.</p>
-<h2 style="margin-top:2rem">Your first session</h2><p>Around 45 minutes. Most of it is me understanding your problem before I touch anything.</p>
-<ul class="plist">
-<li><strong>We talk.</strong> What happened, what aggravates it, what you're trying to get back to. Your goal shapes the plan.</li>
-<li><strong>I assess.</strong> Movement, strength and the specific tests that point to a diagnosis.</li>
-<li><strong>I explain.</strong> What I think is going on, how confident I am, and what it means for your timeline.</li>
-<li><strong>We plan.</strong> A clear next step, usually including treatment on the day and a short set of things to do at home.</li></ul>
-<p>You leave with a diagnosis or a working one, a plan, and a clear idea of what comes next.</p></div></section>
-<section class="section section--paper"><div class="container prose r"><h2>Follow-up sessions</h2><p>Usually 30 minutes. This is where the actual progress happens.</p>
-<ul class="plist">
-<li><strong>We re-test.</strong> Compare against last time so progress is measured, not assumed.</li>
-<li><strong>We progress the plan.</strong> Load goes up, exercises change, as your capacity improves.</li>
-<li><strong>We troubleshoot.</strong> Rehab is rarely linear. We adjust when the picture changes.</li>
-<li><strong>We plan the return.</strong> As you improve, the focus shifts to getting you back to your sport or activity on clear criteria.</li></ul></div></section>
-<section class="section"><div class="container prose r"><h2>How treatment works here</h2>
-<p>The plan is built around movement and load, with hands-on treatment used where it speeds things up rather than as the whole approach. You'll do most of the work between sessions; I make that work specific so it actually helps. The aim is to need fewer appointments over time, not more.</p></div></section>
-<section class="section section--paper"><div class="container prose r"><h2>Pricing</h2>
-<table class="price"><thead><tr><th>Session</th><th>Length</th><th>Fee</th></tr></thead><tbody>
-<tr><td>Initial consultation</td><td>~45 min</td><td>$[PLACEHOLDER: XXX]</td></tr>
-<tr><td>Follow-up consultation</td><td>~30 min</td><td>$[PLACEHOLDER: XX]</td></tr>
-<tr><td>Extended / complex follow-up</td><td>~45 min</td><td>$[PLACEHOLDER: XX]</td></tr>
-<tr><td>Online rehab consultation</td><td>~30 min</td><td>$[PLACEHOLDER: XX]</td></tr></tbody></table>
-<p class="note">Private health rebates apply with extras cover that includes physiotherapy. We provide a receipt for your claim. No GP referral is needed for private appointments.</p></div></section>
-
-<section class="cta">
-  <div class="container">
-    <h2 class="r">Book your first session.</h2>
-    <p class="r d1">One-on-one, 45 minutes, with a plan you'll understand by the end.</p>
-    <div class="cta__row r d2">
-      <a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--white">Book online <span class="arr">&rarr;</span></a>
-      <a href="tel:[PLACEHOLDER: PHONE]" class="btn btn--ghost" style="border-color:rgba(255,255,255,.5);color:#fff">Call the clinic</a>
-    </div>
-  </div>
-</section>
-<footer class="foot">
-  <div class="container">
-    <div class="foot__grid">
-      <div>
-        <img src="logo.svg" alt="Bridge Road Physiotherapy" class="foot__logo">
-        <p style="color:rgba(255,255,255,.55)">Inside Uplift Gym<br>507 Bridge Road, Richmond VIC 3121</p>
-        <p style="margin-top:.5rem"><a href="tel:[PLACEHOLDER: PHONE]">[PLACEHOLDER: PHONE]</a><br><a href="mailto:[PLACEHOLDER: EMAIL]">[PLACEHOLDER: EMAIL]</a></p>
-      </div>
-      <div><h4>Pages</h4><a href="about.html">About</a><a href="services.html">Services</a><a href="sessions.html">Sessions</a><a href="contact.html">Contact</a></div>
-      <div><h4>Hours</h4><p style="color:rgba(255,255,255,.55)">[PLACEHOLDER: opening hours]</p><a href="[PLACEHOLDER: BOOKING_URL]" class="btn btn--primary" style="margin-top:1rem">Book online</a></div>
-    </div>
-    <div class="foot__bottom"><span>&copy; 2026 Bridge Road Physiotherapy. ABN [PLACEHOLDER: ABN].</span><span>AHPRA registered physiotherapist</span></div>
-  </div>
-</footer>
-<script>
-const hdr=document.getElementById('hdr');
-addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>20));
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
-document.querySelectorAll('.r').forEach(el=>io.observe(el));
-const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const el=e.target,t=+el.dataset.count;if(t){let n=0;const s=Math.max(1,t/40);const k=()=>{n+=s;if(n>=t)el.textContent=t;else{el.textContent=Math.floor(n);requestAnimationFrame(k)}};k()}cio.unobserve(el)}}),{threshold:.5});
-document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
-function faq(b){b.parentElement.classList.toggle('open')}
-</script>
+<header class="hdr" id="hdr"><div class="container nav"><a href="index.html" class="logo" aria-label="Bridge Road Physiotherapy"><img src="logo.svg" alt="Bridge Road Physiotherapy logo" style="height:44px;width:auto"><b>Bridge Road<span>Physiotherapy</span></b></a><nav class="nav__links"><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="sessions.html" class="active">Sessions</a><a href="contact.html">Contact</a></nav><div class="nav__right"><a href="https://www.halaxy.com/book/bridge-road-physiotherapy/location/1330449" class="btn btn--primary">Book online</a><button class="burger" aria-label="Menu" onclick="document.getElementById('m').classList.toggle('open')"><span></span><span></span><span></span></button></div></div></header>
+<nav class="mobile" id="m"><a href="index.html">Home</a><a href="about.html">About</a><a href="services.html">Services</a><a href="sessions.html">Sessions</a><a href="contact.html">Contact</a><a href="https://www.halaxy.com/book/bridge-road-physiotherapy/location/1330449" class="btn btn--primary" style="margin-top:1rem;justify-content:center">Book online</a></nav>
+<section class="page-hero"><div class="container"><p class="label">Sessions</p><h1 class="r in">What happens when you come in</h1></div></section>
+<section class="section"><div class="container prose r"><p style="font-size:1.1rem;color:var(--ink)">Two things people want to know before they book: what happens, and what it costs. Here's both, without the runaround.</p><h2 style="margin-top:2rem">Your first session</h2><p>Around 45 minutes. Most of it is understanding your problem before treatment starts.</p><ul class="plist"><li><strong>We talk.</strong> What happened, what aggravates it, what you're trying to get back to. Your goal shapes the plan.</li><li><strong>I assess.</strong> Movement, strength and the specific tests that point to a diagnosis.</li><li><strong>I explain.</strong> What I think is going on, how confident I am, and what it means for your timeline.</li><li><strong>We plan.</strong> A clear next step, usually including treatment on the day and a short set of things to do at home.</li></ul><p>You leave with a diagnosis or a working one, a plan, and a clear idea of what comes next.</p></div></section>
+<section class="section section--paper"><div class="container prose r"><h2>Follow-up sessions</h2><p>Usually 30 minutes. This is where progress gets measured and the plan gets moved forward.</p><ul class="plist"><li><strong>We re-test.</strong> Compare against last time so progress is measured, not assumed.</li><li><strong>We progress the plan.</strong> Load goes up, exercises change, as your capacity improves.</li><li><strong>We troubleshoot.</strong> Rehab is rarely linear. We adjust when the picture changes.</li><li><strong>We plan the return.</strong> As you improve, the focus shifts to getting you back to your sport or activity on clear criteria.</li></ul></div></section>
+<section class="section"><div class="container prose r"><h2>How treatment works here</h2><p>The plan is built around movement and load, with hands-on treatment used where it speeds things up rather than as the whole approach. You'll do most of the work between sessions; I make that work specific so it helps. The aim is to need fewer appointments over time, not more.</p></div></section>
+<section class="section section--paper"><div class="container prose r"><h2>Pricing</h2><table class="price"><thead><tr><th>Session</th><th>Length</th><th>Fee</th></tr></thead><tbody><tr><td>Initial consultation</td><td>~45 min</td><td>$150</td></tr><tr><td>Follow-up consultation</td><td>~30 min</td><td>$125</td></tr><tr><td>Telehealth appointment</td><td>~30 min</td><td>$125</td></tr></tbody></table><p class="note">Private health rebates apply with extras cover that includes physiotherapy. We provide a receipt for your claim. No GP referral is needed for private appointments.</p></div></section>
+<section class="cta"><div class="container"><h2 class="r">Book your first session.</h2><p class="r d1">One-on-one, 45 minutes, with a plan you'll understand by the end.</p><div class="cta__row r d2"><a href="https://www.halaxy.com/book/bridge-road-physiotherapy/location/1330449" class="btn btn--white">Book online <span class="arr">&rarr;</span></a><a href="tel:+61458007583" class="btn btn--ghost" style="border-color:rgba(255,255,255,.5);color:#fff">Call the clinic</a></div></div></section>
+<footer class="foot"><div class="container"><div class="foot__grid"><div><img src="logo.svg" alt="Bridge Road Physiotherapy" class="foot__logo"><p style="color:rgba(255,255,255,.55)">Inside Uplift Gym<br>507 Bridge Road, Richmond VIC 3121</p><p style="margin-top:.5rem"><a href="tel:+61458007583">+61 458 007 583</a><br><a href="mailto:thihan@bridgeroad.physio">thihan@bridgeroad.physio</a></p></div><div><h4>Pages</h4><a href="about.html">About</a><a href="services.html">Services</a><a href="sessions.html">Sessions</a><a href="contact.html">Contact</a></div><div><h4>Hours</h4><p style="color:rgba(255,255,255,.55)">Flexible appointment times</p><a href="https://www.halaxy.com/book/bridge-road-physiotherapy/location/1330449" class="btn btn--primary" style="margin-top:1rem">Book online</a></div></div><div class="foot__bottom"><span>&copy; 2026 Bridge Road Physiotherapy.</span><span>AHPRA registered physiotherapist</span></div></div></footer>
+<a class="mobile-booking-bar" href="https://www.halaxy.com/book/bridge-road-physiotherapy/location/1330449">Book online</a>
+<script>const hdr=document.getElementById('hdr');addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>20));const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.r').forEach(el=>io.observe(el));function faq(b){b.parentElement.classList.toggle('open')}</script>
 </body></html>
