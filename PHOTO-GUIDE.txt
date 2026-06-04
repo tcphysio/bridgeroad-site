@@ -1,0 +1,28 @@
+HOW TO ADD YOUR PHOTOS (after the shoot)
+=========================================
+
+The homepage has 3 photo-led feature rows with labelled placeholders.
+To add a real photo, find each block in index.html and replace the
+placeholder <span> with an <img>.
+
+FIND (e.g. the first one):
+  <div class="feature__media"><span class="ph-label">[Photo: assessment or treatment in the clinic]</span></div>
+
+REPLACE WITH:
+  <div class="feature__media"><img src="photos/assessment.jpg" alt="Physiotherapy assessment at Bridge Road Physiotherapy"></div>
+
+Do the same for the other two:
+  - [Photo: running or gait assessment]   -> photos/running.jpg
+  - [Photo: gym-based rehab inside Uplift] -> photos/gym-rehab.jpg
+
+STEPS IN GITHUB:
+1. Create a "photos" folder the same way you did "logos"
+   (Add file -> Upload files -> type "photos/" before the first filename).
+2. Upload your images there. Name them simply, lowercase, no spaces.
+3. Edit index.html, swap each placeholder span for an img as above.
+4. Commit. Vercel redeploys in ~30 seconds.
+
+PHOTO TIPS:
+- Landscape orientation works best (the boxes are 5:4).
+- Aim for ~1200px wide, save as JPG, keep each under ~300KB.
+- The texture placeholder vanishes automatically once an <img> is present.
