@@ -114,10 +114,8 @@ body.home .hdr:not(.scrolled) .nav__right .btn--primary:hover{background:#fff;co
 .affil__head p{color:var(--stone);margin-top:.6rem}
 .marquee{position:relative;width:100%;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .marquee__track{display:flex;align-items:center;gap:clamp(2.5rem,5vw,4.5rem);width:max-content;animation:marquee 38s linear infinite}
-.marquee:hover .marquee__track{animation-play-state:paused}
 .marquee__item{flex:0 0 auto;height:96px;width:150px;display:flex;align-items:center;justify-content:center;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px}
-.marquee__item img{max-height:100%;max-width:100%;width:auto;object-fit:contain;filter:grayscale(100%) opacity(.7);transition:filter .35s}
-.marquee__item:hover img{filter:grayscale(0) opacity(1)}
+.marquee__item img{max-height:100%;max-width:100%;width:auto;object-fit:contain}
 @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media (prefers-reduced-motion:reduce){
   .marquee__track{animation:none;flex-wrap:wrap;justify-content:center;width:auto}
