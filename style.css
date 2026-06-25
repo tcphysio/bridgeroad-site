@@ -161,3 +161,9 @@ body.home .hdr:not(.scrolled) .nav__right .btn--primary:hover{background:#fff;co
   .feature{grid-template-columns:1fr;gap:1.5rem}
   .feature--flip .feature__media{order:0}
 }
+
+/* ===== Process steps (light-background variant of .prin) ===== */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2.5rem;margin-top:3rem}
+.steps__n{font-family:var(--serif);font-size:3.4rem;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(58,90,64,.45);margin-bottom:.6rem}
+.steps h3{font-size:1.15rem;margin-bottom:.5rem}
+.steps p{font-size:.95rem;color:var(--stone)}
