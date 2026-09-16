@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /PHOTO-GUIDE.txt
+Disallow: /logo-preview.html
 
 Sitemap: https://www.bridgeroad.physio/sitemap.xml
