@@ -396,7 +396,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   .mobile-actions{display:none}
 }
 
-/* Grouped fee table: in-practice and telehealth read as two blocks */
-.price__group th{background:var(--green);color:#fff;font-size:.78rem;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;padding-block:.7rem}
+/* Appointment name column reads as a label, not a filled header cell */
 .price tbody th[scope="row"]{background:transparent;color:var(--ink);font-weight:600}
+
+/* "For new patients or a new injury." line under each appointment heading */
+.fee-for{color:var(--green-dark);font-weight:500;font-size:.95rem;margin-bottom:.5rem!important}
+.prose h3{margin-top:2rem}
+.prose h3+.fee-for{margin-top:-.25rem}

@@ -85,23 +85,23 @@ window.BRP = (function () {
     },
 
     /* --- Fees (source of truth for humans: /fees.html) ------------------ *
-       Mirrors the appointment types in the Halaxy booking calendar, so there
-       is one list to check the site against. Names match what a patient sees
-       when booking: a "review" consultation is the follow-up.
-       Confirmed against Halaxy on 2026-09-17.                              */
-    fees: {
-      inPractice: {
-        initial: { label: 'Initial consultation', minutes: 45, price: 180 },
-        review:  { label: 'Review consultation',  minutes: 30, price: 140 }
-      },
-      telehealth: {
-        initial: { label: 'Initial consultation - Telehealth', minutes: 30, price: 140 },
-        review:  { label: 'Review consultation - Telehealth',  minutes: 20, price: 120 }
-      }
-      // TODO: extended appointments, Sports Injury Screening and Return to
-      // Performance Assessment are not in the booking calendar and no prices
-      // have been supplied. Add them here and to fees.html once confirmed.
-    }
+       Names match what a patient sees when booking. A "review" consultation
+       is the follow-up appointment.
+
+       IMPORTANT: this list is the agreed pricing structure, not a copy of
+       what the Halaxy calendar currently offers. As at 2026-09-17 Halaxy
+       still needs: telehealth initial changed from 30min/$140 to 45min/$150,
+       telehealth review from 20min to 30min, and extended consultation plus
+       Return to Performance Assessment added. Until that is done a patient
+       sees different figures on the site and in the calendar.              */
+    fees: [
+      { label: 'Initial consultation',             minutes: 45, price: 180, telehealth: false },
+      { label: 'Initial consultation, telehealth', minutes: 45, price: 150, telehealth: true  },
+      { label: 'Review consultation',              minutes: 30, price: 140, telehealth: false },
+      { label: 'Review consultation, telehealth',  minutes: 30, price: 120, telehealth: true  },
+      { label: 'Extended consultation',            minutes: 45, price: 180, telehealth: false },
+      { label: 'Return to Performance Assessment', minutes: 60, price: 250, telehealth: false }
+    ]
   };
 
   /* --------------------------------------------------------------------- */
