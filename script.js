@@ -1,6 +1,34 @@
 function toggleMenu(btn){const m=document.getElementById('m');m.classList.toggle('open');const open=m.classList.contains('open');if(btn)btn.setAttribute('aria-expanded',open);}
 function closeMenu(){const m=document.getElementById('m');if(m)m.classList.remove('open');const b=document.querySelector('.burger');if(b)b.setAttribute('aria-expanded','false');}
-const hdr=document.getElementById('hdr');if(hdr){addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>20));}
+/* Header on scroll. Two independent things: the background turns opaque
+   once you leave the top, and the address strip tucks away when you scroll
+   down and comes back when you scroll up, the way a phone browser hides its
+   own chrome. Near the top the strip is always shown. */
+const hdr=document.getElementById('hdr');
+if(hdr){
+  var lastY = scrollY, queued = false;
+  var KEEP_OPEN_ABOVE = 140;  // never tuck while still near the top
+  var JITTER = 6;             // ignore trackpad noise and rubber-banding
+
+  function onHeaderScroll(){
+    var y = scrollY < 0 ? 0 : scrollY;   // iOS overscrolls past the top
+    hdr.classList.toggle('scrolled', y > 20);
+
+    if (y <= KEEP_OPEN_ABOVE) {
+      hdr.classList.remove('hdr--tucked');
+    } else if (Math.abs(y - lastY) > JITTER) {
+      hdr.classList.toggle('hdr--tucked', y > lastY);
+    }
+
+    if (Math.abs(y - lastY) > JITTER) lastY = y;
+    queued = false;
+  }
+
+  addEventListener('scroll', function(){
+    if (!queued) { queued = true; requestAnimationFrame(onHeaderScroll); }
+  }, { passive: true });
+  onHeaderScroll();
+}
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.r').forEach(el=>io.observe(el));
 function faq(b){var item=b.parentElement;item.classList.toggle('open');b.setAttribute('aria-expanded',item.classList.contains('open'));}
 addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
