@@ -96,8 +96,9 @@ function sameOrigin(req) {
 }
 
 function readBody(req) {
-  const b = req.body;
+  let b = req.body;
   if (!b) return {};
+  if (typeof Buffer !== 'undefined' && Buffer.isBuffer(b)) b = b.toString('utf8');
   if (typeof b === 'string') {
     try { return JSON.parse(b); } catch (e) { /* fall through */ }
     return Object.fromEntries(new URLSearchParams(b));
@@ -133,9 +134,19 @@ module.exports = async function handler(req, res) {
   const data = {};
   for (const [key, , max] of FIELDS) data[key] = clean(body[key], max);
 
-  if (!data.name) return fail(422, 'Please add your name.');
-  if (!looksLikeEmail(data.email)) return fail(422, 'Please check your email address.');
-  if (!data.message) return fail(422, 'Please tell me what you need help with.');
+  /* Log which check failed and which keys arrived, never the values. A
+     rejected enquiry has to be diagnosable without reading a patient's
+     message out of a log file. */
+  const reject = (field, msg) => {
+    console.warn('enquiry: rejected on', field,
+      '| keys received:', Object.keys(body || {}).join(',') || '(none)',
+      '| body type:', typeof req.body);
+    return fail(422, msg);
+  };
+
+  if (!data.name) return reject('name', 'Please add your name.');
+  if (!looksLikeEmail(data.email)) return reject('email', 'Please check your email address.');
+  if (!data.message) return reject('message', 'Please tell me what you need help with.');
 
   if (!process.env.RESEND_API_KEY) {
     console.error('enquiry: RESEND_API_KEY is not set, enquiry not sent');

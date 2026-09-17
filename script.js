@@ -106,14 +106,20 @@ function toTop(){
     var payload = {};
     new FormData(form).forEach(function(v, k){ payload[k] = v; });
 
+    var status = 0;
     fetch(form.action, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
     }).then(function(res){
+      status = res.status;
       return res.json().catch(function(){ return { ok: res.ok }; });
     }).then(function(out){
-      if (!out || !out.ok) throw new Error((out && out.error) || 'send failed');
+      if (!out || !out.ok) {
+        var e = new Error((out && out.error) || '');
+        e.status = status;
+        throw e;
+      }
       var done = panel('ok', SENT);
       form.replaceWith(done);
       done.focus();
@@ -122,12 +128,21 @@ function toTop(){
       if (btn) { btn.disabled = false; btn.textContent = label; }
       var existing = form.querySelector('.form-error');
       if (existing) existing.remove();
-      var note = panel('error', errorHtml(err && err.message !== 'send failed' ? '' : ''));
+
+      /* A 4xx is about what was typed. Say exactly that and leave the form
+         alone, rather than implying the clinic is broken. Anything else is
+         our problem, so give the patient another way to reach us. */
+      var note;
+      if (err && err.status >= 400 && err.status < 500 && err.message) {
+        note = panel('error', '<h3>Check the form</h3><p>' + err.message + '</p>');
+      } else {
+        note = panel('error', errorHtml(err && err.message));
+      }
       note.classList.add('form-error');
       note.style.marginTop = '1rem';
       form.appendChild(note);
       note.focus();
-      if (window.BRP) window.BRP.track('enquiry_error');
+      if (window.BRP) window.BRP.track('enquiry_error', err && err.status);
     });
   });
 })();
