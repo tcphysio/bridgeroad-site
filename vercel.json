@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    { "source": "/sessions.html", "destination": "/fees.html", "permanent": true },
+    { "source": "/sessions", "destination": "/fees.html", "permanent": true },
+    { "source": "/Thihan.jpeg", "destination": "/thihan-chandramohan-physiotherapist-richmond.jpeg", "permanent": true },
+    { "source": "/thihan.jpeg", "destination": "/thihan-chandramohan-physiotherapist-richmond.jpeg", "permanent": true }
+  ]
+}

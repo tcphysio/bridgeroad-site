@@ -222,3 +222,139 @@ body.home .hdr:not(.scrolled) .nav__right .btn--primary:hover{background:#fff;co
 .post-back{max-width:720px;margin:2rem auto 4rem;padding:0 clamp(1.25rem,5vw,3rem)}
 .post-back a{color:var(--green);font-weight:600;display:inline-flex;gap:.4em;align-items:center}
 @media(max-width:760px){.post-body{padding-top:2rem}}
+
+/* ===================================================================== *
+   2026 optimisation pass: header phone, mobile action bar, address block,
+   ordered process lists, focus states.
+   ===================================================================== */
+
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* Header phone number (desktop only; mobile gets the fixed action bar) */
+.nav__phone{font-weight:600;font-size:.95rem;color:var(--green-dark);white-space:nowrap}
+.nav__phone:hover{text-decoration:underline}
+body.home .hdr:not(.scrolled) .nav__phone{color:#fff}
+@media(max-width:820px){.nav__phone{display:none}}
+
+/* Address blocks */
+.addr{line-height:1.7}
+.addr strong{font-weight:600}
+.foot__nap{color:rgba(255,255,255,.62);line-height:1.7}
+.foot__nap strong{color:rgba(255,255,255,.9);font-weight:600}
+
+/* Numbered process lists */
+ol.plist{counter-reset:brp-step}
+ol.plist li{counter-increment:brp-step;padding-left:2rem}
+ol.plist li::before{content:counter(brp-step);top:0;left:0;width:1.35rem;height:1.35rem;border-radius:50%;
+  background:var(--green);color:#fff;font-size:.78rem;font-weight:600;display:flex;align-items:center;justify-content:center}
+
+/* Google review cards */
+.reviews[hidden],.review-head[hidden]{display:none}
+.review__text{font-style:normal;margin:0}
+.review blockquote{quotes:none}
+
+/* Persistent mobile action bar: Call + Book */
+.mobile-actions{display:none}
+@media(max-width:820px){
+  body.has-mobile-bar{padding-bottom:88px}
+  .mobile-actions{position:fixed;left:.75rem;right:.75rem;bottom:.75rem;z-index:120;
+    display:grid;grid-template-columns:auto 1fr;gap:.5rem}
+  .mobile-actions a{display:flex;align-items:center;justify-content:center;gap:.45rem;min-height:52px;
+    border-radius:999px;font-weight:600;font-size:1rem;box-shadow:0 12px 30px rgba(28,28,26,.22)}
+  .mobile-actions__call{background:#fff;color:var(--green-dark);border:1px solid var(--line);padding-inline:1.15rem}
+  .mobile-actions__call svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;flex:none}
+  .mobile-actions__book{background:var(--green);color:#fff;padding-inline:1.25rem}
+  .mobile-booking-bar{display:none!important}
+}
+@media(min-width:821px){.mobile-actions{display:none}}
+
+/* Visible keyboard focus everywhere */
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{
+  outline:3px solid var(--ochre);outline-offset:2px;border-radius:4px}
+.section--ink a:focus-visible,.foot a:focus-visible,.cta a:focus-visible{outline-color:#fff}
+
+/* Tap targets */
+@media(max-width:820px){
+  .foot h3 ~ a,.faq-item__q{min-height:44px;display:flex;align-items:center}
+  .faq-item__q{justify-content:space-between}
+}
+
+/* Four substantial service cards read better two-up than three-plus-orphan */
+@media(min-width:861px){.svc-wrap--2col{grid-template-columns:repeat(2,1fr)}}
+
+/* ---- Mobile hero: get the H1, the supporting line and both calls to action
+   above the fold on a 375x667 screen ---- */
+@media(max-width:600px){
+  .hero{padding-block:5.5rem 2.5rem}
+  .hero h1{font-size:clamp(1.95rem,8.2vw,2.6rem);line-height:1.08;margin-bottom:1rem}
+  .hero .eyebrow{margin-bottom:1rem;font-size:.7rem}
+  .hero__sub{font-size:1.02rem;margin-bottom:1.5rem}
+  .hero__ctas{gap:.6rem}
+  .page-hero{padding-block:6.5rem 2.5rem}
+}
+
+/* ---- Tap targets: 44px minimum for anything a patient taps ---- */
+@media(max-width:820px){
+  .burger{width:44px;height:44px}
+  .svc__link{min-height:44px}
+  .social a{width:44px;height:44px}
+  main a[href^="tel:"]:not(.btn),
+  main a[href^="mailto:"]:not(.btn),
+  main a[data-track="maps_click"]:not(.btn),
+  .foot a[href^="tel:"],
+  .foot a[href^="mailto:"],
+  .foot a[data-track="maps_click"]{display:inline-block;padding-block:.6rem}
+}
+@media(max-width:820px){.btn{min-height:48px}}
+
+/* ===================================================================== *
+   Back to top, inline form success, print styles.
+   ===================================================================== */
+
+.to-top{position:fixed;right:1.5rem;bottom:1.5rem;z-index:110;width:48px;height:48px;
+  border-radius:50%;background:#fff;border:1px solid var(--line);color:var(--green-dark);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 10px 26px rgba(28,28,26,.18);transition:transform .2s,box-shadow .2s}
+.to-top svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+.to-top:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(28,28,26,.24)}
+.to-top[hidden]{display:none}
+/* On mobile the Call/Book bar owns the bottom of the screen. */
+@media(max-width:820px){.to-top{display:none!important}}
+
+.form-done{background:#fff;border:1px solid var(--line);border-left:3px solid var(--green);
+  border-radius:18px;padding:clamp(1.4rem,3vw,2rem);box-shadow:0 18px 40px rgba(28,28,26,.06)}
+.form-done h3{margin-bottom:.6rem}
+.form-done p{color:var(--stone);margin-bottom:1rem}
+.form-done p:last-child{margin-bottom:0}
+.form-done a:not(.btn){color:var(--green);font-weight:600}
+.form-done:focus{outline:none}
+
+/* ===================== Print ===================== *
+   Patients print the fees page and the arrival details. Give them clean,
+   ink-light pages with the clinic's contact details and no site furniture. */
+@media print{
+  *{background:transparent!important;color:#000!important;box-shadow:none!important;
+    text-shadow:none!important;animation:none!important;transition:none!important}
+  html{font-size:11pt}
+  body{padding:0!important}
+  .hdr,.mobile,.mobile-actions,.to-top,.skip-link,.marquee,.affil__head,
+  .hero__bg,.burger,.booking-embed,.map,.social,.consent-check,
+  .foot__grid>div:nth-child(2),.foot__grid>div:nth-child(3),.foot__grid>div:nth-child(4){display:none!important}
+  .r,.fade-up,.reveal-word>span{opacity:1!important;transform:none!important}
+  .section,.page-hero,.hero,.cta{padding-block:.75rem!important;min-height:0!important}
+  .container{max-width:100%!important;padding-inline:0!important}
+  a{text-decoration:underline}
+  main a[href^="http"]::after{content:" (" attr(href) ")";font-size:.85em;word-break:break-all}
+  main a[href^="tel:"]::after,main a[href^="mailto:"]::after,
+  main a[href^="#"]::after,.btn::after{content:""}
+  .btn{border:1px solid #000!important;padding:.25rem .5rem!important;min-height:0!important}
+  h1,h2,h3{page-break-after:avoid;break-after:avoid}
+  .price,.sd,.faq-item,.steps>div,.svc{page-break-inside:avoid;break-inside:avoid}
+  .price th,.price td{border:1px solid #666!important}
+  .faq-item__a{display:block!important}
+  .foot{padding-block:1rem 0!important;border-top:1px solid #666}
+  .foot__nap{font-size:10pt}
+  /* Clinic details on every printed page */
+  main::after{content:"Bridge Road Physiotherapy \2022 507 Bridge Road, Richmond VIC 3121 \2022 0458 007 583 \2022 bridgeroad.physio";
+    display:block;margin-top:1.5rem;padding-top:.5rem;border-top:1px solid #666;font-size:9pt}
+}
