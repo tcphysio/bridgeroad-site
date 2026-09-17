@@ -63,3 +63,27 @@ If the listing ever moves or the map looks wrong:
   4. The same embed carries the listing's coordinates: !2d is the longitude
      and !3d is the latitude. Update lat/lng in site-config.js and the "geo"
      block in the index.html schema to match.
+
+THE ENQUIRY FORM
+----------------
+The contact and landing page forms post to /api/enquiry, a Vercel Function
+in api/enquiry.js. It emails the enquiry through Resend and keeps no copy.
+Formspree is no longer used anywhere.
+
+Set these in Vercel -> Project -> Settings -> Environment Variables:
+
+  RESEND_API_KEY   required, from resend.com, starts with "re_"
+  ENQUIRY_TO       optional, defaults to thihan@bridgeroad.physio
+  ENQUIRY_FROM     optional, defaults to
+                   Bridge Road Physiotherapy <enquiries@bridgeroad.physio>
+
+ENQUIRY_FROM has to be on a domain verified in Resend, which means adding
+the DNS records Resend gives you for bridgeroad.physio. Without that, Resend
+refuses the send and the patient sees an error with the phone number.
+
+The patient's own address is set as Reply-To, so hitting reply in the inbox
+goes straight back to them.
+
+If the key is missing or Resend rejects the send, the form tells the patient
+it failed and shows the phone number and email address. It never pretends an
+enquiry went through when it did not.
