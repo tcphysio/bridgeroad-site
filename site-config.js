@@ -122,7 +122,9 @@ window.BRP = (function () {
        google_review_write_click  Leave a Google review
        enquiry_submit             Contact / landing enquiry sent successfully
        enquiry_error              Enquiry failed to send; patient shown the
-                                  phone number instead                        */
+                                  phone number instead
+       enquiry_invalid            Submission blocked by inline validation;
+                                  detail is the offending field name          */
 
   cfg.track = function (action, detail) {
     try {
