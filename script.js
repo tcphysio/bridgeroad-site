@@ -54,40 +54,80 @@ function toTop(){
   addEventListener('scroll', show, {passive:true});
 })();
 
-/* Enquiry form: post to Formspree in the background and show the result on the
-   page, rather than throwing the patient out to a third-party thank-you screen.
-   If fetch fails for any reason the form submits normally, so an enquiry is
-   never lost. */
+/* Enquiry form: posts to /api/enquiry, which emails the clinic via Resend.
+   The result is shown on the page rather than bouncing the patient to a
+   third-party screen. If the send fails the patient is told so and given the
+   phone number, because silently swallowing an enquiry is the worst outcome
+   here. Without JavaScript the form posts normally and the endpoint redirects
+   back with ?sent=1. */
 (function(){
   var form = document.getElementById('enquiry-form');
-  if(!form || !window.fetch) return;
+
+  function panel(kind, html){
+    var el = document.createElement('div');
+    el.className = 'form-done' + (kind === 'error' ? ' form-done--error' : '');
+    el.setAttribute('role', kind === 'error' ? 'alert' : 'status');
+    el.setAttribute('tabindex', '-1');
+    el.innerHTML = html;
+    return el;
+  }
+
+  var SENT = '<h3>Thanks, your enquiry is on its way.</h3>' +
+    '<p>Thihan will get back to you, usually within one business day. ' +
+    'If it is urgent, call <a href="tel:+61458007583" data-track="phone_click">0458 007 583</a>.</p>' +
+    '<p><a class="btn btn--primary" href="book.html" data-track="book_click">Book an appointment</a></p>';
+
+  function errorHtml(msg){
+    return '<h3>That did not send.</h3>' +
+      '<p>' + (msg || 'Something went wrong at our end.') + ' ' +
+      'Please call <a href="tel:+61458007583" data-track="phone_click">0458 007 583</a> or email ' +
+      '<a href="mailto:thihan@bridgeroad.physio" data-track="email_click">thihan@bridgeroad.physio</a> ' +
+      'and I will pick it up from there.</p>';
+  }
+
+  /* Came back from a no-JavaScript submission */
+  var flag = new URLSearchParams(location.search).get('sent');
+  if (flag && form) {
+    var back = panel(flag === '1' ? 'ok' : 'error', flag === '1' ? SENT : errorHtml());
+    form.replaceWith(back);
+    back.focus();
+    if (flag === '1' && window.BRP) window.BRP.track('enquiry_submit');
+    return;
+  }
+
+  if (!form || !window.fetch) return;
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var btn = form.querySelector('[type="submit"]');
     var label = btn ? btn.textContent : '';
-    if(btn){ btn.disabled = true; btn.textContent = 'Sending…'; }
+    if (btn) { btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+
+    var payload = {};
+    new FormData(form).forEach(function(v, k){ payload[k] = v; });
 
     fetch(form.action, {
       method: 'POST',
-      body: new FormData(form),
-      headers: {'Accept': 'application/json'}
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
     }).then(function(res){
-      if(!res.ok) throw new Error(res.status);
-      var done = document.createElement('div');
-      done.className = 'form-done';
-      done.setAttribute('role','status');
-      done.innerHTML = '<h3>Thanks, your enquiry is on its way.</h3>' +
-        '<p>Thihan will get back to you, usually within one business day. ' +
-        'If it is urgent, call <a href="tel:+61458007583" data-track="phone_click">0458 007 583</a>.</p>' +
-        '<p><a class="btn btn--primary" href="book.html" data-track="book_click">Book an appointment</a></p>';
+      return res.json().catch(function(){ return { ok: res.ok }; });
+    }).then(function(out){
+      if (!out || !out.ok) throw new Error((out && out.error) || 'send failed');
+      var done = panel('ok', SENT);
       form.replaceWith(done);
-      done.focus && done.setAttribute('tabindex','-1');
-      done.focus && done.focus();
-      if(window.BRP) window.BRP.track('enquiry_submit');
-    }).catch(function(){
-      if(btn){ btn.disabled = false; btn.textContent = label; }
-      form.submit(); // fall back to the normal Formspree round trip
+      done.focus();
+      if (window.BRP) window.BRP.track('enquiry_submit');
+    }).catch(function(err){
+      if (btn) { btn.disabled = false; btn.textContent = label; }
+      var existing = form.querySelector('.form-error');
+      if (existing) existing.remove();
+      var note = panel('error', errorHtml(err && err.message !== 'send failed' ? '' : ''));
+      note.classList.add('form-error');
+      note.style.marginTop = '1rem';
+      form.appendChild(note);
+      note.focus();
+      if (window.BRP) window.BRP.track('enquiry_error');
     });
   });
 })();

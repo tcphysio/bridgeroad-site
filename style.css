@@ -403,3 +403,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .fee-for{color:var(--green-dark);font-weight:500;font-size:.95rem;margin-bottom:.5rem!important}
 .prose h3{margin-top:2rem}
 .prose h3+.fee-for{margin-top:-.25rem}
+
+/* Enquiry failed: must not look like the success panel */
+.form-done--error{border-left-color:#A83226}
+.form-done--error h3{color:#8C2A20}

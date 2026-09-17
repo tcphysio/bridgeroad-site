@@ -120,7 +120,9 @@ window.BRP = (function () {
        maps_click                 Open in Google Maps
        google_reviews_click       Read our Google reviews
        google_review_write_click  Leave a Google review
-       enquiry_submit             Contact / landing enquiry form submitted   */
+       enquiry_submit             Contact / landing enquiry sent successfully
+       enquiry_error              Enquiry failed to send; patient shown the
+                                  phone number instead                        */
 
   cfg.track = function (action, detail) {
     try {
