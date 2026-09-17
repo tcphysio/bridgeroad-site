@@ -22,8 +22,47 @@
    Node runtime, so the project needs no package.json and no build step.
    ========================================================================== */
 
-const TO = process.env.ENQUIRY_TO || 'thihan@bridgeroad.physio';
-const FROM = process.env.ENQUIRY_FROM || 'Bridge Road Physiotherapy <enquiries@bridgeroad.physio>';
+const DEFAULT_FROM = 'Bridge Road Physiotherapy <enquiries@bridgeroad.physio>';
+
+/* An address pasted into a dashboard picks up things Resend will not accept:
+   surrounding quotes, a non-breaking space from copying out of a web page,
+   curly quotes, a stray newline. Resend answers with a bare "Invalid `from`
+   field", which says nothing about which of those it was. Clean the common
+   cases up, and if what is left still does not look like an address, say so
+   in the log and fall back rather than failing every enquiry. */
+function normaliseAddress(raw, fallback, label) {
+  if (!raw) return fallback;
+
+  let v = String(raw)
+    .replace(/[\u00A0\u2007\u202F]/g, ' ')   // non-breaking spaces
+    .replace(/[\u2018\u2019]/g, "'")          // curly single quotes
+    .replace(/[\u201C\u201D]/g, '"')          // curly double quotes
+    .replace(/[\u3008\u3009\u276C\u276D]/g, (c) => (c === '\u3008' || c === '\u276C' ? '<' : '>'))
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  // strip one layer of matching wrapping quotes around the whole value
+  if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+    v = v.slice(1, -1).trim();
+  }
+
+  const bare = /^[^\s@<>",]+@[^\s@<>",]+\.[^\s@<>",]+$/;
+  const named = /^(.+?)\s*<\s*([^\s@<>",]+@[^\s@<>",]+\.[^\s@<>",]+)\s*>$/;
+
+  if (bare.test(v)) return v;
+
+  const m = v.match(named);
+  if (m) {
+    const display = m[1].replace(/^["']|["']$/g, '').trim();
+    return display ? display + ' <' + m[2] + '>' : m[2];
+  }
+
+  console.error('enquiry: ' + label + ' is not a usable address, falling back. Got:', JSON.stringify(v));
+  return fallback;
+}
+
+const TO = normaliseAddress(process.env.ENQUIRY_TO, 'thihan@bridgeroad.physio', 'ENQUIRY_TO');
+const FROM = normaliseAddress(process.env.ENQUIRY_FROM, DEFAULT_FROM, 'ENQUIRY_FROM');
 
 /* Hosts the form is allowed to post from, on top of the request's own host.
    The own-host check below is what covers Vercel preview URLs, which change
@@ -200,7 +239,8 @@ module.exports = async function handler(req, res) {
 
     if (!resend.ok) {
       const detail = await resend.text();
-      console.error('enquiry: resend rejected the send', resend.status, detail.slice(0, 500));
+      console.error('enquiry: resend rejected the send', resend.status, detail.slice(0, 500),
+        '| from:', JSON.stringify(FROM), '| to:', JSON.stringify(TO));
       return fail(502, 'The message could not be sent.');
     }
   } catch (err) {
