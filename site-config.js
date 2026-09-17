@@ -65,19 +65,24 @@ window.BRP = (function () {
     writeReviewUrl: 'https://search.google.com/local/writereview?placeid=' + PLACE_ID,
 
     /* --- Google review proof shown on the homepage ---------------------- *
-       There is no free Google API that returns a live rating without a
-       billable Places API key, so these are maintained by hand.
+       DORMANT BY DECISION (2026-09-17). Thihan chose not to copy review
+       excerpts or a star rating onto the site. The homepage section stays as
+       a heading, one line of text and the "Read our Google reviews" button,
+       which sends people to the profile itself. Nothing here needs doing.
 
-       TO UPDATE: open the Google Business Profile, copy the current rating
-       and review count, and paste them below. Leave them null and the rating
-       chip simply does not render — nothing misleading is ever shown.
+       Left in place because the wiring costs nothing and the decision is
+       reversible. Fill these in and the rating chip and review cards render;
+       leave them null and neither appears, so the site never shows a rating
+       it cannot stand behind.
 
-       reviews[]: only genuine Google reviews for Bridge Road Physiotherapy.
-       Copy the text verbatim (trim with an ellipsis if long) and use the
-       reviewer's Google display name. Never write these yourself.        */
+       If they are ever filled in: use only genuine Google reviews for Bridge
+       Road Physiotherapy, copy the text verbatim (trim with an ellipsis if
+       long), use the reviewer's Google display name, and never write one
+       yourself. There is no free Google API that returns a live rating
+       without a billable Places API key, so this is a manual job.        */
     google: {
-      rating: null,        // e.g. 5.0            <-- TODO: confirm from the profile
-      reviewCount: null,   // e.g. 27             <-- TODO: confirm from the profile
+      rating: null,        // e.g. 5.0
+      reviewCount: null,   // e.g. 27
       lastChecked: null,   // e.g. '2026-09-16'
       reviews: [
         // { text: 'Verbatim review text…', author: 'First name L.', stars: 5 }
@@ -88,12 +93,10 @@ window.BRP = (function () {
        Names match what a patient sees when booking. A "review" consultation
        is the follow-up appointment.
 
-       IMPORTANT: this list is the agreed pricing structure, not a copy of
-       what the Halaxy calendar currently offers. As at 2026-09-17 Halaxy
-       still needs: telehealth initial changed from 30min/$140 to 45min/$150,
-       telehealth review from 20min to 30min, and extended consultation plus
-       Return to Performance Assessment added. Until that is done a patient
-       sees different figures on the site and in the calendar.              */
+       Confirmed against the Halaxy calendar on 2026-09-17: the two agree.
+       Change a price and three things move together — this list, the table
+       on /fees.html, and the Halaxy appointment types. Miss one and a
+       patient sees a different figure on the site than at the checkout.   */
     fees: [
       { label: 'Initial consultation',             minutes: 45, price: 180, telehealth: false },
       { label: 'Initial consultation, telehealth', minutes: 45, price: 150, telehealth: true  },

@@ -415,3 +415,48 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .fg select[aria-invalid="true"]{border-color:#A83226;background:#fffaf9}
 .fg input[aria-invalid="true"]:focus-visible,
 .fg textarea[aria-invalid="true"]:focus-visible{outline-color:#A83226}
+
+/* ===================================================================== *
+   Address strip.
+   Sits inside the fixed header so the two scroll as one, and carries the
+   things the nav does not: where the clinic is, and that it is by
+   appointment. The phone number stays in the nav rather than being
+   repeated here.
+   ===================================================================== */
+.topbar{border-bottom:1px solid rgba(0,0,0,.06);font-size:.74rem;line-height:1.25;
+  overflow:hidden;max-height:44px;
+  transition:max-height .3s cubic-bezier(.2,.8,.2,1),opacity .2s ease,border-bottom-width .3s ease}
+.topbar__inner{display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;padding-block:.34rem;min-height:26px}
+.topbar a,.topbar span{color:var(--stone)}
+.topbar__place,.topbar__hours{display:inline-flex;align-items:center;gap:.45em;white-space:nowrap}
+.topbar svg{width:14px;height:14px;flex:none;opacity:.75}
+.topbar__place{transition:color .2s}
+.topbar__place:hover{color:var(--green)}
+.topbar__place:hover svg{opacity:1}
+
+/* Over the homepage hero the header is transparent, so the strip has to
+   read on dark. It flips back with the rest of the header on scroll. */
+body.home .hdr:not(.scrolled) .topbar{border-bottom-color:rgba(255,255,255,.18)}
+body.home .hdr:not(.scrolled) .topbar a,
+body.home .hdr:not(.scrolled) .topbar span{color:rgba(255,255,255,.82)}
+body.home .hdr:not(.scrolled) .topbar__place:hover,
+body.home .hdr:not(.scrolled) .topbar__place:hover span{color:#fff}
+
+/* Narrow: keep the address, drop the hours line and the gym note. Call and
+   Book already live in the fixed bar at the bottom. */
+@media(max-width:900px){
+  .topbar{font-size:.69rem}
+  .topbar__inner{justify-content:center;padding-block:.28rem;min-height:22px}
+  .topbar__hours{display:none}
+}
+@media(max-width:420px){
+  .topbar__sub{display:none}
+}
+
+/* Printing the page, the address belongs in the body text, not a nav strip */
+@media print{.topbar{display:none!important}}
+
+/* Tucked: the strip collapses on the way down and returns on the way up.
+   The border goes with it, or a hairline is left floating above the nav. */
+.hdr--tucked .topbar{max-height:0;opacity:0;border-bottom-width:0}
