@@ -395,3 +395,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   .burger{display:none}
   .mobile-actions{display:none}
 }
+
+/* Grouped fee table: in-practice and telehealth read as two blocks */
+.price__group th{background:var(--green);color:#fff;font-size:.78rem;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;padding-block:.7rem}
+.price tbody th[scope="row"]{background:transparent;color:var(--ink);font-weight:600}

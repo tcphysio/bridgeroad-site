@@ -85,14 +85,22 @@ window.BRP = (function () {
     },
 
     /* --- Fees (source of truth for humans: /fees.html) ------------------ *
-       Kept here so there is one list to check against the booking system.
-       The fees page renders these as static HTML; update both together.  */
+       Mirrors the appointment types in the Halaxy booking calendar, so there
+       is one list to check the site against. Names match what a patient sees
+       when booking: a "review" consultation is the follow-up.
+       Confirmed against Halaxy on 2026-09-17.                              */
     fees: {
-      initial: { label: 'Initial consultation', minutes: 45, price: 180 },
-      followUp: { label: 'Follow-up consultation', minutes: 30, price: 140 },
-      telehealth: { label: 'Telehealth consultation', minutes: 30, price: 125 }
-      // TODO: confirm current prices for extended appointments, Sports Injury
-      // Screening and Return to Performance Assessment before listing them.
+      inPractice: {
+        initial: { label: 'Initial consultation', minutes: 45, price: 180 },
+        review:  { label: 'Review consultation',  minutes: 30, price: 140 }
+      },
+      telehealth: {
+        initial: { label: 'Initial consultation - Telehealth', minutes: 30, price: 140 },
+        review:  { label: 'Review consultation - Telehealth',  minutes: 20, price: 120 }
+      }
+      // TODO: extended appointments, Sports Injury Screening and Return to
+      // Performance Assessment are not in the booking calendar and no prices
+      // have been supplied. Add them here and to fees.html once confirmed.
     }
   };
 
