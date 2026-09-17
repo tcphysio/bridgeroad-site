@@ -39,8 +39,14 @@ window.BRP = (function () {
     /* Driving/walking directions to the business. */
     directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Bridge%20Road%20Physiotherapy%2C%20507%20Bridge%20Rd%2C%20Richmond%20VIC%203121&destination_place_id=' + PLACE_ID,
 
-    /* Embedded map iframe (keyless classic embed, pinned to the business). */
-    mapEmbedUrl: 'https://www.google.com/maps?q=place_id:' + PLACE_ID + '&output=embed',
+    /* Embedded map iframe, keyless.
+       NOTE: the keyless embed endpoint does not reliably honour a
+       "place_id:" query, so this searches by business name + address, which
+       does pin the clinic. For a guaranteed business pin with the info card,
+       open Google Maps -> Share -> Embed a map, copy the src from the iframe
+       Google gives you (it contains a long "pb=" string), and paste it here
+       AND into the two <iframe src> values in index.html and contact.html. */
+    mapEmbedUrl: 'https://www.google.com/maps?q=Bridge+Road+Physiotherapy,+507+Bridge+Rd,+Richmond+VIC+3121&output=embed',
 
     /* PROSPECTIVE patients: read the reviews. */
     reviewsUrl: 'https://search.google.com/local/reviews?placeid=' + PLACE_ID,

@@ -39,3 +39,55 @@ document.querySelectorAll('#m a').forEach(a=>a.addEventListener('click',closeMen
     }
   }catch(e){/* tracking must never block booking */}
 })();
+
+/* Back to top. Desktop only via CSS — on mobile the Call/Book bar owns that
+   corner and a third floating control would just compete with booking. */
+function toTop(){
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+}
+(function(){
+  var btn = document.querySelector('.to-top');
+  if(!btn) return;
+  var show = function(){ btn.hidden = scrollY < 800; };
+  show();
+  addEventListener('scroll', show, {passive:true});
+})();
+
+/* Enquiry form: post to Formspree in the background and show the result on the
+   page, rather than throwing the patient out to a third-party thank-you screen.
+   If fetch fails for any reason the form submits normally, so an enquiry is
+   never lost. */
+(function(){
+  var form = document.getElementById('enquiry-form');
+  if(!form || !window.fetch) return;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = form.querySelector('[type="submit"]');
+    var label = btn ? btn.textContent : '';
+    if(btn){ btn.disabled = true; btn.textContent = 'Sending…'; }
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: {'Accept': 'application/json'}
+    }).then(function(res){
+      if(!res.ok) throw new Error(res.status);
+      var done = document.createElement('div');
+      done.className = 'form-done';
+      done.setAttribute('role','status');
+      done.innerHTML = '<h3>Thanks, your enquiry is on its way.</h3>' +
+        '<p>Thihan will get back to you, usually within one business day. ' +
+        'If it is urgent, call <a href="tel:+61458007583" data-track="phone_click">0458 007 583</a>.</p>' +
+        '<p><a class="btn btn--primary" href="book.html" data-track="book_click">Book an appointment</a></p>';
+      form.replaceWith(done);
+      done.focus && done.setAttribute('tabindex','-1');
+      done.focus && done.focus();
+      if(window.BRP) window.BRP.track('enquiry_submit');
+    }).catch(function(){
+      if(btn){ btn.disabled = false; btn.textContent = label; }
+      form.submit(); // fall back to the normal Formspree round trip
+    });
+  });
+})();
