@@ -25,6 +25,9 @@
 const TO = process.env.ENQUIRY_TO || 'thihan@bridgeroad.physio';
 const FROM = process.env.ENQUIRY_FROM || 'Bridge Road Physiotherapy <enquiries@bridgeroad.physio>';
 
+/* Hosts the form is allowed to post from, on top of the request's own host.
+   The own-host check below is what covers Vercel preview URLs, which change
+   with every deployment and cannot be listed here. */
 const ALLOWED_HOSTS = [
   'bridgeroad.physio',
   'www.bridgeroad.physio',
@@ -66,14 +69,30 @@ function looksLikeEmail(v) {
   return /^[^\s@]+@[^\s@.]+\.[^\s@]+$/.test(v) && v.length <= 200;
 }
 
+/* Rejects a post initiated from another site, which is the point of the
+   check, while accepting any genuine same-origin post. Comparing the Origin
+   against the host the request was actually sent to covers the production
+   domains, bridgeroad-site.vercel.app and every per-deployment preview URL,
+   without enumerating any of them. */
 function sameOrigin(req) {
-  const origin = req.headers.origin || req.headers.referer;
-  if (!origin) return true; // a plain form post need not send one
+  const raw = req.headers.origin || req.headers.referer;
+  if (!raw) return true; // a plain form post need not send one
+
+  let from;
   try {
-    return ALLOWED_HOSTS.includes(new URL(origin).hostname);
+    from = new URL(raw).hostname.toLowerCase();
   } catch (e) {
     return false;
   }
+
+  const self = String(req.headers['x-forwarded-host'] || req.headers.host || '')
+    .split(':')[0].toLowerCase();
+
+  if (self && from === self) return true;
+  if (ALLOWED_HOSTS.includes(from)) return true;
+
+  console.warn('enquiry: rejected a post from', from, 'to', self || '(no host)');
+  return false;
 }
 
 function readBody(req) {
