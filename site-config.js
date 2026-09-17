@@ -39,14 +39,23 @@ window.BRP = (function () {
     /* Driving/walking directions to the business. */
     directionsUrl: 'https://www.google.com/maps/dir/?api=1&destination=Bridge%20Road%20Physiotherapy%2C%20507%20Bridge%20Rd%2C%20Richmond%20VIC%203121&destination_place_id=' + PLACE_ID,
 
-    /* Embedded map iframe, keyless.
-       NOTE: the keyless embed endpoint does not reliably honour a
-       "place_id:" query, so this searches by business name + address, which
-       does pin the clinic. For a guaranteed business pin with the info card,
-       open Google Maps -> Share -> Embed a map, copy the src from the iframe
-       Google gives you (it contains a long "pb=" string), and paste it here
-       AND into the two <iframe src> values in index.html and contact.html. */
-    mapEmbedUrl: 'https://www.google.com/maps?q=Bridge+Road+Physiotherapy,+507+Bridge+Rd,+Richmond+VIC+3121&output=embed',
+    /* Embedded map iframe: the official embed Google generates for this exact
+       listing (Maps -> Share -> Embed a map). The "pb=" string resolves to the
+       business itself, so the pin and info card are always Bridge Road
+       Physiotherapy rather than whatever a search happens to return.
+
+       The ftid inside it, 0x6ad6439e6f3e5475:0xec9457975f523e8, is the hex
+       form of the Place ID above, so the two agree.
+
+       If the listing ever moves, regenerate this from Maps -> Share -> Embed
+       a map and paste the new src here AND into the <iframe src> values in
+       index.html and contact.html. */
+    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.758146355999!2d145.00493397614895!3d-37.81913357197426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad6439e6f3e5475%3A0xec9457975f523e8!2sBridge%20Road%20Physiotherapy!5e0!3m2!1sen!2sau!4v1789648300888!5m2!1sen!2sau',
+
+    /* Verified coordinates for the listing, taken from the embed above.
+       Mirrored in the LocalBusiness schema on index.html. */
+    lat: -37.8191336,
+    lng: 145.004934,
 
     /* PROSPECTIVE patients: read the reviews. */
     reviewsUrl: 'https://search.google.com/local/reviews?placeid=' + PLACE_ID,
