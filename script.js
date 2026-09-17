@@ -17,7 +17,7 @@ document.querySelectorAll('#m a').forEach(a=>a.addEventListener('click',closeMen
     var changed=false;
     KEYS.forEach(function(k){var v=qs.get(k);if(v){stored[k]=v;changed=true;}});
     if(!stored.landing_page){stored.landing_page=location.pathname;changed=true;}
-    if(!stored.referrer&&document.referrer){stored.referrer=document.referrer;changed=true;}
+    if(!stored.referrer&&document.referrer){try{stored.referrer=new URL(document.referrer).hostname;}catch(e){stored.referrer='';}if(stored.referrer)changed=true;}
     if(changed)sessionStorage.setItem('brp_attr',JSON.stringify(stored));
 
     var ALL=KEYS.concat(['landing_page','referrer']);
