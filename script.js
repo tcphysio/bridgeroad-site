@@ -95,10 +95,97 @@ function toTop(){
     return;
   }
 
-  if (!form || !window.fetch) return;
+  if (!form) return;
+
+  /* ---- Inline validation -------------------------------------------------
+     The browser's own bubbles are inconsistent between browsers, vanish on
+     the next click and are not announced reliably, so we do our own and tie
+     each message to its field. type="email" is also more lenient than the
+     endpoint: it accepts "jane@example" with no dot, which the server then
+     rejects after a round trip. The rule below is the server's rule, so a
+     patient learns about a typo while they are still looking at the field.
+
+     novalidate is set from JavaScript only. Without JavaScript the native
+     validation still runs, and the endpoint validates regardless. */
+  var EMAIL = /^[^\s@]+@[^\s@.]+\.[^\s@]+$/;
+
+  var MISSING = {
+    name:    'Please add your name.',
+    email:   'Please add your email address.',
+    phone:   'Please add a phone number.',
+    message: 'Please tell me what you need help with.'
+  };
+
+  function problemWith(input) {
+    var v = (input.value || '').trim();
+    if (input.hasAttribute('required') && !v) {
+      return MISSING[input.name] || 'This one is needed.';
+    }
+    if (input.type === 'email' && v && !EMAIL.test(v)) {
+      return 'That does not look like an email address. Check it reads something like name@example.com.';
+    }
+    return '';
+  }
+
+  function showProblem(input, msg) {
+    var group = input.closest('.fg') || input.parentNode;
+    var note = group.querySelector('.fg__err');
+
+    if (!msg) {
+      if (note) note.remove();
+      input.removeAttribute('aria-invalid');
+      input.removeAttribute('aria-describedby');
+      return;
+    }
+
+    if (!note) {
+      note = document.createElement('p');
+      note.className = 'fg__err';
+      note.id = 'err-' + (input.id || input.name);
+      group.appendChild(note);
+    }
+    note.textContent = msg;
+    input.setAttribute('aria-invalid', 'true');
+    input.setAttribute('aria-describedby', note.id);
+  }
+
+  var fields = [].slice.call(form.querySelectorAll('input[name], textarea[name], select[name]'))
+    .filter(function(el){ return el.type !== 'hidden' && el.name !== '_gotcha'; });
+
+  form.setAttribute('novalidate', 'novalidate');
+
+  fields.forEach(function(el){
+    /* Complain on leaving a field, but forgive as soon as it is corrected,
+       rather than nagging on every keystroke. */
+    el.addEventListener('blur', function(){ showProblem(el, problemWith(el)); });
+    el.addEventListener('input', function(){
+      if (el.getAttribute('aria-invalid') === 'true' && !problemWith(el)) showProblem(el, '');
+    });
+  });
+
+  function firstProblem() {
+    var bad = null;
+    fields.forEach(function(el){
+      var msg = problemWith(el);
+      showProblem(el, msg);
+      if (msg && !bad) bad = el;
+    });
+    return bad;
+  }
+
+  if (!window.fetch) return;
+
 
   form.addEventListener('submit', function(e){
     e.preventDefault();
+
+    var bad = firstProblem();
+    if (bad) {
+      bad.focus();
+      if (window.BRP) window.BRP.track('enquiry_invalid', bad.name);
+      return;
+    }
+
     var btn = form.querySelector('[type="submit"]');
     var label = btn ? btn.textContent : '';
     if (btn) { btn.disabled = true; btn.textContent = 'Sending\u2026'; }

@@ -407,3 +407,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 /* Enquiry failed: must not look like the success panel */
 .form-done--error{border-left-color:#A83226}
 .form-done--error h3{color:#8C2A20}
+
+/* Inline field validation on the enquiry form */
+.fg__err{color:#8C2A20;font-size:.88rem;font-weight:500;margin-top:.15rem}
+.fg input[aria-invalid="true"],
+.fg textarea[aria-invalid="true"],
+.fg select[aria-invalid="true"]{border-color:#A83226;background:#fffaf9}
+.fg input[aria-invalid="true"]:focus-visible,
+.fg textarea[aria-invalid="true"]:focus-visible{outline-color:#A83226}
