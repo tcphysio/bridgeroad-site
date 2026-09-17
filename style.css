@@ -358,3 +358,39 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
   main::after{content:"Bridge Road Physiotherapy \2022 507 Bridge Road, Richmond VIC 3121 \2022 0458 007 583 \2022 bridgeroad.physio";
     display:block;margin-top:1.5rem;padding-top:.5rem;border-top:1px solid #666;font-size:9pt}
 }
+
+/* ===================================================================== *
+   Header breakpoint, unified.
+   The older rules disagreed: the nav links collapsed to the burger at
+   820px but the Book button was hidden from 860px, so between 821 and
+   860px the header showed neither a Book button nor the bottom Call/Book
+   bar. With seven nav items the header also needs to collapse sooner than
+   it used to. One breakpoint now governs the lot: below 900px the nav
+   becomes the burger and the Call/Book bar takes over.
+   ===================================================================== */
+@media(max-width:900px){
+  .nav__links{display:none}
+  .nav__phone{display:none}
+  .nav__right .btn{display:none}
+  .burger{display:flex;width:44px;height:44px}
+  .mobile-booking-bar{display:none!important}
+  .to-top{display:none!important}
+  body.has-mobile-bar{padding-bottom:88px}
+  .mobile-actions{position:fixed;left:.75rem;right:.75rem;bottom:.75rem;z-index:120;
+    display:grid;grid-template-columns:auto 1fr;gap:.5rem}
+  .mobile-actions a{display:flex;align-items:center;justify-content:center;gap:.45rem;min-height:52px;
+    border-radius:999px;font-weight:600;font-size:1rem;box-shadow:0 12px 30px rgba(28,28,26,.22)}
+  .mobile-actions__call{background:#fff;color:var(--green-dark);border:1px solid var(--line);padding-inline:1.15rem}
+  .mobile-actions__call svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;flex:none}
+  .mobile-actions__book{background:var(--green);color:#fff;padding-inline:1.25rem}
+  .btn{min-height:48px}
+  .svc__link{min-height:44px}
+  .social a{width:44px;height:44px}
+}
+@media(min-width:901px){
+  .nav__links{display:flex}
+  .nav__phone{display:block}
+  .nav__right .btn{display:inline-flex}
+  .burger{display:none}
+  .mobile-actions{display:none}
+}
