@@ -65,21 +65,44 @@ window.BRP = (function () {
     writeReviewUrl: 'https://search.google.com/local/writereview?placeid=' + PLACE_ID,
 
     /* --- Google review proof shown on the homepage ---------------------- *
-       DORMANT BY DECISION (2026-09-17). Thihan chose not to copy review
-       excerpts or a star rating onto the site. The homepage section stays as
-       a heading, one line of text and the "Read our Google reviews" button,
-       which sends people to the profile itself. Nothing here needs doing.
+       DORMANT BY DECISION (2026-09-17), still dormant after the 2026-09
+       homepage redesign. Thihan chose not to copy review excerpts or a star
+       rating onto the site. The homepage section renders as a heading, one
+       line of text and a "Read Google reviews" link to the profile itself.
+
+       This is the one piece of social proof the redesigned homepage cannot
+       supply for itself. Fill the three values below in and the rating chip
+       and the review cards appear in the Google reviews section, sized to
+       carry the page. Leave them null and neither appears.
 
        Left in place because the wiring costs nothing and the decision is
        reversible. Fill these in and the rating chip and review cards render;
        leave them null and neither appears, so the site never shows a rating
        it cannot stand behind.
 
-       If they are ever filled in: use only genuine Google reviews for Bridge
-       Road Physiotherapy, copy the text verbatim (trim with an ellipsis if
-       long), use the reviewer's Google display name, and never write one
-       yourself. There is no free Google API that returns a live rating
-       without a billable Places API key, so this is a manual job.        */
+       BEFORE FILLING THESE IN, READ THIS.
+
+       Physiotherapy is a regulated health service. Section 133(1)(c) of the
+       National Law prohibits using a testimonial when advertising one, and
+       AHPRA treats a practitioner's own website as advertising. A testimonial
+       is a statement about a service received, which covers patient quotes,
+       and star ratings and review counts are widely read as carrying the same
+       meaning. A Sydney physiotherapy practice has been penalised for showing
+       Google reviews on its own site.
+
+       Reviews sitting on Google, a platform the clinic does not control, are
+       a different matter and are not the clinic's responsibility. Copying
+       them onto this site is what changes their status.
+
+       So: check with the APA or Guild Insurance before switching this on.
+       Filling in rating, reviewCount or reviews renders them on the homepage.
+       The safe position, and the current one, is the link to the Google
+       profile and nothing copied across.
+
+       If it is ever cleared for use: only genuine reviews for this clinic,
+       verbatim, the reviewer's own display name, never written in-house.
+       There is no free Google API that returns a live rating without a
+       billable Places API key, so it would be a manual job.        */
     google: {
       rating: null,        // e.g. 5.0
       reviewCount: null,   // e.g. 27

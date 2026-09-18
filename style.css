@@ -460,3 +460,384 @@ body.home .hdr:not(.scrolled) .topbar__place:hover span{color:#fff}
 /* Tucked: the strip collapses on the way down and returns on the way up.
    The border goes with it, or a hairline is left floating above the nav. */
 .hdr--tucked .topbar{max-height:0;opacity:0;border-bottom-width:0}
+
+/* =====================================================================
+   VISUAL REDESIGN — 2026-09
+   ---------------------------------------------------------------------
+   Goal: the homepage should scan in seconds rather than be read. Larger
+   type, larger photography, fewer boxes, obvious calls to action.
+
+   Everything here uses the tokens already declared at the top of this
+   file. No new colours, no new typefaces. Rules are appended rather than
+   edited in place so the older pages keep rendering exactly as they did,
+   and anything overridden is overridden on purpose.
+   ===================================================================== */
+
+/* ---- Typographic hierarchy -----------------------------------------
+   The old scale was too even: an H1 and an H2 sat close enough that
+   sections did not announce themselves. Widen the gaps between the
+   levels rather than making everything bigger. Body copy is untouched. */
+h2{font-size:clamp(2rem,4.4vw,3.35rem)}
+
+/* Section eyebrow. Small, green, spaced. The rule before it is what
+   makes a heading below read as the start of something new. */
+.kicker{display:inline-flex;align-items:center;gap:.7em;font-size:.72rem;font-weight:600;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--green);margin-bottom:1.1rem}
+.kicker::before{content:'';width:26px;height:1px;background:currentColor;opacity:.55;flex:none}
+.on-deep .kicker,.hero .kicker{color:#A9C4AE}
+.hero .kicker{color:rgba(255,255,255,.78)}
+
+/* The one-line statement that sits under a section heading. Bigger than
+   body copy, quieter than a heading. */
+.say{font-size:clamp(1.1rem,1.75vw,1.35rem);line-height:1.5;color:var(--stone);max-width:46ch;margin-top:1.1rem}
+.on-deep .say{color:rgba(255,255,255,.72)}
+
+/* Metadata: captions, counts, small print that sits beside real content. */
+.meta{font-size:.82rem;letter-spacing:.04em;color:var(--stone)}
+
+/* Tertiary call to action. A text link with an arrow, not a button.
+   Three levels only: filled (book), outlined (call), this. */
+.tlink{display:inline-flex;align-items:center;gap:.4em;font-weight:600;font-size:.95rem;
+  color:var(--green);transition:gap .25s}
+.tlink:hover{gap:.7em}
+.tlink .arr{transition:transform .25s}
+.on-deep .tlink{color:#C6DBCA}
+
+/* Section backgrounds used by the homepage rhythm. */
+.section--pale{background:var(--green-pale)}
+.section--deep{background:var(--green-dark);color:rgba(255,255,255,.8)}
+.section--deep h2,.section--deep h3{color:#fff}
+.on-deep h2,.on-deep h3{color:#fff}
+
+/* =====================================================================
+   HERO — one proposition, two pathways, one large photograph.
+   Text sits on the deep green field; the photograph bleeds off the right
+   edge on desktop and drops below the calls to action on a phone, so the
+   booking button is reachable without scrolling.
+   ===================================================================== */
+.hero--split{min-height:auto;padding-block:clamp(7.5rem,13vw,9.5rem) clamp(3.5rem,7vw,6rem);
+  display:block;align-items:stretch}
+.hero--split .hero__inner{max-width:1180px;width:100%;margin-inline:auto;
+  padding-inline:clamp(1.25rem,5vw,3rem)}
+.hero--split h1{font-size:clamp(2.3rem,4.5vw,4.15rem);margin-bottom:1.35rem;letter-spacing:-0.04em}
+.hero--split .hero__sub{max-width:40ch;font-size:clamp(1.08rem,1.7vw,1.3rem);
+  color:rgba(255,255,255,.84);margin-bottom:2.25rem}
+
+/* The photograph. Absolute on desktop so it can reach the viewport edge
+   without a full-bleed wrapper; a normal block on narrow screens. */
+.hero__photo{position:absolute;top:0;right:0;bottom:0;width:42vw;z-index:0;overflow:hidden}
+.hero__photo img{width:100%;height:100%;object-fit:cover;object-position:56% 50%}
+/* Left edge dissolves into the green field; the top darkens so the white
+   header sits on something, whatever the photograph is doing up there. */
+.hero__photo::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,#22361F 0%,rgba(34,54,31,.55) 14%,rgba(34,54,31,0) 42%),
+             linear-gradient(180deg,rgba(18,29,13,.82) 0%,rgba(18,29,13,.55) 9%,rgba(18,29,13,0) 30%)}
+@media(min-width:901px){
+  .hero--split .hero__inner{max-width:none;padding-right:46vw}
+  .hero--split .hero__inner>*{max-width:640px}
+  .hero--split .hero__inner{padding-left:max(clamp(1.25rem,5vw,3rem),calc(50vw - 590px))}
+}
+
+/* =====================================================================
+   PROOF — three numbers, read in about three seconds.
+   ===================================================================== */
+.proof{background:var(--paper);border-bottom:1px solid var(--line)}
+.proof__grid{display:grid;grid-template-columns:repeat(3,1fr);
+  gap:clamp(.75rem,3vw,2.5rem);padding-block:clamp(2.25rem,5vw,3.75rem)}
+.proof__item{text-align:center;padding-inline:clamp(.25rem,1.5vw,1rem)}
+.proof__item+.proof__item{border-left:1px solid var(--line)}
+.proof__n{font-family:var(--serif);font-weight:600;line-height:.9;letter-spacing:-0.04em;
+  color:var(--green);font-size:clamp(2.6rem,7vw,4.6rem)}
+.proof__l{display:block;margin-top:.7rem;font-size:clamp(.62rem,1.4vw,.78rem);font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--stone);line-height:1.45}
+
+/* =====================================================================
+   SERVICES — four photographs a patient can pick themselves out of.
+   Deliberately not bordered cards: image, number, name, one line, link.
+   ===================================================================== */
+.svc-grid{display:grid;grid-template-columns:repeat(2,1fr);
+  gap:clamp(2rem,4vw,3.25rem) clamp(1.5rem,3.5vw,3rem);margin-top:clamp(2.5rem,5vw,3.5rem)}
+.svc-card{position:relative;display:flex;flex-direction:column}
+.svc-card__media{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;
+  background:var(--paper);margin-bottom:1.25rem}
+.svc-card__media img{width:100%;height:100%;object-fit:cover;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.svc-card:hover .svc-card__media img{transform:scale(1.04)}
+.svc-card__n{position:absolute;left:0;top:0;z-index:1;background:var(--green);color:#fff;
+  font-family:var(--serif);font-weight:600;font-size:.95rem;line-height:1;
+  padding:.72rem .95rem;border-bottom-right-radius:14px;letter-spacing:.02em}
+.svc-card h3{font-size:clamp(1.3rem,2.1vw,1.7rem);margin-bottom:.55rem}
+.svc-card p{color:var(--stone);font-size:1rem;max-width:42ch;margin-bottom:1rem}
+.svc-card .tlink{margin-top:auto}
+/* One target for the whole card; the visible link keeps the affordance. */
+.svc-card__hit{position:absolute;inset:0;z-index:2}
+.svc-card__hit:focus-visible{outline:3px solid var(--ochre);outline-offset:4px;border-radius:18px}
+
+/* =====================================================================
+   EXPERIENCE — said once, then shown.
+   The logos used to scroll past on a loop, which pulled the eye away from
+   the sentence that explains them. They now sit still, desaturated and
+   evenly spaced, so they read as evidence rather than as an advert.
+   ===================================================================== */
+.exp{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(1.5rem,4vw,4rem);align-items:end}
+.exp h2{max-width:14ch}
+.exp .say{margin-top:0;max-width:52ch}
+.logos{margin-top:clamp(2.5rem,5vw,4rem);padding-top:clamp(1.75rem,3vw,2.5rem);
+  border-top:1px solid rgba(58,90,64,.18)}
+.logo-note{margin-bottom:1.5rem}
+.logo-row{display:grid;grid-template-columns:repeat(8,1fr);gap:clamp(.9rem,2vw,2rem);align-items:center}
+.logo-row li{display:flex;align-items:center;justify-content:center;height:clamp(46px,5vw,64px)}
+.logo-row img{max-height:100%;max-width:100%;width:auto;object-fit:contain;
+  filter:grayscale(1);opacity:.62;transition:filter .3s,opacity .3s}
+.logo-row li:hover img{filter:grayscale(0);opacity:1}
+
+/* =====================================================================
+   THIHAN — large photograph, short text, one link onward.
+   ===================================================================== */
+.pro{display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1fr);
+  gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.pro__media{border-radius:20px;overflow:hidden;aspect-ratio:4/5;background:var(--paper)}
+.pro__media img{width:100%;height:100%;object-fit:cover;object-position:50% 20%}
+.pro p{color:var(--stone);margin-bottom:1rem;max-width:48ch}
+.pro p strong{color:var(--ink);font-weight:600}
+
+/* =====================================================================
+   PROCESS — three stages, one line each, on a brand-toned band.
+   Rules and numerals instead of three more boxes.
+   ===================================================================== */
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(1.75rem,4vw,3.5rem);
+  margin-top:clamp(2.25rem,4vw,3rem)}
+.flow__step{padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.22)}
+.flow__n{font-family:var(--serif);font-size:1rem;font-weight:600;letter-spacing:.06em;
+  color:var(--ochre);display:block;margin-bottom:.7rem}
+.flow__step h3{font-size:clamp(1.2rem,1.9vw,1.5rem);margin-bottom:.5rem}
+.flow__step p{color:rgba(255,255,255,.7);font-size:.98rem;max-width:34ch}
+
+/* =====================================================================
+   GOOGLE REVIEWS
+   The rating and the excerpts only appear once real values are entered in
+   site-config.js. Until then this reads as a clean invitation to go and
+   look, which is honest, rather than a placeholder pretending to be proof.
+   ===================================================================== */
+.section--reviews{padding-block:clamp(3.25rem,6.5vw,5.25rem)}
+.gr{text-align:center;max-width:760px;margin-inline:auto}
+.gr .kicker{justify-content:center}
+.gr .kicker::after{content:'';width:26px;height:1px;background:currentColor;opacity:.55;flex:none}
+.gr .say{margin-inline:auto;max-width:44ch}
+.gr .review-head{justify-content:center;margin-top:1.75rem}
+.gr .review-rating{font-size:clamp(1.05rem,1.8vw,1.25rem)}
+.gr .review-rating .stars{font-size:1.3em}
+.reviews{text-align:left}
+
+/* =====================================================================
+   FIND US — map beside the address on desktop, stacked on a phone, with
+   the two actions a patient actually wants: directions, and a phone call.
+   ===================================================================== */
+.find{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
+  gap:clamp(2rem,5vw,4rem);align-items:center}
+.find .map{height:clamp(300px,38vw,420px);margin-bottom:0;border-radius:20px}
+.find__addr{font-size:1.15rem;line-height:1.75;margin-top:1.25rem;margin-bottom:.6rem;color:var(--ink)}
+.find__gym{color:var(--stone);margin-bottom:1.75rem}
+.find__acts{display:flex;flex-wrap:wrap;gap:.75rem;margin-bottom:1.5rem}
+
+/* =====================================================================
+   HEADER — four items, a phone number and one obvious booking button.
+   Blog and the FAQ moved to the footer and the menu; seven top-level
+   choices was six too many for a two-page decision.
+   ===================================================================== */
+.nav__call{display:none;align-items:center;justify-content:center;width:44px;height:44px;
+  border-radius:50%;border:1px solid var(--line);color:var(--green-dark);background:#fff;flex:none}
+.nav__call svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+body.home .hdr:not(.scrolled) .nav__call{background:rgba(255,255,255,.14);
+  border-color:rgba(255,255,255,.45);color:#fff}
+
+/* Below the desktop breakpoint the header carries Call and Book itself,
+   so the old fixed bar at the bottom of the screen is gone: two permanent
+   booking buttons competed with each other and ate 88px of every page. */
+.mobile-actions{display:none!important}
+body.has-mobile-bar{padding-bottom:0}
+
+@media(max-width:900px){
+  body.has-mobile-bar{padding-bottom:0}
+  .nav__call{display:inline-flex}
+  .nav__right .btn{display:inline-flex;padding:.7em 1.15em;font-size:.9rem;min-height:44px}
+  .nav__right{gap:.5rem}
+  .nav__book-long{display:none}
+  .to-top{display:none!important}
+}
+@media(min-width:901px){.nav__call{display:none}}
+@media(max-width:400px){
+  .nav__right{gap:.4rem}
+  .nav__call{width:40px;height:40px}
+  .nav__right .btn{padding:.65em .9em;font-size:.86rem}
+  .logo img{height:34px}
+  .logo b{font-size:.88rem}
+}
+
+/* =====================================================================
+   NARROW SCREENS
+   Nothing is hidden to make the page shorter. Where a section is long the
+   copy underneath it was cut instead.
+   ===================================================================== */
+@media(max-width:900px){
+  .logo-row{grid-template-columns:repeat(4,1fr)}
+  .exp,.pro,.find{grid-template-columns:1fr}
+  .exp h2{max-width:none}
+  .pro__media{aspect-ratio:3/2;max-height:460px}
+  .flow{grid-template-columns:1fr;gap:1.5rem}
+  .flow__step{padding-top:1.1rem}
+  .svc-grid{grid-template-columns:1fr;gap:2.5rem}
+  .svc-card p{max-width:none}
+
+  /* Hero: text, calls to action, then the photograph. */
+  .hero--split{padding-block:6.5rem 0}
+  /* Static, so it sits in the flow under the calls to action. It still needs
+     to be positioned, or the absolutely placed .hero__bg gradient paints
+     straight over the top of it. */
+  .hero__photo{position:relative;z-index:1;width:auto;margin-top:clamp(1.5rem,4vw,2.25rem)}
+  .hero__photo img{aspect-ratio:3/2;height:auto}
+  .hero__photo::after{background:linear-gradient(180deg,rgba(20,32,14,.35) 0%,rgba(20,32,14,0) 30%)}
+  .hero--split .hero__sub{margin-bottom:1.75rem}
+  .hero__ctas{flex-direction:column;align-items:stretch}
+  .hero__ctas .btn{width:100%}
+}
+@media(max-width:600px){
+  .hero--split{padding-block:5.75rem 0}
+  .hero--split h1{font-size:clamp(2.15rem,8.6vw,2.9rem);line-height:1.05}
+  .hero--split .hero__sub{font-size:1.02rem;margin-bottom:1.5rem}
+  .proof__grid{gap:.5rem;padding-block:2rem}
+  .proof__item{padding-inline:.15rem}
+  .find .map{height:260px}
+  .logo-row{grid-template-columns:repeat(4,1fr);gap:1rem 1.25rem}
+  .find__acts .btn{width:100%}
+}
+
+/* =====================================================================
+   FEES — one row per appointment.
+   ---------------------------------------------------------------------
+   The page used to state every price twice: once in a summary table and
+   again as a heading over each description. Six rows became twelve
+   statements of the same six numbers, and a patient had no way to tell
+   which one was authoritative. A row now carries the name, who it is for,
+   the length, the fee and the explanation together, stated once.
+   ===================================================================== */
+.fees{border-top:1px solid var(--line);margin-top:clamp(1.75rem,3.5vw,2.5rem)}
+.fee{display:grid;grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"head price" "desc price";
+  gap:.2rem clamp(1.5rem,4vw,3.5rem);
+  padding-block:clamp(1.5rem,3vw,2.1rem);border-bottom:1px solid var(--line)}
+.fee__head{grid-area:head}
+.fee__price{grid-area:price;text-align:right;min-width:7.5rem}
+.fee__desc{grid-area:desc;color:var(--stone);font-size:.98rem;margin-top:.6rem;max-width:56ch}
+.fee__name{font-size:clamp(1.2rem,1.9vw,1.45rem);margin-bottom:.25rem}
+.fee__for{color:var(--green-dark);font-weight:500;font-size:.95rem}
+.fee__amt{display:block;font-family:var(--serif);font-weight:600;line-height:1;
+  letter-spacing:-0.03em;color:var(--green);font-size:clamp(1.85rem,3vw,2.4rem)}
+.fee__len{display:block;margin-top:.45rem;font-size:.78rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--stone)}
+.fee__alt{display:block;margin-top:.7rem;padding-top:.6rem;border-top:1px solid var(--line);
+  font-size:.88rem;color:var(--stone)}
+.fee__alt b{font-weight:600;color:var(--ink)}
+
+/* The choice most people are actually making, put before the list. */
+.fee-pick{display:flex;flex-wrap:wrap;gap:.6rem 1.75rem;margin-top:1.5rem;
+  font-size:1.02rem}
+.fee-pick span{display:inline-flex;align-items:baseline;gap:.5rem}
+.fee-pick b{font-weight:600;color:var(--green-dark)}
+
+/* Two practical columns: what to bring, and the cancellation terms. */
+.know{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(2rem,5vw,4rem);
+  margin-top:clamp(2rem,4vw,2.75rem)}
+.know h3{font-size:clamp(1.15rem,1.8vw,1.35rem);margin-bottom:1rem}
+.know .plist{margin-top:0}
+.know p{color:var(--stone);margin-bottom:.9rem}
+
+@media(max-width:760px){
+  .fee{grid-template-columns:1fr;grid-template-areas:"head" "price" "desc";gap:0}
+  .fee__price{text-align:left;margin-top:.9rem;display:flex;align-items:baseline;
+    flex-wrap:wrap;gap:.35rem .85rem;min-width:0}
+  .fee__len{margin-top:0}
+  .fee__alt{flex-basis:100%;margin-top:.25rem;padding-top:0;border-top:0}
+  .know{grid-template-columns:1fr;gap:2.5rem}
+}
+/* Measure limit for a list that is not inside .prose. Keeps every section on
+   this page sharing one left edge instead of one block sitting centred. */
+.lim{max-width:66ch}
+
+/* =====================================================================
+   PAID LANDING PAGE (/landing.html)
+   ---------------------------------------------------------------------
+   Built for ad traffic, so it follows the conventions that page is judged
+   by: one proposition above the fold, booking and phone given equal
+   weight, no navigation to wander off through, and the enquiry form kept
+   short and placed after the two faster paths rather than in front of
+   them.
+
+   The proof is credentials, not patient feedback. Section 133(1)(c) of
+   the National Law prohibits using testimonials when advertising a
+   regulated health service, so no star rating, review count or patient
+   quote belongs on this page, however well those things convert
+   elsewhere. Years registered, registration number and what is actually
+   offered do the same job and are verifiable.
+   ===================================================================== */
+.lp-hero{background:var(--paper);position:relative;overflow:hidden;
+  padding-block:clamp(2.25rem,5vw,4.5rem) clamp(2.5rem,5vw,4.5rem)}
+.lp-hero__grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(2rem,5vw,4rem);align-items:center}
+.lp-hero h1{font-size:clamp(2.1rem,4.4vw,3.6rem);letter-spacing:-0.035em;margin-bottom:1.1rem}
+.lp-hero__sub{font-size:clamp(1.05rem,1.6vw,1.22rem);color:var(--stone);
+  line-height:1.55;max-width:44ch;margin-bottom:1.9rem}
+.lp-hero__media{border-radius:20px;overflow:hidden;aspect-ratio:4/3;background:var(--green-pale)}
+.lp-hero__media img{width:100%;height:100%;object-fit:cover;object-position:56% 50%}
+
+.lp-ctas{display:flex;flex-wrap:wrap;gap:.8rem}
+.lp-ctas .btn{font-size:1.02rem;padding:.95em 1.75em}
+
+/* The three objections that stop someone booking a physio, answered in
+   one line directly under the buttons. */
+.lp-micro{display:flex;flex-wrap:wrap;gap:.4rem 1.25rem;margin-top:1.4rem;
+  font-size:.92rem;color:var(--stone)}
+.lp-micro span{display:inline-flex;align-items:center;gap:.45rem}
+.lp-micro svg{width:15px;height:15px;flex:none;fill:none;stroke:var(--green);
+  stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* Practical facts. Statements of what is offered, which is permitted
+   advertising, rather than claims about how well it works, which is not. */
+.lp-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.25rem,3vw,2.25rem);
+  margin-top:clamp(2rem,4vw,2.75rem)}
+.lp-fact{padding-top:1.1rem;border-top:2px solid var(--green)}
+.lp-fact h3{font-size:1.05rem;margin-bottom:.4rem}
+.lp-fact p{font-size:.94rem;color:var(--stone)}
+
+/* Two headline prices. Price transparency lowers friction and is one of
+   the things a paid landing page is assessed on. */
+.lp-prices{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem}
+.lp-price{border:1px solid var(--line);background:#fff;border-radius:14px;
+  padding:.85rem 1.15rem;display:flex;align-items:baseline;gap:.6rem}
+.lp-price b{font-family:var(--serif);font-size:1.3rem;color:var(--green);font-weight:600}
+.lp-price span{font-size:.92rem;color:var(--stone)}
+
+.lp-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(2rem,5vw,4rem);align-items:start}
+.lp-reg{font-size:.86rem;color:var(--stone);margin-top:1.5rem;padding-top:1rem;
+  border-top:1px solid var(--line)}
+
+@media(max-width:900px){
+  .lp-hero__grid,.lp-form{grid-template-columns:1fr}
+  .lp-facts{grid-template-columns:repeat(2,1fr)}
+  /* Text first. Putting the photograph above the headline pushed both
+     buttons past the fold on a 375px screen, which is the one thing a
+     paid landing page cannot afford. */
+  .lp-hero__media{aspect-ratio:3/2}
+  .lp-ctas .btn{width:100%}
+}
+@media(max-width:560px){
+  .lp-facts{grid-template-columns:1fr;gap:1.25rem}
+  .lp-hero{padding-block:1.5rem 2.25rem}
+  .lp-hero h1{font-size:clamp(1.95rem,7.6vw,2.5rem);line-height:1.08;margin-bottom:.85rem}
+  .lp-hero__sub{font-size:1rem;margin-bottom:1.4rem}
+  .lp-ctas{gap:.6rem}
+  .lp-micro{gap:.35rem .9rem;margin-top:1.1rem;font-size:.88rem}
+}
