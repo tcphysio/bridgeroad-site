@@ -87,3 +87,63 @@ goes straight back to them.
 If the key is missing or Resend rejects the send, the form tells the patient
 it failed and shows the phone number and email address. It never pretends an
 enquiry went through when it did not.
+
+HOMEPAGE PHOTOGRAPHY: WHAT IS THERE AND WHAT IS MISSING
+-------------------------------------------------------
+The homepage redesign leans on photography rather than paragraphs, so the
+pictures now do real work. Five images carry it:
+
+  uplift-gym-rehabilitation-richmond.webp    hero, and the 640px variant
+                                             hero-rehabilitation-richmond-640.webp
+  service-sports-everyday-rehabilitation.webp  service card 01
+  service-cricket-injury-assessment.webp       service card 02
+  service-gym-lifting-richmond.webp            service card 03
+  service-running-assessment-richmond.webp     service card 04
+  thihan-chandramohan-physiotherapist-richmond.webp   the Thihan section
+
+The four service images are crops of the three photographs that were already
+in the repository. They were generated with Pillow; the crop boxes are in the
+commit that introduced them if any need regenerating.
+
+THE GAP, AND IT IS THE IMPORTANT ONE
+------------------------------------
+Every photograph currently on the homepage was taken in a sports setting, and
+two of them show people in cricket kit. The service card that has to speak to
+the largest group of patients, "Sports & everyday injuries", is illustrated by
+a photograph of a physiotherapist working with an athlete.
+
+A visitor with a sore knee and no interest in sport should see themselves on
+this page. At the moment they nearly do, and that is not the same thing.
+
+Shots worth taking, in priority order:
+
+  1. Thihan assessing an ordinary adult patient. Street clothes, not kit.
+     Shoulder, knee or lower back. This replaces service card 01 and is the
+     single highest-value photograph on the list.
+  2. A patient doing a rehabilitation exercise in the gym space, again in
+     ordinary clothes.
+  3. Thihan in conversation with a patient, explaining something. Sitting,
+     talking, not treating. This is what the clinic actually sells.
+  4. A clean shot of the treatment space with a person in it.
+  5. A portrait of Thihan in the Richmond clinic rather than in national kit.
+     The current portrait is good but it is an Italy Cricket photograph.
+
+Avoid: empty treatment rooms, equipment close-ups with no person, generic
+massage imagery, and anything that implies every patient is an athlete.
+
+Specification for new photographs: landscape 4:3 for service cards, at least
+1200px wide, .webp, under about 120KB, descriptive filename, alt text that
+describes the picture and its context.
+
+GOOGLE REVIEWS: STILL DORMANT
+-----------------------------
+The homepage review section is built to show a star rating, a review count and
+two or three genuine review excerpts. It shows none of them, because
+window.BRP.google in site-config.js is still null. Until it is filled in, the
+section renders as a heading, one line and a link to the Google profile, which
+is honest rather than empty.
+
+There is no free API that returns a live Google rating, so this is a manual
+job: open the Bridge Road Physiotherapy Google Business Profile, copy the
+current rating and review count, copy two or three reviews verbatim, and paste
+them into site-config.js. Never write review text.

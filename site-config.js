@@ -65,10 +65,15 @@ window.BRP = (function () {
     writeReviewUrl: 'https://search.google.com/local/writereview?placeid=' + PLACE_ID,
 
     /* --- Google review proof shown on the homepage ---------------------- *
-       DORMANT BY DECISION (2026-09-17). Thihan chose not to copy review
-       excerpts or a star rating onto the site. The homepage section stays as
-       a heading, one line of text and the "Read our Google reviews" button,
-       which sends people to the profile itself. Nothing here needs doing.
+       DORMANT BY DECISION (2026-09-17), still dormant after the 2026-09
+       homepage redesign. Thihan chose not to copy review excerpts or a star
+       rating onto the site. The homepage section renders as a heading, one
+       line of text and a "Read Google reviews" link to the profile itself.
+
+       This is the one piece of social proof the redesigned homepage cannot
+       supply for itself. Fill the three values below in and the rating chip
+       and the review cards appear in the Google reviews section, sized to
+       carry the page. Leave them null and neither appears.
 
        Left in place because the wiring costs nothing and the decision is
        reversible. Fill these in and the rating chip and review cards render;
