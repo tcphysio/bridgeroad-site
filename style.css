@@ -765,3 +765,79 @@ body.has-mobile-bar{padding-bottom:0}
 /* Measure limit for a list that is not inside .prose. Keeps every section on
    this page sharing one left edge instead of one block sitting centred. */
 .lim{max-width:66ch}
+
+/* =====================================================================
+   PAID LANDING PAGE (/landing.html)
+   ---------------------------------------------------------------------
+   Built for ad traffic, so it follows the conventions that page is judged
+   by: one proposition above the fold, booking and phone given equal
+   weight, no navigation to wander off through, and the enquiry form kept
+   short and placed after the two faster paths rather than in front of
+   them.
+
+   The proof is credentials, not patient feedback. Section 133(1)(c) of
+   the National Law prohibits using testimonials when advertising a
+   regulated health service, so no star rating, review count or patient
+   quote belongs on this page, however well those things convert
+   elsewhere. Years registered, registration number and what is actually
+   offered do the same job and are verifiable.
+   ===================================================================== */
+.lp-hero{background:var(--paper);position:relative;overflow:hidden;
+  padding-block:clamp(2.25rem,5vw,4.5rem) clamp(2.5rem,5vw,4.5rem)}
+.lp-hero__grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:clamp(2rem,5vw,4rem);align-items:center}
+.lp-hero h1{font-size:clamp(2.1rem,4.4vw,3.6rem);letter-spacing:-0.035em;margin-bottom:1.1rem}
+.lp-hero__sub{font-size:clamp(1.05rem,1.6vw,1.22rem);color:var(--stone);
+  line-height:1.55;max-width:44ch;margin-bottom:1.9rem}
+.lp-hero__media{border-radius:20px;overflow:hidden;aspect-ratio:4/3;background:var(--green-pale)}
+.lp-hero__media img{width:100%;height:100%;object-fit:cover;object-position:56% 50%}
+
+.lp-ctas{display:flex;flex-wrap:wrap;gap:.8rem}
+.lp-ctas .btn{font-size:1.02rem;padding:.95em 1.75em}
+
+/* The three objections that stop someone booking a physio, answered in
+   one line directly under the buttons. */
+.lp-micro{display:flex;flex-wrap:wrap;gap:.4rem 1.25rem;margin-top:1.4rem;
+  font-size:.92rem;color:var(--stone)}
+.lp-micro span{display:inline-flex;align-items:center;gap:.45rem}
+.lp-micro svg{width:15px;height:15px;flex:none;fill:none;stroke:var(--green);
+  stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* Practical facts. Statements of what is offered, which is permitted
+   advertising, rather than claims about how well it works, which is not. */
+.lp-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(1.25rem,3vw,2.25rem);
+  margin-top:clamp(2rem,4vw,2.75rem)}
+.lp-fact{padding-top:1.1rem;border-top:2px solid var(--green)}
+.lp-fact h3{font-size:1.05rem;margin-bottom:.4rem}
+.lp-fact p{font-size:.94rem;color:var(--stone)}
+
+/* Two headline prices. Price transparency lowers friction and is one of
+   the things a paid landing page is assessed on. */
+.lp-prices{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.75rem}
+.lp-price{border:1px solid var(--line);background:#fff;border-radius:14px;
+  padding:.85rem 1.15rem;display:flex;align-items:baseline;gap:.6rem}
+.lp-price b{font-family:var(--serif);font-size:1.3rem;color:var(--green);font-weight:600}
+.lp-price span{font-size:.92rem;color:var(--stone)}
+
+.lp-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:clamp(2rem,5vw,4rem);align-items:start}
+.lp-reg{font-size:.86rem;color:var(--stone);margin-top:1.5rem;padding-top:1rem;
+  border-top:1px solid var(--line)}
+
+@media(max-width:900px){
+  .lp-hero__grid,.lp-form{grid-template-columns:1fr}
+  .lp-facts{grid-template-columns:repeat(2,1fr)}
+  /* Text first. Putting the photograph above the headline pushed both
+     buttons past the fold on a 375px screen, which is the one thing a
+     paid landing page cannot afford. */
+  .lp-hero__media{aspect-ratio:3/2}
+  .lp-ctas .btn{width:100%}
+}
+@media(max-width:560px){
+  .lp-facts{grid-template-columns:1fr;gap:1.25rem}
+  .lp-hero{padding-block:1.5rem 2.25rem}
+  .lp-hero h1{font-size:clamp(1.95rem,7.6vw,2.5rem);line-height:1.08;margin-bottom:.85rem}
+  .lp-hero__sub{font-size:1rem;margin-bottom:1.4rem}
+  .lp-ctas{gap:.6rem}
+  .lp-micro{gap:.35rem .9rem;margin-top:1.1rem;font-size:.88rem}
+}

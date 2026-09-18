@@ -80,11 +80,29 @@ window.BRP = (function () {
        leave them null and neither appears, so the site never shows a rating
        it cannot stand behind.
 
-       If they are ever filled in: use only genuine Google reviews for Bridge
-       Road Physiotherapy, copy the text verbatim (trim with an ellipsis if
-       long), use the reviewer's Google display name, and never write one
-       yourself. There is no free Google API that returns a live rating
-       without a billable Places API key, so this is a manual job.        */
+       BEFORE FILLING THESE IN, READ THIS.
+
+       Physiotherapy is a regulated health service. Section 133(1)(c) of the
+       National Law prohibits using a testimonial when advertising one, and
+       AHPRA treats a practitioner's own website as advertising. A testimonial
+       is a statement about a service received, which covers patient quotes,
+       and star ratings and review counts are widely read as carrying the same
+       meaning. A Sydney physiotherapy practice has been penalised for showing
+       Google reviews on its own site.
+
+       Reviews sitting on Google, a platform the clinic does not control, are
+       a different matter and are not the clinic's responsibility. Copying
+       them onto this site is what changes their status.
+
+       So: check with the APA or Guild Insurance before switching this on.
+       Filling in rating, reviewCount or reviews renders them on the homepage.
+       The safe position, and the current one, is the link to the Google
+       profile and nothing copied across.
+
+       If it is ever cleared for use: only genuine reviews for this clinic,
+       verbatim, the reviewer's own display name, never written in-house.
+       There is no free Google API that returns a live rating without a
+       billable Places API key, so it would be a manual job.        */
     google: {
       rating: null,        // e.g. 5.0
       reviewCount: null,   // e.g. 27

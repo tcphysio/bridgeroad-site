@@ -160,3 +160,37 @@ There is no free API that returns a live Google rating, so this is a manual
 job: open the Bridge Road Physiotherapy Google Business Profile, copy the
 current rating and review count, copy two or three reviews verbatim, and paste
 them into site-config.js. Never write review text.
+
+THE PAID LANDING PAGE (landing.html)
+------------------------------------
+Reachable only by ad click or by typing the URL. noindex,follow, absent from
+sitemap.xml, and not linked from any navigation. It exists so paid traffic
+lands somewhere built to convert rather than on the homepage.
+
+script.js captures utm_source, utm_medium, utm_campaign, gclid and fbclid on
+arrival, keeps them for the visit, and posts them into the enquiry as hidden
+fields. That is how a paid lead is told apart from an organic one, so do not
+strip the data-attr attribute off the form.
+
+WHAT MUST NOT GO ON IT
+----------------------
+This page advertises a regulated health service, so section 133 of the
+National Law applies. Most published landing-page advice will tell you to add
+star ratings and review snippets. That advice is written for businesses that
+are not regulated health practitioners. Do not follow it here.
+
+Keep off this page, and off the rest of the site:
+
+  - patient testimonials, quotes or success stories
+  - a star rating, a review count, or review excerpts
+  - claims about outcomes, for example "pain free in three sessions"
+  - superlatives that cannot be substantiated, for example "Richmond's best"
+  - inducements and deadline offers, for example "book this week and save"
+
+What is allowed, and what the page uses instead: years registered, the AHPRA
+registration number, professional experience, and plain statements of what is
+offered. Appointment length, no referral needed, on-the-spot health fund
+claiming, early and evening appointments, a gym on site. All verifiable, none
+of it a testimonial.
+
+Check anything new with the APA or Guild Insurance before it goes up.
