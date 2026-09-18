@@ -16,9 +16,22 @@ for the old value and change it everywhere.
 
 FEES
 ----
-fees.html is the source of truth for pricing. No other page repeats the
-numbers. If a price changes: update fees.html, update window.BRP.fees in
-site-config.js, and update Halaxy.
+fees.html is the source of truth for pricing. Each appointment appears there
+exactly once: name, who it is for, length, fee, and the telehealth price where
+there is one. Nothing on that page states a number twice.
+
+A price change has to move in FOUR places or a patient sees one figure on the
+site and another at the checkout:
+
+  1. fees.html              the visible price list
+  2. site-config.js         window.BRP.fees, the cross-check list
+  3. landing.html           the fee pills near the top, currently the initial
+                            and review prices. This is the paid-traffic landing
+                            page, so the numbers are there on purpose.
+  4. Halaxy                 the appointment types themselves
+
+The meta description on fees.html also carries the initial, review and lowest
+telehealth prices. Check it when any of those three change.
 
 GOOGLE REVIEWS ON THE HOMEPAGE
 ------------------------------

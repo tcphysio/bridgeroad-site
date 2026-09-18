@@ -713,3 +713,55 @@ body.has-mobile-bar{padding-bottom:0}
   .logo-row{grid-template-columns:repeat(4,1fr);gap:1rem 1.25rem}
   .find__acts .btn{width:100%}
 }
+
+/* =====================================================================
+   FEES — one row per appointment.
+   ---------------------------------------------------------------------
+   The page used to state every price twice: once in a summary table and
+   again as a heading over each description. Six rows became twelve
+   statements of the same six numbers, and a patient had no way to tell
+   which one was authoritative. A row now carries the name, who it is for,
+   the length, the fee and the explanation together, stated once.
+   ===================================================================== */
+.fees{border-top:1px solid var(--line);margin-top:clamp(1.75rem,3.5vw,2.5rem)}
+.fee{display:grid;grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"head price" "desc price";
+  gap:.2rem clamp(1.5rem,4vw,3.5rem);
+  padding-block:clamp(1.5rem,3vw,2.1rem);border-bottom:1px solid var(--line)}
+.fee__head{grid-area:head}
+.fee__price{grid-area:price;text-align:right;min-width:7.5rem}
+.fee__desc{grid-area:desc;color:var(--stone);font-size:.98rem;margin-top:.6rem;max-width:56ch}
+.fee__name{font-size:clamp(1.2rem,1.9vw,1.45rem);margin-bottom:.25rem}
+.fee__for{color:var(--green-dark);font-weight:500;font-size:.95rem}
+.fee__amt{display:block;font-family:var(--serif);font-weight:600;line-height:1;
+  letter-spacing:-0.03em;color:var(--green);font-size:clamp(1.85rem,3vw,2.4rem)}
+.fee__len{display:block;margin-top:.45rem;font-size:.78rem;font-weight:600;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--stone)}
+.fee__alt{display:block;margin-top:.7rem;padding-top:.6rem;border-top:1px solid var(--line);
+  font-size:.88rem;color:var(--stone)}
+.fee__alt b{font-weight:600;color:var(--ink)}
+
+/* The choice most people are actually making, put before the list. */
+.fee-pick{display:flex;flex-wrap:wrap;gap:.6rem 1.75rem;margin-top:1.5rem;
+  font-size:1.02rem}
+.fee-pick span{display:inline-flex;align-items:baseline;gap:.5rem}
+.fee-pick b{font-weight:600;color:var(--green-dark)}
+
+/* Two practical columns: what to bring, and the cancellation terms. */
+.know{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(2rem,5vw,4rem);
+  margin-top:clamp(2rem,4vw,2.75rem)}
+.know h3{font-size:clamp(1.15rem,1.8vw,1.35rem);margin-bottom:1rem}
+.know .plist{margin-top:0}
+.know p{color:var(--stone);margin-bottom:.9rem}
+
+@media(max-width:760px){
+  .fee{grid-template-columns:1fr;grid-template-areas:"head" "price" "desc";gap:0}
+  .fee__price{text-align:left;margin-top:.9rem;display:flex;align-items:baseline;
+    flex-wrap:wrap;gap:.35rem .85rem;min-width:0}
+  .fee__len{margin-top:0}
+  .fee__alt{flex-basis:100%;margin-top:.25rem;padding-top:0;border-top:0}
+  .know{grid-template-columns:1fr;gap:2.5rem}
+}
+/* Measure limit for a list that is not inside .prose. Keeps every section on
+   this page sharing one left edge instead of one block sitting centred. */
+.lim{max-width:66ch}
