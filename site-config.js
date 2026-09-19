@@ -93,17 +93,24 @@ window.BRP = (function () {
        Names match what a patient sees when booking. A "review" consultation
        is the follow-up appointment.
 
-       Confirmed against the Halaxy calendar on 2026-09-17: the two agree.
-       Change a price and three things move together — this list, the table
-       on /fees.html, and the Halaxy appointment types. Miss one and a
-       patient sees a different figure on the site than at the checkout.   */
+       The ORDER matters and is not alphabetical or cheapest-first. It is the
+       order Halaxy lists its appointment types in: the four in-person types,
+       then the two online ones. A patient reading the fees table and then
+       opening the calendar sees the same list twice, which is the whole
+       point. Reorder Halaxy and this list follows, not the other way round.
+
+       Confirmed against the calendar on 2026-09-19: names, order, durations
+       and prices all agree. Change a price and three things move together —
+       this list, the table on /fees.html, and the Halaxy appointment types.
+       Miss one and a patient sees a different figure on the site than at
+       the checkout.                                                       */
     fees: [
-      { label: 'Initial consultation',             minutes: 45, price: 180, telehealth: false },
-      { label: 'Initial consultation, telehealth', minutes: 45, price: 150, telehealth: true  },
-      { label: 'Review consultation',              minutes: 30, price: 140, telehealth: false },
-      { label: 'Review consultation, telehealth',  minutes: 30, price: 120, telehealth: true  },
-      { label: 'Extended consultation',            minutes: 45, price: 180, telehealth: false },
-      { label: 'Return to Performance Assessment', minutes: 60, price: 250, telehealth: false }
+      { label: 'Initial consultation',             minutes: 45, price: 180, online: false },
+      { label: 'Review consultation',              minutes: 30, price: 140, online: false },
+      { label: 'Extended consultation',            minutes: 45, price: 180, online: false },
+      { label: 'Return to Performance Assessment', minutes: 60, price: 250, online: false },
+      { label: 'Initial consultation, online',     minutes: 45, price: 150, online: true  },
+      { label: 'Review consultation, online',      minutes: 30, price: 120, online: true  }
     ]
   };
 

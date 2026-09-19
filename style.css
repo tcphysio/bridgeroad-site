@@ -460,3 +460,12 @@ body.home .hdr:not(.scrolled) .topbar__place:hover span{color:#fff}
 /* Tucked: the strip collapses on the way down and returns on the way up.
    The border goes with it, or a hairline is left floating above the nav. */
 .hdr--tucked .topbar{max-height:0;opacity:0;border-bottom-width:0}
+
+/* Fees table: Halaxy groups its appointment types into in-person and online,
+   so the table does the same. The group row is a band, not a data row, hence
+   scope="colgroup" and the quieter treatment. */
+.price tbody + tbody{border-top:1px solid var(--line)}
+.price th[scope="colgroup"]{background:var(--paper);color:var(--green);font-size:.72rem;
+  text-transform:uppercase;letter-spacing:.1em;font-weight:600;padding-block:.55rem}
+.prose h3.fee-group{margin-top:2.25rem;padding-top:1.5rem;border-top:1px solid var(--line);
+  font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green);font-weight:600}
