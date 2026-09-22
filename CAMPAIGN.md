@@ -33,10 +33,12 @@ section 9 for why the evergreen page is not indexed.
    section 4 are being written to a first-party queue and nothing is reading
    them. Until a tracker is added, the only numbers available are what Meta
    Ads Manager reports and what the Halaxy calendar shows.
-3. **`/new-patient-offer` has not run on Vercel yet.** It is served by a
-   function rather than as a static file. Open a preview deployment, load the
-   URL, and check the page renders the offer rather than redirecting to
-   `/book.html`. A redirect means the function failed to read its template.
+3. ~~`/new-patient-offer` has not run on Vercel yet.~~ **Checked and working.**
+   The preview build of commit `2f7ff2d` returned the offer page with a 200 and
+   the correct active-state markup, so the function reads its template and the
+   route is wired up. Re-check after any change to `vercel.json` or to the
+   template filename: a redirect to `/book.html` means the function failed to
+   read it.
 
 ---
 
@@ -229,7 +231,7 @@ Tick these off with evidence, not from memory.
 - [ ] Promotional booking URL opened in a private browser window
 - [ ] Standard booking URL checked
 - [ ] Google Business Profile link checked
-- [ ] `/new-patient-offer` loads on a Vercel preview and shows the offer
+- [x] `/new-patient-offer` loads on a Vercel preview and shows the offer
 - [ ] GA4 and the Meta pixel installed, with the consent behaviour checked
 - [ ] Test booking made end to end
 - [ ] Test booking cancelled, or clearly marked as a test in Halaxy
