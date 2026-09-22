@@ -58,13 +58,24 @@ document.querySelectorAll('#m a').forEach(a=>a.addEventListener('click',closeMen
       });
     });
 
-    if(stored.utm_source||stored.gclid||stored.fbclid){
+    /* Tag outbound Halaxy links with whatever campaign values this visit
+       arrived with. Exposed rather than run once, because a campaign page can
+       swap a booking link for a Halaxy one after this has already run, and it
+       then needs asking again. Links already tagged are left alone, so calling
+       it twice does not append the parameters twice. */
+    function decorate(){
+      if(!(stored.utm_source||stored.gclid||stored.fbclid))return;
       var params=new URLSearchParams();
       KEYS.forEach(function(k){if(stored[k])params.set(k,stored[k]);});
-      document.querySelectorAll('a[href*="halaxy.com"]').forEach(function(a){
-        a.href+=(a.href.indexOf('?')>-1?'&':'?')+params.toString();
+      var qs=params.toString();
+      if(!qs)return;
+      document.querySelectorAll('a[href*="halaxy.com"]:not([data-attr-tagged])').forEach(function(a){
+        a.href+=(a.href.indexOf('?')>-1?'&':'?')+qs;
+        a.setAttribute('data-attr-tagged','1');
       });
     }
+    decorate();
+    if(window.BRP)window.BRP.attribution={values:stored,decorate:decorate};
   }catch(e){/* tracking must never block booking */}
 })();
 

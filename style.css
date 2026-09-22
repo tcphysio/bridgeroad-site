@@ -469,3 +469,163 @@ body.home .hdr:not(.scrolled) .topbar__place:hover span{color:#fff}
   text-transform:uppercase;letter-spacing:.1em;font-weight:600;padding-block:.55rem}
 .prose h3.fee-group{margin-top:2.25rem;padding-top:1.5rem;border-top:1px solid var(--line);
   font-size:.78rem;text-transform:uppercase;letter-spacing:.1em;color:var(--green);font-weight:600}
+
+/* ===========================================================================
+   Campaign pages — /new-patient-offer and /physio-richmond
+   ---------------------------------------------------------------------------
+   Used by the paid-ad landing pages only. Nothing here changes the main site.
+
+   Contrast, checked against WCAG 2.2 AA:
+     --green      #3A5A40 on #fff   7.8:1
+     --green-dark #2C4530 on #fff  10.4:1   white on #2C4530 10.4:1
+     --ochre      #C8772E on #fff   3.5:1  -> large text and borders only
+     #A85F1E              on #fff   4.9:1  -> the accent used for body-sized
+                                              offer text on light backgrounds
+     #F3D5A9              on #2C4530 7.3:1 -> the accent used on the dark panel
+   Do not put cream or ochre text on white at body size.
+   ========================================================================= */
+
+/* --stone (#746F66) against --paper (#F4F1EC) measures 4.48:1, which is under
+   the 4.5:1 AA threshold for body text. The campaign pages put a lot of
+   secondary text on paper, so they use a slightly darker grey: 5.1:1 on paper,
+   5.1:1 on white, and near enough identical to look at. */
+.offer-page{--stone:#6B665D}
+.offer-banner .offer-terms{color:#6B665D}
+
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* --- reduced campaign header ------------------------------------------- */
+.hdr--campaign{position:sticky;background:rgba(255,255,255,.94);box-shadow:0 1px 0 var(--line)}
+.hdr--campaign .nav__right{gap:1rem}
+.hdr--campaign .nav__place{font-size:.9rem;color:var(--green);font-weight:500;display:inline-flex;align-items:center;gap:.4em}
+.hdr--campaign .nav__place svg{width:16px;height:16px;flex:0 0 auto}
+/* the site hides header buttons on narrow screens; on a campaign page the
+   booking button is the point of the header, so it stays */
+@media(max-width:860px){
+  .hdr--campaign .nav__right .btn{display:inline-flex;padding:.7em 1.1em;font-size:.88rem}
+  .hdr--campaign .nav__place{display:none}
+}
+
+/* --- hero --------------------------------------------------------------- */
+.offer-hero{background:var(--paper);padding-block:clamp(2rem,5vw,4rem) clamp(2.5rem,6vw,4.5rem);position:relative;overflow:hidden}
+.offer-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 85% 10%,rgba(58,90,64,.09),transparent 70%);pointer-events:none}
+.offer-hero .container{position:relative}
+/* Three children: the copy, the offer panel, then the chips. On desktop the
+   chips land in row two of the first column, under the copy. On a phone the
+   single column puts them after the panel, which keeps the price and the
+   booking button inside the first screen on a 320 x 568 viewport. */
+.offer-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);
+  column-gap:clamp(1.75rem,4vw,3.5rem);row-gap:1.25rem;align-items:start}
+.offer-grid>ul{grid-column:1}
+/* On desktop the panel spans both rows, so row one is sized by the copy rather
+   than by the panel and the chips sit just under the intro instead of below a
+   panel-height gap. */
+@media(min-width:861px){
+  .offer-grid>aside{grid-row:1/span 2;grid-column:2}
+  .offer-grid>ul{grid-row:2;align-self:start}
+}
+.offer-hero h1{font-size:clamp(2.1rem,5.2vw,3.9rem);margin:.9rem 0 1rem}
+.offer-hero .eyebrow{color:var(--green-dark);margin-bottom:0}
+.offer-hero__intro{font-size:clamp(1.02rem,1.7vw,1.18rem);color:var(--stone);max-width:44ch;margin-bottom:1.5rem}
+.offer-hero__list{display:flex;flex-wrap:wrap;gap:.5rem}
+.offer-hero__list li{background:#fff;border:1px solid var(--line);border-radius:999px;padding:.4rem .85rem;font-size:.88rem;color:var(--green-dark)}
+
+/* --- the offer panel (price, CTA, terms) -------------------------------- */
+.offer-panel{background:var(--green-dark);color:#fff;border-radius:22px;padding:clamp(1.4rem,3vw,2rem);box-shadow:0 20px 50px rgba(28,28,26,.16)}
+.offer-panel h2{color:#fff;font-size:1.3rem;margin-bottom:.9rem}
+.offer-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:.75rem;margin-bottom:.5rem}
+.offer-price__was{font-size:1.35rem;color:rgba(255,255,255,.75)}
+.offer-price__now{font-family:var(--serif);font-size:clamp(3rem,8vw,3.9rem);line-height:1;letter-spacing:-0.03em;color:#F3D5A9}
+.offer-meta{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0 1.4rem}
+.offer-meta span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:.35rem .8rem;font-size:.88rem;font-weight:600}
+.offer-panel .btn--white{width:100%;font-size:1.02rem;padding:1em 1.4em;min-height:52px}
+.offer-panel__support{font-size:.94rem;color:rgba(255,255,255,.85);margin-top:.9rem}
+.offer-panel__terms{font-size:.84rem;line-height:1.55;color:rgba(255,255,255,.72);margin-top:.75rem;max-width:none}
+
+/* Full terms next to a final CTA. Never abbreviated to "T&Cs apply". */
+.offer-terms{font-size:.86rem;line-height:1.6;color:var(--stone);max-width:70ch;margin-top:1.25rem}
+.offer-terms--on-green{color:rgba(255,255,255,.8);margin-inline:auto}
+
+/* --- reasons grid ------------------------------------------------------- */
+.reason-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.75rem;margin-top:2rem}
+.reason-grid li{background:#fff;border:1px solid var(--line);border-radius:14px;padding:.9rem 1.1rem;font-weight:500}
+.reason-note{margin-top:1.5rem;color:var(--stone);font-size:.96rem;border-left:3px solid var(--green);padding-left:1rem}
+
+/* --- practitioner and location ------------------------------------------ */
+.offer-split{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(1.75rem,5vw,3.5rem);align-items:center}
+.offer-portrait{aspect-ratio:4/5;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:linear-gradient(135deg,var(--green-pale),var(--paper))}
+.offer-portrait img{width:100%;height:100%;object-fit:cover}
+.offer-contact{display:flex;flex-direction:column;gap:.35rem;margin-top:1.25rem}
+/* block, not inline-flex: with a flex arrow the text wraps to two lines and the
+   arrow drifts off to the far edge. The padding keeps the target over 44px. */
+.offer-contact a{color:var(--green);font-weight:600;display:block;padding-block:.55rem}
+
+/* --- sticky mobile booking bar ------------------------------------------ */
+.offer-sticky{position:fixed;left:0;right:0;bottom:0;z-index:120;display:none;
+  background:var(--green-dark);color:#fff;
+  padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom,0px));
+  box-shadow:0 -8px 28px rgba(28,28,26,.22);
+  align-items:center;justify-content:space-between;gap:1rem;
+  transform:translateY(110%);transition:transform .28s cubic-bezier(.2,.8,.2,1);
+  will-change:transform}
+.offer-sticky.is-shown{transform:translateY(0)}
+.offer-sticky__note{font-size:.8rem;line-height:1.3;color:rgba(255,255,255,.82)}
+.offer-sticky__note b{display:block;font-size:.95rem;color:#fff;font-weight:600}
+.offer-sticky .btn{flex:0 0 auto;min-height:44px}
+@media(max-width:860px){
+  .offer-sticky{display:flex}
+  body.has-offer-bar{padding-bottom:84px}
+  .offer-grid,.offer-split{grid-template-columns:1fr}
+  .offer-split .offer-portrait{max-width:320px}
+}
+@media(prefers-reduced-motion:reduce){.offer-sticky{transition:none}}
+
+/* --- ended state -------------------------------------------------------- */
+.offer-ended-note{background:var(--green-pale);border:1px solid rgba(58,90,64,.2);border-radius:18px;padding:1.25rem 1.5rem;margin-top:1.5rem}
+.offer-ended-note p{color:var(--green-dark)}
+
+/* --- shared ------------------------------------------------------------- */
+.offer-steps{counter-reset:step;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1.5rem;margin-top:2.5rem;list-style:none}
+.offer-steps li{counter-increment:step}
+.offer-steps li::before{content:counter(step,decimal-leading-zero);display:block;font-family:var(--serif);font-size:.95rem;font-weight:700;color:#A85F1E;margin-bottom:.4rem}
+.offer-steps h3{margin-bottom:.4rem}
+.offer-steps p{color:var(--stone);font-size:.96rem}
+.offer-why{display:flex;flex-direction:column;gap:1rem;margin-top:2rem}
+.offer-why li{position:relative;padding-left:1.6rem;max-width:62ch}
+.offer-why li::before{content:'';position:absolute;left:0;top:.6em;width:8px;height:8px;border-radius:50%;background:var(--green)}
+/* every interactive target on these pages clears 44x44 */
+.offer-page a.btn,.offer-page button{min-height:44px}
+
+/* Offer banner on /book.html. Hidden in the markup and revealed by campaign.js
+   only when the visitor arrived from a promotional link and the offer is still
+   running, so it can never advertise an expired discount. */
+.offer-banner{background:var(--green-pale);border:1px solid rgba(58,90,64,.22);border-left:4px solid var(--green);border-radius:16px;padding:1.25rem 1.5rem;margin-top:2rem}
+.offer-banner h2{font-size:clamp(1.15rem,2vw,1.45rem);letter-spacing:-0.015em;margin-bottom:.5rem}
+.offer-banner p{color:var(--green-dark);margin-bottom:.5rem}
+.offer-banner .offer-terms{margin-top:.75rem;color:var(--stone)}
+
+/* Touch targets on the campaign pages. WCAG 2.2 AA asks for 24 x 24; the brief
+   asks for 44 x 44, so these are raised. Scoped to .offer-page, because the
+   footer and header markup is shared and the rest of the site is not in scope
+   for this change. */
+.offer-page .foot a{padding-block:.66rem;margin-bottom:0}
+.offer-page .foot .social a{padding-block:0}
+.offer-page .hdr--campaign .logo{min-height:44px}
+.offer-page .hdr--campaign .nav__place{min-height:44px}
+.offer-page main a.svc__link{min-height:44px;align-items:center}
+
+/* Very small phones (320 to 400 CSS px). The offer, the button and the
+   location line all have to be reachable without scrolling on a 568px-tall
+   screen, so the panel tightens up and the two meta pills become one line of
+   text rather than two stacked chips. */
+@media(max-width:400px){
+  .offer-hero{padding-block:1.5rem 2.25rem}
+  .offer-hero h1{margin:.6rem 0 .75rem}
+  .offer-hero__intro{margin-bottom:1rem}
+  .offer-panel{padding:1.25rem}
+  .offer-panel h2{margin-bottom:.6rem}
+  .offer-price__now{font-size:3rem}
+  .offer-meta{display:block;margin:.5rem 0 1rem;font-size:.92rem;font-weight:600;color:#F3D5A9}
+  .offer-meta span{background:none;border:0;padding:0;font-size:inherit}
+  .offer-meta span+span::before{content:'\00a0\00b7\00a0';color:rgba(255,255,255,.55)}
+}

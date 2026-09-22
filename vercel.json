@@ -4,6 +4,17 @@
     { "source": "/sessions.html", "destination": "/fees.html", "permanent": true },
     { "source": "/sessions", "destination": "/fees.html", "permanent": true },
     { "source": "/Thihan.jpeg", "destination": "/thihan-chandramohan-physiotherapist-richmond.jpeg", "permanent": true },
-    { "source": "/thihan.jpeg", "destination": "/thihan-chandramohan-physiotherapist-richmond.jpeg", "permanent": true }
-  ]
+    { "source": "/thihan.jpeg", "destination": "/thihan-chandramohan-physiotherapist-richmond.jpeg", "permanent": true },
+    { "source": "/new-patient-offer-source.html", "destination": "/new-patient-offer", "permanent": true },
+    { "source": "/physio-richmond.html", "destination": "/physio-richmond", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/new-patient-offer", "destination": "/api/new-patient-offer" },
+    { "source": "/physio-richmond", "destination": "/physio-richmond.html" }
+  ],
+  "functions": {
+    "api/new-patient-offer.js": {
+      "includeFiles": "new-patient-offer-source.html"
+    }
+  }
 }

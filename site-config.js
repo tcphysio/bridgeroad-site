@@ -111,7 +111,31 @@ window.BRP = (function () {
       { label: 'Return to Performance Assessment', minutes: 60, price: 250, online: false },
       { label: 'Initial consultation, online',     minutes: 45, price: 150, online: true  },
       { label: 'Review consultation, online',      minutes: 30, price: 120, online: true  }
-    ]
+    ],
+
+    /* --- School holiday new patient offer ------------------------------ *
+       The campaign behind /new-patient-offer. These figures also appear in
+       the page copy, in the required terms and in api/_offer.js, which is
+       what actually decides whether the offer is running. Change a figure
+       and all four move together, plus the Halaxy fee and the ad copy.
+
+       halaxyOfferUrl is the ONE thing still to fill in. It is the direct
+       link to the "New Patient School Holiday Offer" appointment type, which
+       has to be created in Halaxy by hand; see CAMPAIGN.md. While it is null
+       every promotional call to action goes to /book.html, which is a real
+       booking page, so no ad ever lands on a dead link. Paste the verified
+       URL here and every promotional call to action follows it.           */
+    campaign: {
+      name: 'school_holiday_2026',
+      standardFee: 180,
+      offerFee: 144,
+      saving: 36,
+      percent: 20,
+      endsAt: '2026-10-04T23:59:59',   // Melbourne wall clock, inclusive
+      endsLabel: '4 October 2026',
+      halaxyOfferUrl: null,
+      halaxyAppointmentName: 'New Patient School Holiday Offer'
+    }
   };
 
   /* --------------------------------------------------------------------- */

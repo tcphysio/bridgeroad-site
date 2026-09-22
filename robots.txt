@@ -1,8 +1,12 @@
 User-agent: *
 Allow: /
 Disallow: /PHOTO-GUIDE.txt
+Disallow: /tools/
 
 # landing.html and sessions.html are deliberately left crawlable so that the
-# noindex tag and the 301 to /fees.html can actually be seen.
+# noindex tag and the 301 to /fees.html can actually be seen. The same goes for
+# /new-patient-offer and /physio-richmond: both are ad landing pages carrying
+# noindex,follow, and a crawler has to be able to fetch them to read that.
+# /tools/ holds the source of the share image, which is not a page.
 
 Sitemap: https://www.bridgeroad.physio/sitemap.xml
