@@ -95,8 +95,10 @@ links to its own entry in the professional experience list on about.html
 (#exp-cricket-victoria, #exp-melbourne-stars and so on). Add or remove a logo
 and the matching entry has to move with it, or a logo links to nothing.
 
-The role text came from Thihan's July 2025 CV. Only the professional history
-was used. His home address, personal mobile, personal email address and the
+The role text came from Thihan's July 2025 CV, except the Italy entry, which
+Thihan supplied directly: the 2026 T20 World Cup in India postdates that CV.
+Anything after July 2025 has to come from him, not the file. Only professional
+history is used. His home address, personal mobile, personal email address and the
 two referees with their contact details are in that CV and are deliberately
 not on this site. Do not copy them across.
 
