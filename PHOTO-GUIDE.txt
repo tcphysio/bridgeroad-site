@@ -87,3 +87,26 @@ goes straight back to them.
 If the key is missing or Resend rejects the send, the form tells the patient
 it failed and shows the phone number and email address. It never pretends an
 enquiry went through when it did not.
+
+THE AFFILIATION LOGOS AND WHAT SITS BEHIND THEM
+-----------------------------------------------
+The eight logos appear on index.html, about.html and cricket.html. Each one
+links to its own entry in the professional experience list on about.html
+(#exp-cricket-victoria, #exp-melbourne-stars and so on). Add or remove a logo
+and the matching entry has to move with it, or a logo links to nothing.
+
+The role text came from Thihan's July 2025 CV. Only the professional history
+was used. His home address, personal mobile, personal email address and the
+two referees with their contact details are in that CV and are deliberately
+not on this site. Do not copy them across.
+
+Two logos have no role behind them because no role for them appears in that
+CV: Cricket Australia and Melbourne Renegades. Both entries carry a comment
+saying so. Either the detail gets added or the logo comes down, because the
+section heading claims these are organisations Thihan has worked with, and
+advertising a regulated health service has to be accurate.
+
+Also in the CV but not shown as logos: St Kilda Football Club (AFL), the
+Sydney Sixers and Sydney Thunder academies, and the Cricket & Sports Medicine
+Centre. The about page mentions AFL environments in prose but shows no AFL
+logo.
