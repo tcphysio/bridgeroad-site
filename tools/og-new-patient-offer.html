@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--
+  Source for /og-new-patient-offer.jpg, the share card for the campaign page.
+  Exactly 1200 x 630 with a 72px safe margin on every side, so nothing lands
+  under the crop Facebook and LinkedIn apply at small sizes.
+
+  Regenerate after editing:
+    node tools/og-render.js
+
+  Deliberately no legal copy on the card. The full terms live on the page,
+  where they are readable; shrunk onto a share image they would not be.
+-->
+<html lang="en-AU">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{width:1200px;height:630px;overflow:hidden;
+       font-family:'DM Sans',system-ui,sans-serif;color:#fff;
+       background:#22361F;position:relative}
+  .bg{position:absolute;inset:0;
+      background:radial-gradient(ellipse 90% 80% at 78% 12%,#3E6043,transparent 60%),
+                 radial-gradient(ellipse 70% 70% at 12% 100%,#16240F,transparent 70%),
+                 linear-gradient(165deg,#2C4530 0%,#22361F 55%,#1A2A18 100%)}
+  .lines{position:absolute;inset:0;opacity:.5;
+      background-image:repeating-linear-gradient(115deg,rgba(255,255,255,.055) 0,rgba(255,255,255,.055) 1px,transparent 1px,transparent 9px);
+      -webkit-mask-image:radial-gradient(ellipse 85% 80% at 74% 22%,#000,transparent 72%)}
+  .inner{position:relative;height:100%;padding:72px;display:flex;flex-direction:column;justify-content:space-between}
+  .brand{display:flex;align-items:center;gap:18px}
+  .brand img{width:104px;height:104px;border-radius:14px;display:block;background:rgba(255,255,255,.06);padding:6px}
+  .brand b{font-family:'Playfair Display',Georgia,serif;font-size:33px;font-weight:600;line-height:1.1;display:block}
+  .brand span{display:block;font-size:12px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);margin-top:3px}
+  h1{font-family:'Playfair Display',Georgia,serif;font-size:74px;font-weight:600;line-height:1.02;letter-spacing:-.025em;max-width:16ch}
+  .prices{display:flex;align-items:baseline;gap:24px;margin-top:34px}
+  .was{font-size:40px;color:rgba(255,255,255,.6);text-decoration:line-through}
+  .arrow{font-size:34px;color:rgba(255,255,255,.55)}
+  .now{font-family:'Playfair Display',Georgia,serif;font-size:86px;font-weight:700;line-height:1;color:#F3D5A9;letter-spacing:-.03em}
+  .foot{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+  .chip{font-size:22px;font-weight:600;padding:12px 22px;border-radius:999px;
+        background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.26)}
+  .chip--place{background:#F3D5A9;border-color:#F3D5A9;color:#22361F}
+</style>
+</head>
+<body>
+<div class="bg"></div><div class="lines"></div>
+<div class="inner">
+  <div class="brand">
+    <img src="../logo.svg" alt="">
+    <b>Bridge Road<span>Physiotherapy</span></b>
+  </div>
+  <div>
+    <h1>20% off initial physiotherapy</h1>
+    <div class="prices">
+      <span class="was">$180</span>
+      <span class="arrow">&rarr;</span>
+      <span class="now">$144</span>
+    </div>
+  </div>
+  <div class="foot">
+    <span class="chip">New patients &middot; Code SPRING20 &middot; Ends 30 Nov</span>
+    <span class="chip chip--place">Bridge Road, Richmond</span>
+  </div>
+</div>
+</body>
+</html>

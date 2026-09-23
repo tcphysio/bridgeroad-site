@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<!--
+  Bridge Road Physiotherapy — spring new patient offer
+  ----------------------------------------------------------------------------
+  THIS FILE IS NOT SERVED DIRECTLY. It holds BOTH states of the campaign page.
+  api/new-patient-offer.js reads it, strips the state that does not apply and
+  serves the result at /new-patient-offer. vercel.json sends the .html URL to
+  the clean one, so nobody ever sees this file with both states in it.
+
+    OFFER:ACTIVE block  ... shown while the offer runs ...
+    OFFER:ENDED block   ... shown from midnight, 1 Dec 2026, Melbourne time ...
+
+  (written as HTML comments in the markup below; they are deliberately not
+  repeated verbatim here, because the stripper would treat them as real)
+
+  Editing rules:
+    - The markers must stay balanced and must not nest.
+    - Every price, saving and date in here is repeated in site-config.js
+      (window.BRP.campaign) and api/_offer.js. Change one, change all three.
+    - The full terms appear in FULL next to the final call to action. They are
+      never shortened to "T&Cs apply".
+-->
+<html lang="en-AU" data-offer-state="active" data-campaign="spring_2026">
+<head>
+<meta charset="UTF-8">
+<!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MZ36ZHQQ');</script><!-- End Google Tag Manager -->
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<!--OFFER:ACTIVE-->
+<title>20% Off Initial Physio | Bridge Road Physiotherapy</title>
+<meta name="description" content="New patients receive 20% off a standard initial physiotherapy consultation in Richmond. $180 normally, $144 with code SPRING20 until 30 November 2026. Terms apply.">
+<meta property="og:title" content="20% Off Initial Physio | Bridge Road Physiotherapy">
+<meta property="og:description" content="New patients receive 20% off a standard initial physiotherapy consultation in Richmond. $180 normally, $144 with code SPRING20 until 30 November 2026. Terms apply.">
+<meta property="og:image" content="https://www.bridgeroad.physio/og-new-patient-offer.jpg">
+<meta property="og:image:alt" content="Bridge Road Physiotherapy. 20% off initial physiotherapy, $180 down to $144. New patients, code SPRING20, ends 30 November. Bridge Road, Richmond.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Offer",
+  "name": "Spring new patient offer",
+  "description": "20% off one standard initial physiotherapy consultation for new patients at Bridge Road Physiotherapy, Richmond. Enter code SPRING20 in the booking notes. Appointment must be attended by 30 November 2026.",
+  "url": "https://www.bridgeroad.physio/new-patient-offer",
+  "price": "144.00",
+  "priceCurrency": "AUD",
+  "availability": "https://schema.org/LimitedAvailability",
+  "validThrough": "2026-11-30T23:59:59+11:00",
+  "eligibleCustomerType": "https://schema.org/NewCustomer",
+  "itemOffered": {
+    "@type": "Service",
+    "name": "Initial physiotherapy consultation",
+    "serviceType": "Physiotherapy",
+    "provider": {"@id": "https://www.bridgeroad.physio/#clinic"}
+  },
+  "offeredBy": {"@id": "https://www.bridgeroad.physio/#clinic"}
+}
+</script>
+<!--/OFFER:ACTIVE-->
+<!--OFFER:ENDED-->
+<title>New Patient Offer Has Ended | Bridge Road Physiotherapy</title>
+<meta name="description" content="The spring new patient offer has ended. You can still book a physiotherapy appointment with Bridge Road Physiotherapy in Richmond.">
+<meta property="og:title" content="Bridge Road Physiotherapy, Richmond">
+<meta property="og:description" content="Physiotherapy for sports injuries and everyday aches and pains, inside Uplift Gym on Bridge Road, Richmond. Book an appointment online.">
+<meta property="og:image" content="https://www.bridgeroad.physio/og-image.jpg">
+<meta property="og:image:alt" content="Bridge Road Physiotherapy, Richmond">
+<!--/OFFER:ENDED-->
+<meta name="robots" content="noindex,follow">
+<link rel="canonical" href="https://www.bridgeroad.physio/new-patient-offer">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bridge Road Physiotherapy">
+<meta property="og:locale" content="en_AU">
+<meta property="og:url" content="https://www.bridgeroad.physio/new-patient-offer">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body class="offer-page">
+<!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MZ36ZHQQ" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript><!-- End Google Tag Manager (noscript) -->
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Reduced campaign header. No primary navigation: the only job of this page
+     is to get a local person to the right booking screen. -->
+<header class="hdr hdr--campaign">
+  <div class="container nav">
+    <!-- No aria-label: the visible text already names the link, and an
+         aria-label that does not contain it verbatim fails Label in Name. -->
+    <a href="/index.html" class="logo">
+      <img src="/logo.svg" alt="" width="2000" height="2000">
+      <b>Bridge Road<span>Physiotherapy</span></b>
+    </a>
+    <div class="nav__right">
+      <a class="nav__place" href="https://www.google.com/maps/search/?api=1&amp;query=Bridge%20Road%20Physiotherapy%2C%20507%20Bridge%20Rd%2C%20Richmond%20VIC%203121&amp;query_place_id=ChIJdVQ-b55D1moR6CP1dXlFyQ4" target="_blank" rel="noopener" data-cta="map" data-cta-location="header">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Inside Uplift Gym, Richmond</span>
+      </a>
+      <!--OFFER:ACTIVE-->
+      <a href="/book.html?offer=spring" class="btn btn--primary" data-cta="book" data-cta-location="header" data-cta-promo>Book for $144</a>
+      <!--/OFFER:ACTIVE-->
+      <!--OFFER:ENDED-->
+      <a href="/book.html" class="btn btn--primary" data-cta="book" data-cta-location="header">Book a standard appointment</a>
+      <!--/OFFER:ENDED-->
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ====================================================================== -->
+<!-- 1. Hero                                                                 -->
+<!-- ====================================================================== -->
+<section class="offer-hero">
+  <div class="container offer-grid">
+    <div>
+      <!--OFFER:ACTIVE-->
+      <span class="eyebrow"><span class="dot"></span>Spring new patient offer</span>
+      <h1>Get back to doing what you enjoy.</h1>
+      <p class="offer-hero__intro">20% off a standard initial physiotherapy consultation for new patients this spring. Use code <strong>SPRING20</strong> when you book.</p>
+      <!--/OFFER:ACTIVE-->
+      <!--OFFER:ENDED-->
+      <span class="eyebrow"><span class="dot"></span>This offer has ended</span>
+      <h1>Need help with an injury?</h1>
+      <p class="offer-hero__intro">You can still book a physiotherapy appointment with Bridge Road Physiotherapy in Richmond.</p>
+      <!--/OFFER:ENDED-->
+    </div>
+
+    <!--OFFER:ACTIVE-->
+    <aside class="offer-panel" aria-labelledby="offer-heading">
+      <h2 id="offer-heading">Initial consultation</h2>
+      <p class="offer-price">
+        <span class="offer-price__was"><span class="sr-only">Standard fee </span><s>$180</s></span>
+        <span class="offer-price__now"><span class="sr-only">Offer fee </span>$144</span>
+      </p>
+      <p class="offer-meta"><span>Save $36</span><span>Ends 30 November 2026</span></p>
+      <p class="offer-code">Code <strong>SPRING20</strong><span>Add it to the notes when you book</span></p>
+      <a href="/book.html?offer=spring" class="btn btn--white" data-cta="book" data-cta-location="hero" data-cta-promo data-sticky-after>Book an appointment for $144</a>
+      <p class="offer-panel__support">Inside Uplift Gym on Bridge Road, Richmond.</p>
+      <p class="offer-panel__terms">New patients only. Book a standard Initial Consultation and enter SPRING20 in the booking notes. Appointment must be attended by 30 November 2026. Subject to availability.</p>
+    </aside>
+    <!--/OFFER:ACTIVE-->
+
+    <!--OFFER:ENDED-->
+    <aside class="offer-panel" aria-labelledby="offer-heading">
+      <h2 id="offer-heading">Book an appointment</h2>
+      <p class="offer-panel__support" style="margin-top:0">A standard initial consultation is 45 minutes. See the <a href="/fees.html" style="color:#F3D5A9;text-decoration:underline">current fees</a> for every appointment type.</p>
+      <p style="margin-top:1.2rem"><a href="/book.html" class="btn btn--white" data-cta="book" data-cta-location="hero" data-sticky-after>Book a standard appointment</a></p>
+      <p class="offer-panel__support">Inside Uplift Gym on Bridge Road, Richmond.</p>
+    </aside>
+    <!--/OFFER:ENDED-->
+
+    <ul class="offer-hero__list">
+      <li>Inside Uplift Gym</li>
+      <li>507 Bridge Road, Richmond</li>
+      <li>No referral needed</li>
+      <li>The same physiotherapist every visit</li>
+    </ul>
+  </div>
+</section>
+
+<!--OFFER:ENDED-->
+<section class="section section--paper">
+  <div class="container">
+    <div class="offer-ended-note">
+      <p><strong>The spring offer closed on 30 November 2026.</strong> Standard fees apply. For what physiotherapy at Bridge Road looks like, and how to book, see <a href="/physio-richmond" style="color:var(--green);font-weight:600">physiotherapy in Richmond</a>.</p>
+    </div>
+  </div>
+</section>
+<!--/OFFER:ENDED-->
+
+<!-- ====================================================================== -->
+<!-- 2. Appropriate reasons to book                                          -->
+<!-- ====================================================================== -->
+<section class="section">
+  <div class="container">
+    <p class="label">What people come in with</p>
+    <h2>Physiotherapy for sport and everyday injuries</h2>
+    <p class="lead">You do not need to be an elite athlete to receive thoughtful, structured care. Bridge Road Physiotherapy works with Richmond locals who want to move with less restriction and return to work, training, sport or daily life.</p>
+    <ul class="reason-grid">
+      <li>Running injuries</li>
+      <li>Gym injuries</li>
+      <li>Knee pain</li>
+      <li>Shoulder pain</li>
+      <li>Back pain</li>
+      <li>Cricket injuries</li>
+      <li>Return to sport</li>
+      <li>Persistent musculoskeletal problems</li>
+    </ul>
+    <p class="reason-note">If physiotherapy is not the right next step, Thihan will explain why and help you work out where to go next.</p>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- 3. First appointment                                                    -->
+<!-- ====================================================================== -->
+<section class="section section--paper">
+  <div class="container">
+    <p class="label">Your first visit</p>
+    <h2>What happens at your first appointment?</h2>
+    <ol class="offer-steps">
+      <li>
+        <h3>Understand the problem</h3>
+        <p>Talk through your symptoms, goals, training, work and relevant health history.</p>
+      </li>
+      <li>
+        <h3>Assess what matters</h3>
+        <p>Examine the movements and physical factors linked to what you want to return to.</p>
+      </li>
+      <li>
+        <h3>Leave with a plan</h3>
+        <p>Receive a clear explanation and a practical plan. Treatment and exercise are included where appropriate.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- 4. Why Bridge Road Physiotherapy                                        -->
+<!-- ====================================================================== -->
+<section class="section">
+  <div class="container">
+    <p class="label">Why here</p>
+    <h2>Experienced care without the production line</h2>
+    <ul class="offer-why">
+      <li>You see the same physiotherapist throughout your care.</li>
+      <li>Your plan is built around the activities you want to return to.</li>
+      <li>The clinic sits inside Uplift Gym on Bridge Road, giving rehabilitation room to progress beyond the treatment table.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- 5. Practitioner                                                         -->
+<!-- ====================================================================== -->
+<section class="section section--paper">
+  <div class="container">
+    <div class="offer-split">
+      <div class="offer-portrait">
+        <img src="/thihan-chandramohan-physiotherapist-richmond.jpeg" alt="Thihan Chandramohan, physiotherapist at Bridge Road Physiotherapy in Richmond" width="900" height="1124" loading="lazy">
+      </div>
+      <div>
+        <p class="label">Your physiotherapist</p>
+        <h2>Meet Thihan Chandramohan</h2>
+        <p style="margin-top:1.25rem">Thihan is an AHPRA registered physiotherapist with more than 20 years of clinical experience. More than 15 of those years have been spent in elite sport, mainly professional and international cricket, along with consulting work for AFL teams. He now brings the same structured approach to people living, working and training around Richmond.</p>
+        <p style="margin-top:1rem"><a href="/about.html" class="svc__link">More about Thihan <span class="arr">&rarr;</span></a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- 6. Location                                                             -->
+<!-- ====================================================================== -->
+<section class="section">
+  <div class="container">
+    <p class="label">Location</p>
+    <h2>Physiotherapy on Bridge Road, Richmond</h2>
+    <div class="cgrid" style="margin-top:2rem">
+      <div>
+        <p class="addr"><strong>Bridge Road Physiotherapy</strong><br>Inside Uplift Gym<br>507 Bridge Road<br>Richmond VIC 3121</p>
+        <p style="margin-top:1rem">Enter through the main Uplift Gym entrance. You do not need a gym membership.</p>
+        <div class="offer-contact">
+          <a href="tel:+61458007583" data-cta="phone" data-cta-location="location">0458 007 583</a>
+          <a href="mailto:thihan@bridgeroad.physio" data-cta="email" data-cta-location="location">thihan@bridgeroad.physio</a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Bridge%20Road%20Physiotherapy%2C%20507%20Bridge%20Rd%2C%20Richmond%20VIC%203121&amp;query_place_id=ChIJdVQ-b55D1moR6CP1dXlFyQ4" target="_blank" rel="noopener" data-cta="map" data-cta-location="location">Open Bridge Road Physiotherapy in Google Maps <span class="arr">&rarr;</span></a>
+        </div>
+      </div>
+      <div>
+        <ul class="plist">
+          <li><strong>Tram.</strong> Routes 48 and 75 run along Bridge Road, with stops close to the clinic.</li>
+          <li><strong>Train.</strong> West Richmond and East Richmond stations are both within walking distance.</li>
+          <li><strong>Parking.</strong> Metered and time-limited street parking is available on Bridge Road and nearby streets. Allow extra time during busy periods.</li>
+        </ul>
+        <p class="note">If you have access requirements, contact me before the appointment so we can discuss the entrance and clinic space.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================================== -->
+<!-- 7. Final booking block. The sticky bar steps aside from here down.       -->
+<!-- ====================================================================== -->
+<section class="cta" data-sticky-stop>
+  <div class="container">
+    <h2>Ready to get started?</h2>
+    <!--OFFER:ACTIVE-->
+    <p>Book a standard Initial Consultation and enter <strong>SPRING20</strong> in the booking notes. You pay $144 instead of $180.</p>
+    <div class="cta__row">
+      <a href="/book.html?offer=spring" class="btn btn--white" data-cta="book" data-cta-location="final" data-cta-promo>Book an appointment for $144</a>
+      <a href="tel:+61458007583" class="btn btn--ghost on-dark" data-cta="phone" data-cta-location="final">Call 0458 007 583</a>
+    </div>
+    <p class="offer-terms offer-terms--on-green">New patients only. 20% off one standard initial physiotherapy consultation. Standard fee $180. Offer fee $144. Enter code SPRING20 in the booking notes when you book; the offer fee is applied to your invoice. Appointment must be attended by 30 November 2026. Subject to availability. Not valid with another offer. Extended consultations and other appointment types are excluded.</p>
+    <!--/OFFER:ACTIVE-->
+    <!--OFFER:ENDED-->
+    <p>Book a standard initial consultation, or call if you want to check which appointment suits.</p>
+    <div class="cta__row">
+      <a href="/book.html" class="btn btn--white" data-cta="book" data-cta-location="final">Book a standard appointment</a>
+      <a href="tel:+61458007583" class="btn btn--ghost on-dark" data-cta="phone" data-cta-location="final">Call 0458 007 583</a>
+    </div>
+    <p class="offer-terms offer-terms--on-green">The spring new patient offer closed on 30 November 2026. Standard fees apply. See <a href="/fees.html" style="color:#fff;text-decoration:underline">fees and appointment types</a>.</p>
+    <!--/OFFER:ENDED-->
+  </div>
+</section>
+
+<!--OFFER:ACTIVE-->
+<!-- Sticky booking bar, mobile only. Last thing in <main> and a plain link, so
+     it takes focus in document order and cannot trap it. -->
+<div class="offer-sticky">
+  <span class="offer-sticky__note"><b>$144 initial consultation</b>Code SPRING20 &middot; Ends 30 Nov</span>
+  <a href="/book.html?offer=spring" class="btn btn--white" data-cta="book" data-cta-location="sticky" data-cta-promo>Book for $144</a>
+</div>
+<!--/OFFER:ACTIVE-->
+
+</main>
+
+<footer class="foot" data-sticky-stop>
+  <div class="container">
+    <div class="foot__grid">
+      <div>
+        <img src="/logo.svg" alt="Bridge Road Physiotherapy" class="foot__logo" width="2000" height="2000">
+        <p class="foot__nap"><strong>Bridge Road Physiotherapy</strong><br>Inside Uplift Gym<br>507 Bridge Road, Richmond VIC 3121</p>
+        <p style="margin-top:.5rem">
+          <a href="tel:+61458007583" data-cta="phone" data-cta-location="footer">0458 007 583</a>
+          <a href="mailto:thihan@bridgeroad.physio" data-cta="email" data-cta-location="footer">thihan@bridgeroad.physio</a>
+        </p>
+      </div>
+      <div>
+        <h3>Pages</h3>
+        <a href="/index.html">Main website</a>
+        <a href="/physio-richmond">Physiotherapy in Richmond</a>
+        <a href="/services.html">Services</a>
+        <a href="/fees.html">Fees</a>
+        <a href="/contact.html">Contact</a>
+      </div>
+      <div>
+        <h3>Policies</h3>
+        <a href="/terms.html">Terms and Conditions</a>
+        <a href="/privacy.html">Privacy Policy</a>
+        <a href="/cancellation.html">Cancellation Policy</a>
+        <a href="/accessibility.html">Accessibility</a>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span>&copy; 2026 Bridge Road Physiotherapy</span>
+      <span>Thihan Chandramohan, AHPRA registered physiotherapist, PHY0001614815</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/site-config.js"></script>
+<script src="/script.js"></script>
+<script src="/campaign.js"></script>
+</body>
+</html>

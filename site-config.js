@@ -105,7 +105,27 @@ window.BRP = (function () {
       { label: 'Return to Performance Assessment', minutes: 60, price: 250, online: false },
       { label: 'Initial consultation, online',     minutes: 45, price: 150, online: true  },
       { label: 'Review consultation, online',      minutes: 30, price: 120, online: true  }
-    ]
+    ],
+
+    /* --- Spring new patient offer ------------------------------------- *
+       The campaign behind /new-patient-offer. These figures also appear in
+       the page copy, in the required terms and in api/_offer.js, which is
+       what actually decides whether the offer is running. Change a figure
+       and all of them move together, plus the ad copy.
+
+       There is no separate Halaxy appointment type. Patients book a standard
+       Initial Consultation and type the code in the booking notes; the
+       discount is applied when the appointment is invoiced. See CAMPAIGN.md. */
+    campaign: {
+      name: 'spring_2026',
+      code: 'SPRING20',
+      standardFee: 180,
+      offerFee: 144,
+      saving: 36,
+      percent: 20,
+      endsAt: '2026-11-30T23:59:59',   // Melbourne wall clock, inclusive
+      endsLabel: '30 November 2026'
+    }
   };
 
   /* --------------------------------------------------------------------- */
@@ -121,6 +141,8 @@ window.BRP = (function () {
 
      Event names in use:
        book_click                 Book now / Book an appointment
+       campaign_landing_view      /new-patient-offer or /physio-richmond loaded;
+                                  detail carries campaign and offer state
        booking_widget_view        Halaxy booking widget rendered on /book.html
        phone_click                Any tel: link
        email_click                Any mailto: link
