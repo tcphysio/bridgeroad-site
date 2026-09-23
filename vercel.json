@@ -82,6 +82,10 @@
   "functions": {
     "api/new-patient-offer.js": {
       "includeFiles": "new-patient-offer-source.html"
+    },
+    "api/chat.js": {
+      "includeFiles": "*.html",
+      "maxDuration": 60
     }
   }
 }
