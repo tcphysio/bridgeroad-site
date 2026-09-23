@@ -328,3 +328,10 @@ Still open:
 - `REVIEW(Thihan)` clinical wording on services.html (five answers) and cricket.html (junior fast bowler answer).
 - Team logo permissions and AFL detail (not answered).
 - Google rating figures, if and when the stars go on.
+
+## Update 2, 23 September 2026
+
+- Clinical wording approved as written. REVIEW notes removed.
+- Team logo permissions confirmed.
+- AFL roles stated on the about page: consulting for St Kilda FC and Richmond FC.
+- Google rating: no third-party source lists a rating for Bridge Road Physiotherapy. The rating fields in site-config.js stay empty, so only the reviews link shows.
