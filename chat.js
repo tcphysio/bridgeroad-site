@@ -101,8 +101,19 @@
     out = out.replace(/\*\*([^*\n]{1,200})\*\*/g, '<strong>$1</strong>');
     return out;
   }
+  /* The site is written without em dashes. The assistant is told the same,
+     and this catches any that slip through: a dash between clauses becomes
+     a comma, and a time or number range becomes "to". */
+  function plain(text) {
+    return text
+      .replace(/^[ \t]*[—–][ \t]*/gm, '')
+      .replace(/(\d(?:am|pm)?)[ \t]*[–—][ \t]*(?=\d)/gi, '$1 to ')
+      .replace(/\b((?:Mon|Tues?|Wed(?:nes)?|Thu(?:rs)?|Fri|Sat(?:ur)?|Sun)(?:day)?)[ \t]*[–—][ \t]*(?=(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun))/g, '$1 to ')
+      .replace(/[ \t]*—[ \t]*|[ \t]+–[ \t]+/g, ', ')
+      .replace(/,[ \t]*([,.;:!?])/g, '$1');
+  }
   function render(text) {
-    var blocks = text.replace(/\r/g, '').trim().split(/\n{2,}/);
+    var blocks = plain(text.replace(/\r/g, '')).trim().split(/\n{2,}/);
     return blocks.map(function (block) {
       var lines = block.split('\n');
       if (lines.every(function (l) { return /^\s*[-*•] /.test(l); })) {
