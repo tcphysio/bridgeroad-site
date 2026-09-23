@@ -154,7 +154,17 @@ window.BRP = (function () {
        enquiry_error              Enquiry failed to send; patient shown the
                                   phone number instead
        enquiry_invalid            Submission blocked by inline validation;
-                                  detail is the offending field name          */
+                                  detail is the offending field name
+       menu_open                  Menu drawer opened (phones and tablets)
+       chat_open                  Chat assistant opened
+       chat_message               A question was sent to the assistant. Never
+                                  carries the text of the question
+       chat_suggestion            A suggested question was tapped; detail is
+                                  its position, 1 to 4
+       chat_error                 The assistant could not answer; the patient
+                                  was shown the phone number and email
+       chat_link_click            A page link inside a chat reply. Links to
+                                  Book, phone and email use the events above */
 
   cfg.track = function (action, detail) {
     try {
