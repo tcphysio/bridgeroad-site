@@ -498,3 +498,14 @@ ol.plist{list-style:none;padding-left:0}
 .sd__img img{display:block;width:100%;height:auto}
 .faq-list{border-top:1px solid var(--line)}
 .sd__links{display:flex;flex-wrap:wrap;gap:.25rem 1.5rem;margin-top:1.25rem}
+
+/* ===== Desktop hero and header fit =====
+   The hero used to fill 92% of the window with its text pinned to the
+   bottom, which left a band of empty green above the headline on tall or
+   wide screens. It now sizes to its content within sensible limits and
+   centres the text. Between tablet and wide desktop the full link row does
+   not fit beside the logo and button, so the menu button takes over. */
+@media(min-width:901px){.hero{min-height:clamp(520px,70svh,720px);align-items:center;padding-block:9rem 4.5rem}}
+@media(min-width:821px) and (max-width:1180px){.nav__links{display:none}.burger{display:flex}.nav__phone{display:none}}
+.nav__right .btn{white-space:nowrap}
+.logo{flex:none}
