@@ -256,3 +256,66 @@ The three unused service photos already in the repo cover running, gym and crick
 4. **Scroll animations:** remove on mobile entirely (my recommendation), or keep a short fade?
 5. **GTM:** install now or leave out?
 6. **Branch:** the brief says `seo-review-fixes`. This session is set to push to `claude/new-session-aau2am`. Tell me which one to use.
+
+---
+
+# Phase 2 and 3 results (23 September 2026)
+
+Branch `seo-review-fixes`. Decisions applied: Google star rating plus link with no excerpts, keep team logos, build services out in place, keep a short scroll fade, GTM installed.
+
+## What changed
+
+| Area | Change | Audit refs |
+|---|---|---|
+| Brand | Homepage title leads with the clinic name. H1 now reads "Bridge Road Physiotherapy, Richmond" above the headline. Mobile topbar keeps "inside Uplift Gym". | 1.1, 1.2, 1.4 |
+| Schema | Clinic node: Maps CID URL, Halaxy in `sameAs` and as a ReserveAction, service URLs, photo as image. Person node added on about.html with AHPRA number. Article author and publisher linked to both. | 1.6 to 1.9 |
+| URLs | Home links go to `/`. `/index.html` 308s to `/`. | 1.12 |
+| Duplicates | FAQ lengths and parking answers, fees cancellation block and the services cricket section trimmed to a line and a link. FAQPage schema regenerated from visible text. | 2.1 to 2.5 |
+| Location | Get directions button, entrance photo slot (labelled placeholder), three-step arrival list on the homepage and contact page. | 5.1 to 5.6 |
+| Mobile motion | Opacity-only 0.35s fade, hidden only once the observer runs. Hero text static. Header no longer tucks on phones. Background drift off on phones. | 6.1 to 6.4 |
+| Trust | Trust strip is a grid on phones: AHPRA, 20+ years, elite sport, rebates on the spot, same physio. Star rating slot and reviews link. Excerpt renderer deleted. "Production line" heading reworded. | 4.1 to 4.9 |
+| Services | Byline, review date, jump links, per-service summary, first-appointment detail, two questions each, three photos. cricket.html gets byline, photo, article link and three questions. | 3.1 to 3.5 |
+| Technical | Security headers, image caching, `.vercelignore`, OG tags on policy pages, 404 canonical removed, blog breadcrumbs, blog intro fixed, sitemap dates. | 7.1 to 7.7, 8.2, 8.6, 8.7 |
+| Analytics | GTM on every served page, privacy policy section added, `directions_click` event added. | 7.9 |
+
+## Verification
+
+- All JSON-LD blocks parse, and required fields are present for each type.
+- Every internal link, asset path and cross-page anchor resolves.
+- No duplicate titles, meta descriptions or H1s among indexable pages.
+- New copy: no em dashes. No US spellings outside CSS and Google's own product name. No "specialist", "expert", "best", "guaranteed" or "cure" claims.
+- Rendered at 375px and 414px: no horizontal scroll, hero text visible at 200ms, trust strip fully visible above the Call/Book bar, every scroll-faded block visible after scrolling, all content visible with JavaScript off.
+
+## What remains
+
+- **Content Security Policy.** Not added. The site uses inline `onclick` handlers and inline scripts, so a CSP needs `unsafe-inline` or a refactor first.
+- **Duplicate mobile CSS** at the 820px and 900px breakpoints (6.10). Left alone to avoid regressions. Worth a tidy later.
+- **Font weights** (6.11). Not trimmed.
+- **Unused `logo-cream.svg`.** Left in place.
+- **Opening hours** in schema, pending the facts below.
+- **Star rating** renders only once real figures go into `site-config.js`.
+
+## Final TODO(Thihan) list
+
+Facts (search the source for `TODO(Thihan)`):
+
+1. Opening hours, for schema and the site.
+2. Confirm `https://maps.google.com/?cid=1065459174822192104` opens the listing.
+3. APA membership: current or not.
+4. When the gym door is locked, and what a patient does then.
+5. Parking: on-site or not, nearest unrestricted streets, time limits.
+6. Nearest tram stop number, and the easier train station.
+7. Step-free access, stairs or lift, accessible toilet.
+8. References for the fast bowler article.
+9. Rights and player consent for the two match photos (`fast-bowler-delivery-stride.webp`, `thihan-chandramohan-cricket-sports-assessment.webp`) and permission for each team logo.
+10. AFL roles: detail or drop.
+11. Google rating, review count and date, when you decide to switch the rating on.
+
+Clinical wording to review (search for `REVIEW(Thihan)`): the service page answers on scans, rest, training, running and shoes, the junior fast bowler answer on cricket.html, and the outcome statements in the fast bowler article.
+
+Photos to take:
+
+1. `img/entrance-uplift-gym-bridge-rd.jpg`: Uplift Gym street entrance from the footpath, daylight, landscape orientation, 1200 x 800. Replaces the placeholder.
+2. Optional: arrival seating area, treatment space, building from across Bridge Road.
+
+GTM dashboard setup is in the session notes: GA4 tag, `brp_event` trigger, `brp_action` and `brp_detail` variables, Ads conversion tags for `phone_click`, `book_click` and `enquiry_submit`, and a Conversion Linker.
