@@ -21,10 +21,10 @@
    The response is cached at the edge for five minutes, so the page is served
    from cache rather than a cold function on nearly every hit, and the switch
    to the ended state lands within five minutes of midnight in Melbourne on
-   5 October 2026. That window is deliberate: it trades an exact-to-the-second
+   1 December 2026. That window is deliberate: it trades an exact-to-the-second
    cutover for a page that loads like a static file during the campaign, which
    is what the ads are paying for. The offer terms say the appointment must be
-   attended by 4 October, so nothing turns on those five minutes.
+   attended by 30 November, so nothing turns on those five minutes.
    ========================================================================== */
 
 'use strict';

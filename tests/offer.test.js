@@ -1,7 +1,7 @@
 /* ============================================================================
-   Tests for the school holiday offer
+   Tests for the spring new patient offer
    ----------------------------------------------------------------------------
-   Run:  node --test tests/
+   Run:  node --test tests/offer.test.js
 
    No test framework and no dependencies, because the site has no build step
    and no package.json, and adding one for two landing pages is not worth it.
@@ -24,31 +24,31 @@ const ACTIVE = renderOfferPage(SOURCE, 'active');
 const ENDED = renderOfferPage(SOURCE, 'ended');
 const EVERGREEN = fs.readFileSync(path.join(ROOT, 'physio-richmond.html'), 'utf8');
 
-/* Melbourne is on daylight saving (UTC+11) by the end of 4 October 2026: the
-   change happens at 2 am that morning. So the last second of the offer is
-   2026-10-04T23:59:59+11:00, which is 12:59:59 UTC, and the offer ends one
-   second later at 13:00:00 UTC. Every instant below is written in UTC so the
+/* Melbourne is on daylight saving (UTC+11) on 30 November 2026. So the last
+   second of the offer is 2026-11-30T23:59:59+11:00, which is 12:59:59 UTC, and
+   the offer ends one second later at 13:00:00 UTC. Every instant below is written in UTC so the
    test states the conversion rather than assuming it. */
-const LAST_SECOND_UTC = '2026-10-04T12:59:59Z';
-const FIRST_SECOND_AFTER_UTC = '2026-10-04T13:00:00Z';
+const LAST_SECOND_UTC = '2026-11-30T12:59:59Z';
+const FIRST_SECOND_AFTER_UTC = '2026-11-30T13:00:00Z';
 
-test('the offer is active at 11:59:59 pm on 4 October 2026 in Melbourne', () => {
+test('the offer is active at 11:59:59 pm on 30 November 2026 in Melbourne', () => {
   const at = new Date(LAST_SECOND_UTC);
-  assert.strictEqual(melbourneWallClock(at), '2026-10-04T23:59:59');
+  assert.strictEqual(melbourneWallClock(at), '2026-11-30T23:59:59');
   assert.strictEqual(offerState(at), 'active');
 });
 
-test('the offer has ended at 12:00:00 am on 5 October 2026 in Melbourne', () => {
+test('the offer has ended at 12:00:00 am on 1 December 2026 in Melbourne', () => {
   const at = new Date(FIRST_SECOND_AFTER_UTC);
-  assert.strictEqual(melbourneWallClock(at), '2026-10-05T00:00:00');
+  assert.strictEqual(melbourneWallClock(at), '2026-12-01T00:00:00');
   assert.strictEqual(offerState(at), 'ended');
 });
 
 test('the boundary is the Melbourne clock, not UTC', () => {
-  /* Midnight UTC on 5 October is 11 am on the 5th in Melbourne: well past the
-     end. Midday UTC on the 4th is 11 pm on the 4th in Melbourne: still on. */
-  assert.strictEqual(offerState(new Date('2026-10-05T00:00:00Z')), 'ended');
-  assert.strictEqual(offerState(new Date('2026-10-04T12:00:00Z')), 'active');
+  /* Midnight UTC on 1 December is 11 am on the 1st in Melbourne: well past
+     the end. Midday UTC on 30 November is 11 pm on the 30th in Melbourne:
+     still on. */
+  assert.strictEqual(offerState(new Date('2026-12-01T00:00:00Z')), 'ended');
+  assert.strictEqual(offerState(new Date('2026-11-30T12:00:00Z')), 'active');
 });
 
 test('daylight saving is read from the timezone database, not a fixed offset', () => {
@@ -87,8 +87,8 @@ test('the campaign figures agree with each other', () => {
   /* site-config.js is a browser file, so read it rather than requiring it. */
   const cfg = fs.readFileSync(path.join(ROOT, 'site-config.js'), 'utf8');
   for (const line of [
-    "name: 'school_holiday_2026'", 'standardFee: 180', 'offerFee: 144',
-    'saving: 36', 'percent: 20', "endsLabel: '4 October 2026'"
+    "name: 'spring_2026'", "code: 'SPRING20'", 'standardFee: 180', 'offerFee: 144',
+    'saving: 36', 'percent: 20', "endsAt: '" + OFFER.endsAt + "'", "endsLabel: '30 November 2026'"
   ]) {
     assert.ok(cfg.includes(line), 'site-config.js is missing ' + line);
   }
@@ -111,19 +111,20 @@ test('rendering leaves no trace of the state that was not taken', () => {
 });
 
 test('the active page states the price, the saving and the expiry', () => {
-  assert.ok(ACTIVE.includes('School holiday new patient offer'));
+  assert.ok(ACTIVE.includes('Spring new patient offer'));
   assert.ok(ACTIVE.includes('Get back to doing what you enjoy.'));
   assert.ok(ACTIVE.includes('<s>$180</s>'));
   assert.ok(ACTIVE.includes('<span class="sr-only">Standard fee </span>'));
   assert.ok(ACTIVE.includes('<span class="sr-only">Offer fee </span>$144'));
   assert.ok(ACTIVE.includes('Save $36'));
-  assert.ok(ACTIVE.includes('Ends 4 October 2026'));
+  assert.ok(ACTIVE.includes('Ends 30 November 2026'));
 });
 
 test('the full terms sit next to the final call to action, unabbreviated', () => {
   const TERMS = 'New patients only. 20% off one standard initial physiotherapy ' +
-    'consultation. Standard fee $180. Offer fee $144. Appointment must be attended ' +
-    'by 4 October 2026. Subject to availability. Not valid with another offer. ' +
+    'consultation. Standard fee $180. Offer fee $144. Enter code SPRING20 in the ' +
+    'booking notes when you book; the offer fee is applied to your invoice. ' +
+    'Appointment must be attended by 30 November 2026. Subject to availability. Not valid with another offer. ' +
     'Extended consultations and other appointment types are excluded.';
   assert.ok(ACTIVE.includes(TERMS), 'the required terms are missing or altered');
   assert.ok(!/T&Cs? apply/i.test(ACTIVE), 'the terms have been shortened');
@@ -134,7 +135,7 @@ test('the full terms sit next to the final call to action, unabbreviated', () =>
 });
 
 test('the ended page drops every promotional claim', () => {
-  for (const gone of ['$144', '$180', 'Save $36', '20% off', 'School holiday new patient offer',
+  for (const gone of ['$144', '$180', 'Save $36', '20% off', 'Spring new patient offer', 'SPRING20',
                       'schema.org', 'offer-sticky', 'data-cta-promo']) {
     assert.ok(!ENDED.includes(gone), 'the ended page still contains "' + gone + '"');
   }
@@ -156,7 +157,7 @@ test('every active booking CTA carries the promotional link and its tracking', (
   assert.strictEqual(links.length, 4, 'expected header, hero, final and sticky booking CTAs');
   for (const a of links) {
     assert.ok(/data-cta-promo/.test(a), 'a promotional CTA is not marked as one: ' + a);
-    assert.ok(/href="\/book\.html\?offer=school-holiday"/.test(a), 'unexpected booking href: ' + a);
+    assert.ok(/href="\/book\.html\?offer=spring"/.test(a), 'unexpected booking href: ' + a);
     assert.ok(/data-cta-location="(header|hero|final|sticky)"/.test(a), 'a CTA has no location: ' + a);
   }
 });
@@ -211,4 +212,16 @@ test('the routes the ads point at are wired up', () => {
   assert.ok(!fs.existsSync(path.join(ROOT, 'new-patient-offer.html')),
     'a file at new-patient-offer.html would be served instead of the function');
   assert.strictEqual(vercel.functions['api/new-patient-offer.js'].includeFiles, 'new-patient-offer-source.html');
+});
+
+test('the discount code is shown wherever a patient books', () => {
+  assert.strictEqual(OFFER.code, 'SPRING20');
+  /* Hero intro, the code box in the panel, the final block, the full terms. */
+  assert.ok((ACTIVE.match(/SPRING20/g) || []).length >= 4, 'the code is missing from the active page');
+  assert.ok(ACTIVE.includes('<p class="offer-code">'), 'the code box is missing from the offer panel');
+  /* The booking page banner is what the patient reads beside the calendar. */
+  const book = fs.readFileSync(path.join(ROOT, 'book.html'), 'utf8');
+  assert.ok(/id="offer-banner"[^>]*hidden/.test(book), 'the booking banner is not hidden by default');
+  assert.ok(book.includes('SPRING20') && book.includes('30 November 2026'), 'the booking banner is out of date');
+  assert.ok(!/school holiday/i.test(book + ACTIVE + ENDED + EVERGREEN), 'school holiday wording is left over');
 });

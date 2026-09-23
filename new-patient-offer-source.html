@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  Bridge Road Physiotherapy — school holiday new patient offer
+  Bridge Road Physiotherapy — spring new patient offer
   ----------------------------------------------------------------------------
   THIS FILE IS NOT SERVED DIRECTLY. It holds BOTH states of the campaign page.
   api/new-patient-offer.js reads it, strips the state that does not apply and
@@ -8,7 +8,7 @@
   the clean one, so nobody ever sees this file with both states in it.
 
     OFFER:ACTIVE block  ... shown while the offer runs ...
-    OFFER:ENDED block   ... shown from midnight, 5 Oct 2026, Melbourne time ...
+    OFFER:ENDED block   ... shown from midnight, 1 Dec 2026, Melbourne time ...
 
   (written as HTML comments in the markup below; they are deliberately not
   repeated verbatim here, because the stripper would treat them as real)
@@ -20,28 +20,29 @@
     - The full terms appear in FULL next to the final call to action. They are
       never shortened to "T&Cs apply".
 -->
-<html lang="en-AU" data-offer-state="active" data-campaign="school_holiday_2026">
+<html lang="en-AU" data-offer-state="active" data-campaign="spring_2026">
 <head>
 <meta charset="UTF-8">
+<!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MZ36ZHQQ');</script><!-- End Google Tag Manager -->
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <!--OFFER:ACTIVE-->
 <title>20% Off Initial Physio | Bridge Road Physiotherapy</title>
-<meta name="description" content="New patients receive 20% off a standard initial physiotherapy consultation in Richmond. $180 normally, $144 until 4 October 2026. Terms apply.">
+<meta name="description" content="New patients receive 20% off a standard initial physiotherapy consultation in Richmond. $180 normally, $144 with code SPRING20 until 30 November 2026. Terms apply.">
 <meta property="og:title" content="20% Off Initial Physio | Bridge Road Physiotherapy">
-<meta property="og:description" content="New patients receive 20% off a standard initial physiotherapy consultation in Richmond. $180 normally, $144 until 4 October 2026. Terms apply.">
+<meta property="og:description" content="New patients receive 20% off a standard initial physiotherapy consultation in Richmond. $180 normally, $144 with code SPRING20 until 30 November 2026. Terms apply.">
 <meta property="og:image" content="https://www.bridgeroad.physio/og-new-patient-offer.jpg">
-<meta property="og:image:alt" content="Bridge Road Physiotherapy. 20% off initial physiotherapy, $180 down to $144. New patients, ends 4 October. Bridge Road, Richmond.">
+<meta property="og:image:alt" content="Bridge Road Physiotherapy. 20% off initial physiotherapy, $180 down to $144. New patients, code SPRING20, ends 30 November. Bridge Road, Richmond.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Offer",
-  "name": "New patient school holiday offer",
-  "description": "20% off one standard initial physiotherapy consultation for new patients at Bridge Road Physiotherapy, Richmond. Appointment must be attended by 4 October 2026.",
+  "name": "Spring new patient offer",
+  "description": "20% off one standard initial physiotherapy consultation for new patients at Bridge Road Physiotherapy, Richmond. Enter code SPRING20 in the booking notes. Appointment must be attended by 30 November 2026.",
   "url": "https://www.bridgeroad.physio/new-patient-offer",
   "price": "144.00",
   "priceCurrency": "AUD",
   "availability": "https://schema.org/LimitedAvailability",
-  "validThrough": "2026-10-04T23:59:59+11:00",
+  "validThrough": "2026-11-30T23:59:59+11:00",
   "eligibleCustomerType": "https://schema.org/NewCustomer",
   "itemOffered": {
     "@type": "Service",
@@ -55,7 +56,7 @@
 <!--/OFFER:ACTIVE-->
 <!--OFFER:ENDED-->
 <title>New Patient Offer Has Ended | Bridge Road Physiotherapy</title>
-<meta name="description" content="The school holiday new patient offer has ended. You can still book a physiotherapy appointment with Bridge Road Physiotherapy in Richmond.">
+<meta name="description" content="The spring new patient offer has ended. You can still book a physiotherapy appointment with Bridge Road Physiotherapy in Richmond.">
 <meta property="og:title" content="Bridge Road Physiotherapy, Richmond">
 <meta property="og:description" content="Physiotherapy for sports injuries and everyday aches and pains, inside Uplift Gym on Bridge Road, Richmond. Book an appointment online.">
 <meta property="og:image" content="https://www.bridgeroad.physio/og-image.jpg">
@@ -80,6 +81,7 @@
 <link rel="stylesheet" href="/style.css">
 </head>
 <body class="offer-page">
+<!-- Google Tag Manager (noscript) --><noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MZ36ZHQQ" height="0" width="0" style="display:none;visibility:hidden" title="Google Tag Manager"></iframe></noscript><!-- End Google Tag Manager (noscript) -->
 <a class="skip-link" href="#main">Skip to content</a>
 
 <!-- Reduced campaign header. No primary navigation: the only job of this page
@@ -98,7 +100,7 @@
         <span>Inside Uplift Gym, Richmond</span>
       </a>
       <!--OFFER:ACTIVE-->
-      <a href="/book.html?offer=school-holiday" class="btn btn--primary" data-cta="book" data-cta-location="header" data-cta-promo>Book for $144</a>
+      <a href="/book.html?offer=spring" class="btn btn--primary" data-cta="book" data-cta-location="header" data-cta-promo>Book for $144</a>
       <!--/OFFER:ACTIVE-->
       <!--OFFER:ENDED-->
       <a href="/book.html" class="btn btn--primary" data-cta="book" data-cta-location="header">Book a standard appointment</a>
@@ -116,9 +118,9 @@
   <div class="container offer-grid">
     <div>
       <!--OFFER:ACTIVE-->
-      <span class="eyebrow"><span class="dot"></span>School holiday new patient offer</span>
+      <span class="eyebrow"><span class="dot"></span>Spring new patient offer</span>
       <h1>Get back to doing what you enjoy.</h1>
-      <p class="offer-hero__intro">20% off a standard initial physiotherapy consultation for new patients during the school holidays.</p>
+      <p class="offer-hero__intro">20% off a standard initial physiotherapy consultation for new patients this spring. Use code <strong>SPRING20</strong> when you book.</p>
       <!--/OFFER:ACTIVE-->
       <!--OFFER:ENDED-->
       <span class="eyebrow"><span class="dot"></span>This offer has ended</span>
@@ -134,10 +136,11 @@
         <span class="offer-price__was"><span class="sr-only">Standard fee </span><s>$180</s></span>
         <span class="offer-price__now"><span class="sr-only">Offer fee </span>$144</span>
       </p>
-      <p class="offer-meta"><span>Save $36</span><span>Ends 4 October 2026</span></p>
-      <a href="/book.html?offer=school-holiday" class="btn btn--white" data-cta="book" data-cta-location="hero" data-cta-promo data-sticky-after>Book an appointment for $144</a>
+      <p class="offer-meta"><span>Save $36</span><span>Ends 30 November 2026</span></p>
+      <p class="offer-code">Code <strong>SPRING20</strong><span>Add it to the notes when you book</span></p>
+      <a href="/book.html?offer=spring" class="btn btn--white" data-cta="book" data-cta-location="hero" data-cta-promo data-sticky-after>Book an appointment for $144</a>
       <p class="offer-panel__support">Inside Uplift Gym on Bridge Road, Richmond.</p>
-      <p class="offer-panel__terms">New patients only. Appointment must be attended by 4 October 2026. Subject to availability.</p>
+      <p class="offer-panel__terms">New patients only. Book a standard Initial Consultation and enter SPRING20 in the booking notes. Appointment must be attended by 30 November 2026. Subject to availability.</p>
     </aside>
     <!--/OFFER:ACTIVE-->
 
@@ -163,7 +166,7 @@
 <section class="section section--paper">
   <div class="container">
     <div class="offer-ended-note">
-      <p><strong>The school holiday offer closed on 4 October 2026.</strong> Standard fees apply. For what physiotherapy at Bridge Road looks like, and how to book, see <a href="/physio-richmond" style="color:var(--green);font-weight:600">physiotherapy in Richmond</a>.</p>
+      <p><strong>The spring offer closed on 30 November 2026.</strong> Standard fees apply. For what physiotherapy at Bridge Road looks like, and how to book, see <a href="/physio-richmond" style="color:var(--green);font-weight:600">physiotherapy in Richmond</a>.</p>
     </div>
   </div>
 </section>
@@ -242,7 +245,7 @@
       <div>
         <p class="label">Your physiotherapist</p>
         <h2>Meet Thihan Chandramohan</h2>
-        <p style="margin-top:1.25rem">Thihan is an AHPRA registered physiotherapist with more than 20 years of clinical experience. More than 15 of those years have been spent in elite sport, mainly professional and international cricket, along with AFL environments. He now brings the same structured approach to people living, working and training around Richmond.</p>
+        <p style="margin-top:1.25rem">Thihan is an AHPRA registered physiotherapist with more than 20 years of clinical experience. More than 15 of those years have been spent in elite sport, mainly professional and international cricket, along with consulting work for St Kilda Football Club in the AFL. He now brings the same structured approach to people living, working and training around Richmond.</p>
         <p style="margin-top:1rem"><a href="/about.html" class="svc__link">More about Thihan <span class="arr">&rarr;</span></a></p>
       </div>
     </div>
@@ -285,12 +288,12 @@
   <div class="container">
     <h2>Ready to get started?</h2>
     <!--OFFER:ACTIVE-->
-    <p>Book a standard initial consultation for $144 during the school holiday offer.</p>
+    <p>Book a standard Initial Consultation and enter <strong>SPRING20</strong> in the booking notes. You pay $144 instead of $180.</p>
     <div class="cta__row">
-      <a href="/book.html?offer=school-holiday" class="btn btn--white" data-cta="book" data-cta-location="final" data-cta-promo>Book an appointment for $144</a>
+      <a href="/book.html?offer=spring" class="btn btn--white" data-cta="book" data-cta-location="final" data-cta-promo>Book an appointment for $144</a>
       <a href="tel:+61458007583" class="btn btn--ghost on-dark" data-cta="phone" data-cta-location="final">Call 0458 007 583</a>
     </div>
-    <p class="offer-terms offer-terms--on-green">New patients only. 20% off one standard initial physiotherapy consultation. Standard fee $180. Offer fee $144. Appointment must be attended by 4 October 2026. Subject to availability. Not valid with another offer. Extended consultations and other appointment types are excluded.</p>
+    <p class="offer-terms offer-terms--on-green">New patients only. 20% off one standard initial physiotherapy consultation. Standard fee $180. Offer fee $144. Enter code SPRING20 in the booking notes when you book; the offer fee is applied to your invoice. Appointment must be attended by 30 November 2026. Subject to availability. Not valid with another offer. Extended consultations and other appointment types are excluded.</p>
     <!--/OFFER:ACTIVE-->
     <!--OFFER:ENDED-->
     <p>Book a standard initial consultation, or call if you want to check which appointment suits.</p>
@@ -298,7 +301,7 @@
       <a href="/book.html" class="btn btn--white" data-cta="book" data-cta-location="final">Book a standard appointment</a>
       <a href="tel:+61458007583" class="btn btn--ghost on-dark" data-cta="phone" data-cta-location="final">Call 0458 007 583</a>
     </div>
-    <p class="offer-terms offer-terms--on-green">The school holiday new patient offer closed on 4 October 2026. Standard fees apply. See <a href="/fees.html" style="color:#fff;text-decoration:underline">fees and appointment types</a>.</p>
+    <p class="offer-terms offer-terms--on-green">The spring new patient offer closed on 30 November 2026. Standard fees apply. See <a href="/fees.html" style="color:#fff;text-decoration:underline">fees and appointment types</a>.</p>
     <!--/OFFER:ENDED-->
   </div>
 </section>
@@ -307,8 +310,8 @@
 <!-- Sticky booking bar, mobile only. Last thing in <main> and a plain link, so
      it takes focus in document order and cannot trap it. -->
 <div class="offer-sticky">
-  <span class="offer-sticky__note"><b>$144 initial consultation</b>New patients &middot; Ends 4 Oct</span>
-  <a href="/book.html?offer=school-holiday" class="btn btn--white" data-cta="book" data-cta-location="sticky" data-cta-promo>Book for $144</a>
+  <span class="offer-sticky__note"><b>$144 initial consultation</b>Code SPRING20 &middot; Ends 30 Nov</span>
+  <a href="/book.html?offer=spring" class="btn btn--white" data-cta="book" data-cta-location="sticky" data-cta-promo>Book for $144</a>
 </div>
 <!--/OFFER:ACTIVE-->
 

@@ -107,28 +107,24 @@ window.BRP = (function () {
       { label: 'Review consultation, online',      minutes: 30, price: 120, online: true  }
     ],
 
-    /* --- School holiday new patient offer ------------------------------ *
+    /* --- Spring new patient offer ------------------------------------- *
        The campaign behind /new-patient-offer. These figures also appear in
        the page copy, in the required terms and in api/_offer.js, which is
        what actually decides whether the offer is running. Change a figure
-       and all four move together, plus the Halaxy fee and the ad copy.
+       and all of them move together, plus the ad copy.
 
-       halaxyOfferUrl is the ONE thing still to fill in. It is the direct
-       link to the "New Patient School Holiday Offer" appointment type, which
-       has to be created in Halaxy by hand; see CAMPAIGN.md. While it is null
-       every promotional call to action goes to /book.html, which is a real
-       booking page, so no ad ever lands on a dead link. Paste the verified
-       URL here and every promotional call to action follows it.           */
+       There is no separate Halaxy appointment type. Patients book a standard
+       Initial Consultation and type the code in the booking notes; the
+       discount is applied when the appointment is invoiced. See CAMPAIGN.md. */
     campaign: {
-      name: 'school_holiday_2026',
+      name: 'spring_2026',
+      code: 'SPRING20',
       standardFee: 180,
       offerFee: 144,
       saving: 36,
       percent: 20,
-      endsAt: '2026-10-04T23:59:59',   // Melbourne wall clock, inclusive
-      endsLabel: '4 October 2026',
-      halaxyOfferUrl: null,
-      halaxyAppointmentName: 'New Patient School Holiday Offer'
+      endsAt: '2026-11-30T23:59:59',   // Melbourne wall clock, inclusive
+      endsLabel: '30 November 2026'
     }
   };
 
@@ -145,6 +141,8 @@ window.BRP = (function () {
 
      Event names in use:
        book_click                 Book now / Book an appointment
+       campaign_landing_view      /new-patient-offer or /physio-richmond loaded;
+                                  detail carries campaign and offer state
        booking_widget_view        Halaxy booking widget rendered on /book.html
        phone_click                Any tel: link
        email_click                Any mailto: link

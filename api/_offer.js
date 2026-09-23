@@ -1,5 +1,5 @@
 /* ============================================================================
-   Bridge Road Physiotherapy — school holiday offer state
+   Bridge Road Physiotherapy — spring offer state
    ----------------------------------------------------------------------------
    One place that decides whether the new patient offer is running, and one
    place that turns the source page into its active or ended form.
@@ -15,8 +15,8 @@
    TIMEZONE
    Melbourne, always. Never the visitor's clock and never the server's, which
    on Vercel is UTC. The comparison is done on the Melbourne wall clock through
-   Intl, so the daylight saving change on 4 October 2026 is handled by the
-   timezone database rather than by a hardcoded +10 or +11 offset.
+   Intl, so daylight saving changes are handled by the timezone database
+   rather than by a hardcoded +10 or +11 offset.
 
    CHANGING THE OFFER
    Change OFFER below. The page copy, the terms, the tests and the ended state
@@ -28,17 +28,18 @@
 const TZ = 'Australia/Melbourne';
 
 const OFFER = {
-  campaign: 'school_holiday_2026',
+  campaign: 'spring_2026',
+  code: 'SPRING20',
   standardFee: 180,
   offerFee: 144,
   saving: 36,
   percent: 20,
   /* Last moment the offer runs, as a Melbourne wall clock time, inclusive.
-     11:59:59 pm on 4 October 2026. One second later the page is in its
+     11:59:59 pm on 30 November 2026. One second later the page is in its
      ended state. */
-  endsAt: '2026-10-04T23:59:59',
-  endsLabel: '4 October 2026',
-  endsShort: '4 Oct'
+  endsAt: '2026-11-30T23:59:59',
+  endsLabel: '30 November 2026',
+  endsShort: '30 Nov'
 };
 
 /* The visitor's instant, expressed as a Melbourne wall clock string in the
@@ -60,7 +61,7 @@ function melbourneWallClock(date) {
   return p.year + '-' + p.month + '-' + p.day + 'T' + hour + ':' + p.minute + ':' + p.second;
 }
 
-/* 'active' while the offer runs, 'ended' from midnight on 5 October 2026. */
+/* 'active' while the offer runs, 'ended' from midnight on 1 December 2026. */
 function offerState(now) {
   return melbourneWallClock(now || new Date()) <= OFFER.endsAt ? 'active' : 'ended';
 }

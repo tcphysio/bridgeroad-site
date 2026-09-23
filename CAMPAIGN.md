@@ -1,11 +1,12 @@
-# School holiday new patient offer
+# Spring new patient offer
 
 Everything about the paid campaign that does not live in the code. Written for
 whoever runs the ads and the Halaxy calendar, not for a developer.
 
 **Offer:** 20% off one standard initial physiotherapy consultation, new
 patients only. Standard fee $180. Offer fee $144. Saving $36.
-**Ends:** 11:59 pm Sunday 4 October 2026, Melbourne time.
+**Code:** `SPRING20`, typed by the patient in the Halaxy booking notes.
+**Ends:** 11:59 pm Monday 30 November 2026, Melbourne time.
 **Landing page:** `https://www.bridgeroad.physio/new-patient-offer`
 
 ---
@@ -14,79 +15,72 @@ patients only. Standard fee $180. Offer fee $144. Saving $36.
 
 | URL | What it is | Indexed |
 |---|---|---|
-| `/new-patient-offer` | The campaign landing page. Switches itself to an ended state on 5 October. | No. `noindex,follow` |
-| `/physio-richmond` | The evergreen landing page. Where the ads point after 4 October. | No. `noindex,follow` |
-| `/book.html?offer=school-holiday` | The booking page, showing an offer banner when a visitor arrives from an ad. | Yes, as before |
+| `/new-patient-offer` | The campaign landing page. Switches itself to an ended state on 1 December. | No. `noindex,follow` |
+| `/physio-richmond` | The evergreen landing page. Where the ads point after 30 November. | No. `noindex,follow` |
+| `/book.html?offer=spring` | The booking page, showing the offer banner and the code when a visitor arrives from the offer page. | Yes, as before |
 
 `/` (the homepage) is still the page that ranks for "physio Richmond". See
 section 9 for why the evergreen page is not indexed.
 
 ---
 
-## 2. Blockers. Do not start the ads until these are done
+## 2. Before you start the ads
 
-1. **The Halaxy offer appointment type does not exist yet.** Until it does,
-   every promotional button goes to `/book.html`, the normal booking page.
-   A patient who clicks a $144 ad reaches a calendar showing $180. Section 3
-   says how to fix it.
-2. **Neither GA4 nor the Meta pixel is installed on this site.** The events in
-   section 4 are being written to a first-party queue and nothing is reading
-   them. Until a tracker is added, the only numbers available are what Meta
-   Ads Manager reports and what the Halaxy calendar shows.
-3. ~~`/new-patient-offer` has not run on Vercel yet.~~ **Checked and working.**
-   The preview build of commit `2f7ff2d` returned the offer page with a 200 and
-   the correct active-state markup, so the function reads its template and the
-   route is wired up. Re-check after any change to `vercel.json` or to the
-   template filename: a redirect to `/book.html` means the function failed to
-   read it.
+1. **Make sure the code gets seen at invoicing.** The discount is not applied
+   by Halaxy automatically. Whoever invoices an Initial Consultation has to
+   check the booking notes for `SPRING20` and apply the $144 fee. If Halaxy
+   takes payment at booking, the $36 has to go back as a part refund, so
+   decide which way you handle it before the first ad runs.
+2. **Set up the GA4 tag in Google Tag Manager.** GTM is installed on every
+   page, including both campaign pages. The events in section 4 reach the
+   data layer; GTM still needs a GA4 tag triggered on `brp_event` to send
+   them anywhere.
+3. **`/new-patient-offer` works on Vercel.** Checked on a preview build. Re-check
+   after any change to `vercel.json` or to the template filename: a redirect to
+   `/book.html` means the function failed to read it.
 
 ---
 
 ## 3. Halaxy setup
 
-Create one appointment type:
+No new appointment type. Patients book the standard **Initial Consultation**
+and type `SPRING20` in the booking notes. Every promotional button goes to
+`/book.html?offer=spring`, where a banner above the calendar tells them
+exactly that and repeats the terms.
 
-- **Name:** `New Patient School Holiday Offer`
-- **Fee:** `$144`
-- **Duration:** 45 minutes, the same as a standard initial consultation
-- **Description:** Standard initial physiotherapy consultation for new
-  patients. Offer fee $144. Appointment must be attended by 4 October 2026.
-  One offer per person. Subject to availability.
-- **Availability:** confirm there are bookable times before 4 October 2026
+At invoicing:
 
-Then copy its direct booking link and paste it into `site-config.js`:
+- Code present, new patient, attended by 30 November 2026: charge $144.
+- Code present but not eligible (returning patient, extended consultation,
+  attended after 30 November): charge the standard fee and say why.
+- No code: standard fee. Apply it anyway if the patient mentions the offer at
+  the appointment; the page promises the price, not a typing test.
 
-```js
-campaign: {
-  ...
-  halaxyOfferUrl: 'https://www.halaxy.com/…'   // currently null
-}
-```
-
-Every promotional button on the landing page picks it up. Nothing else needs
-changing. Test the link in a private browser window first: a Halaxy link that
-works while you are signed in does not always work for a stranger.
-
-When the offer ends, set `halaxyOfferUrl` back to `null` and archive the
-appointment type in Halaxy.
+Worth doing in Halaxy if the notes field is optional or easy to miss: add a
+line to the Initial Consultation description, "Spring offer: type SPRING20 in
+the notes", and remove it on 1 December.
 
 ---
 
 ## 4. Tracking
 
-Events are pushed to `window.dataLayer` under these names. Add GA4 through
-Google Tag Manager and they arrive with no markup changes.
+Events go through the same `BRP.track` function as the rest of the site, so
+they arrive in the data layer as `event: 'brp_event'` with the name in
+`brp_action` and the detail object in `brp_detail`. In GTM, trigger on the
+custom event `brp_event`.
 
-| Event | Fires on | Parameters |
+| `brp_action` | Fires on | `brp_detail` |
 |---|---|---|
 | `campaign_landing_view` | Campaign page loads | `campaign_name`, `page_path`, `offer_state` |
-| `book_appointment_click` | Any booking button | `campaign_name`, `cta_location`, `offer_state`, `destination_host` |
-| `contact_phone_click` | A phone link | `page_path`, `link_location` |
-| `contact_email_click` | An email link | `page_path`, `link_location` |
-| `map_click` | The Google Business Profile link | `page_path`, `link_location` |
+| `book_click` | Any booking button | `campaign_name`, `cta_location`, `offer_state`, `destination_host` |
+| `phone_click` | A phone link | `page_path`, `link_location` |
+| `email_click` | An email link | `page_path`, `link_location` |
+| `maps_click` | The Google Business Profile link | `page_path`, `link_location` |
 
-`campaign_name` is `school_holiday_2026`. `cta_location` is one of `header`,
-`hero`, `final`, `sticky` or `footer`.
+These are the same names the main site uses, so a report on `book_click` covers
+both. Filter on `brp_detail.campaign_name` to see campaign clicks alone.
+`campaign_name` is `spring_2026`. `cta_location` is one of `header`, `hero`,
+`final`, `sticky` or `footer`.
 
 For Meta, a booking click fires the custom event `BookingClick` when `fbq`
 exists. `Lead` and `Schedule` are deliberately not used: they should mean a
@@ -103,8 +97,8 @@ any analytics or advertising tool. Do not add one.
 Halaxy has no verified success redirect back to this site, so there is no
 automatic confirmed-booking event. Pick one of these:
 
-1. Read Halaxy by appointment type for the campaign period. Simplest, and good
-   enough for a 13-day campaign.
+1. Search Halaxy booking notes for `SPRING20` over the campaign period.
+   Simplest, and the code doubles as the tag.
 2. Reconcile by hand each week.
 3. Import offline conversions into Meta after a privacy review.
 
@@ -132,8 +126,8 @@ come from Halaxy.
 |---|---|
 | Ad spend | Platform spend for the period |
 | Landing page sessions | Sessions on `/new-patient-offer` |
-| Booking CTA clicks | `book_appointment_click` events |
-| Booked initial consultations | Confirmed bookings on the offer appointment type |
+| Booking CTA clicks | `book_click` events where `campaign_name` is `spring_2026` |
+| Booked initial consultations | Initial Consultations with `SPRING20` in the notes |
 | Cost per booked patient | Ad spend divided by confirmed bookings |
 | Attended initial consultations | Offer bookings marked attended |
 | Attendance rate | Attended divided by confirmed bookings |
@@ -152,7 +146,7 @@ columns apart or the campaign will look better than it is.
 ### Landing URLs
 
 ```
-https://bridgeroad.physio/new-patient-offer?utm_source=meta&utm_medium=paid_social&utm_campaign=school_holiday_2026&utm_content=local
+https://bridgeroad.physio/new-patient-offer?utm_source=meta&utm_medium=paid_social&utm_campaign=spring_2026&utm_content=local
 ```
 
 Change only `utm_content`: `local`, `sport`, `everyday`.
@@ -165,9 +159,10 @@ Change only `utm_content`: `local`, `sport`, `everyday`.
 | Retargeting | $5 |
 | **Total** | **$40** |
 
-22 September to 4 October 2026 is 13 days, so about **$520** at full spend.
-Starting later means $40 times the number of days running. Recalculate
-before launch rather than reusing that figure.
+23 September to 30 November 2026 is 69 days, so about **$2,760** at full
+spend. Starting later means $40 times the number of days running. Recalculate
+before launch rather than reusing that figure, and review after two weeks
+rather than letting it run unwatched for ten.
 
 ### Structure
 
@@ -185,25 +180,25 @@ is not enough budget for the algorithm to learn anything from each one.
 ### Ad copy
 
 The three prospecting ads and the two retargeting ads are in the brief and are
-unchanged. Every ad must carry the same figures as the page: new patients only,
-one standard initial consultation per person, $180 standard, $144 offer,
-attended by 4 October 2026, subject to availability, not valid with another
+unchanged apart from the season. Every ad must carry the same figures as the
+page: new patients only, one standard initial consultation per person, $180
+standard, $144 offer, code SPRING20, attended by 30 November 2026, subject to availability, not valid with another
 offer. An ad that states the terms differently from the page is the problem,
 not the page.
 
-After 4 October, point both retargeting ads at `/physio-richmond` and drop the
+After 30 November, point both retargeting ads at `/physio-richmond` and drop the
 audience exclusions tied to the offer.
 
 ---
 
-## 7. What happens on 5 October
+## 7. What happens on 1 December
 
 The page changes itself. Nobody needs to deploy anything.
 
-From midnight in Melbourne on 5 October 2026, `/new-patient-offer`:
+From midnight in Melbourne on 1 December 2026, `/new-patient-offer`:
 
 - leads with "This offer has ended" and "Need help with an injury?"
-- drops the prices, the saving, the promotional terms and the offer schema
+- drops the prices, the saving, the code, the promotional terms and the offer schema
 - drops the sticky booking bar
 - sends every button to the standard booking page
 - links to `/physio-richmond`
@@ -223,17 +218,15 @@ runs in the browser, and it fails closed: no JavaScript means no banner.
 
 Tick these off with evidence, not from memory.
 
-- [ ] Halaxy appointment type `New Patient School Holiday Offer` created
-- [ ] Halaxy fee set to $144
-- [ ] Eligibility and expiry wording added to the Halaxy description
-- [ ] Bookable availability exists before 4 October 2026
-- [ ] `halaxyOfferUrl` filled in and deployed
-- [ ] Promotional booking URL opened in a private browser window
+- [ ] Decided how the $36 comes off: at invoicing, or as a part refund
+- [ ] Confirmed the Halaxy booking notes field is visible to new patients
+- [ ] Bookable availability exists before 30 November 2026
+- [ ] `/book.html?offer=spring` opened in a private browser window, banner shows
 - [ ] Standard booking URL checked
 - [ ] Google Business Profile link checked
 - [x] `/new-patient-offer` loads on a Vercel preview and shows the offer
-- [ ] GA4 and the Meta pixel installed, with the consent behaviour checked
-- [ ] Test booking made end to end
+- [ ] GA4 tag in GTM firing on `brp_event`; Meta pixel added through GTM if wanted
+- [ ] Test booking made end to end, with SPRING20 in the notes
 - [ ] Test booking cancelled, or clearly marked as a test in Halaxy
 - [ ] Page opened on a real iPhone and a real Android handset
 - [ ] Ad copy matches the page on price, eligibility and expiry
@@ -294,13 +287,17 @@ someone engaging with health content.
 
 ## 11. Changing the numbers
 
-Three files hold the offer figures and they have to agree:
+Four files hold the offer figures and they have to agree:
 
 - `api/_offer.js`: the `OFFER` block. This one decides whether the offer runs.
 - `site-config.js`: `window.BRP.campaign`. What the browser reads.
 - `new-patient-offer-source.html`: the page copy and the required terms.
+- `book.html`: the offer banner above the calendar.
 
-Change one, change all three, then run `node --test "tests/*.test.js"`. A test
+The share image, `og-new-patient-offer.jpg`, carries the code and end date
+too. Edit `tools/og-new-patient-offer.html` and run `node tools/og-render.js`.
+
+Change one, change them all, then run `node --test tests/offer.test.js`. A test
 checks the figures agree and that the terms appear in full below the final
 button. It also checks the standard initial consultation is still $180 on the
 fees list, because the whole offer is built on that number.

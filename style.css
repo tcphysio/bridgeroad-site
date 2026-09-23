@@ -578,6 +578,12 @@ ol.plist{list-style:none;padding-left:0}
 .offer-price__now{font-family:var(--serif);font-size:clamp(3rem,8vw,3.9rem);line-height:1;letter-spacing:-0.03em;color:#F3D5A9}
 .offer-meta{display:flex;flex-wrap:wrap;gap:.5rem;margin:.75rem 0 1.4rem}
 .offer-meta span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:.35rem .8rem;font-size:.88rem;font-weight:600}
+/* The discount code. Dashed like a voucher, so it reads as something to copy.
+   #F3D5A9 on --green-dark measures 7.3:1. */
+.offer-code{display:flex;flex-wrap:wrap;align-items:baseline;gap:.25rem .75rem;border:1.5px dashed rgba(243,213,169,.7);border-radius:12px;padding:.7rem .9rem;margin:-.4rem 0 1.4rem;font-size:.9rem}
+.offer-code strong{font-size:1.25rem;letter-spacing:.08em;color:#F3D5A9;user-select:all}
+.offer-code span{color:rgba(255,255,255,.85)}
+.offer-banner__code{font-size:1.05rem;letter-spacing:.06em;user-select:all}
 .offer-panel .btn--white{width:100%;font-size:1.02rem;padding:1em 1.4em;min-height:52px}
 .offer-panel__support{font-size:.94rem;color:rgba(255,255,255,.85);margin-top:.9rem}
 .offer-panel__terms{font-size:.84rem;line-height:1.55;color:rgba(255,255,255,.72);margin-top:.75rem;max-width:none}

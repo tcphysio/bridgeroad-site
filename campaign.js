@@ -3,16 +3,16 @@
    ----------------------------------------------------------------------------
    Loaded by /new-patient-offer and /physio-richmond only. Three jobs:
 
-     1. Conversion events, named the way the GA4 property expects them.
+     1. Conversion events, sent through the same BRP.track function and with
+        the same names as the rest of the site, so Google Tag Manager sees
+        one scheme: book_click, phone_click, email_click, maps_click, plus
+        campaign_landing_view for the page itself.
      2. The sticky mobile booking bar on the offer page.
-     3. Pointing the promotional CTAs at the Halaxy offer appointment type,
-        once that appointment type exists.
+     3. The offer banner on /book.html.
 
-   NO SECOND ANALYTICS LIBRARY. Events go into window.dataLayer, which is the
-   same queue site-config.js already writes to, plus gtag and fbq if the site
-   has loaded them. Nothing here loads a tracker, so nothing here needs its own
-   consent gate; the gate belongs on whatever loads GA4 and the Meta pixel.
-   See CAMPAIGN.md, which records that neither is installed yet.
+   NO SECOND ANALYTICS LIBRARY. Events go into window.dataLayer as brp_event,
+   which Google Tag Manager (loaded in the page head) reads, plus fbq if a
+   Meta pixel is ever added through GTM. Nothing here loads a tracker.
 
    NOTHING PERSONAL OR CLINICAL GOES INTO AN EVENT. Parameters are limited to
    the page path, where on the page the link sat, the campaign name, the offer
@@ -33,14 +33,8 @@
 
   /* --- event plumbing --------------------------------------------------- */
   function send(name, params) {
-    var payload = params || {};
     try {
-      window.dataLayer = window.dataLayer || [];
-      var forLayer = { event: name };
-      for (var k in payload) if (Object.prototype.hasOwnProperty.call(payload, k)) forLayer[k] = payload[k];
-      window.dataLayer.push(forLayer);
-      if (typeof window.gtag === 'function') window.gtag('event', name, payload);
-      document.dispatchEvent(new CustomEvent('brp:track', { detail: { action: name, detail: payload } }));
+      if (window.BRP && typeof window.BRP.track === 'function') window.BRP.track(name, params || null);
     } catch (e) { /* tracking must never block a booking */ }
   }
 
@@ -48,26 +42,6 @@
     try {
       if (typeof window.fbq === 'function') window.fbq('trackCustom', name, params || {});
     } catch (e) { /* as above */ }
-  }
-
-  /* --- the Halaxy offer appointment type -------------------------------- *
-     Set campaign.halaxyOfferUrl in site-config.js once the "New Patient School
-     Holiday Offer" appointment type exists in Halaxy. Until then the CTAs in
-     the markup point at /book.html, which is a real, working booking page, so
-     no ad ever lands on a dead link. */
-  function promoBookingUrl() {
-    var c = window.BRP && window.BRP.campaign;
-    return (c && c.halaxyOfferUrl) || null;
-  }
-
-  var promoUrl = offerState === 'active' ? promoBookingUrl() : null;
-  if (promoUrl) {
-    var promoLinks = document.querySelectorAll('a[data-cta="book"][data-cta-promo]');
-    for (var i = 0; i < promoLinks.length; i++) promoLinks[i].href = promoUrl;
-    /* script.js decorates outbound Halaxy links with the stored campaign
-       parameters on load. These links only just became Halaxy links, so ask
-       for that again. */
-    if (window.BRP && window.BRP.attribution) window.BRP.attribution.decorate();
   }
 
   /* --- page view --------------------------------------------------------- */
@@ -92,7 +66,7 @@
     var where = el.getAttribute('data-cta-location') || 'unknown';
 
     if (kind === 'book') {
-      send('book_appointment_click', {
+      send('book_click', {
         campaign_name: campaign,
         cta_location: where,
         offer_state: offerState,
@@ -102,9 +76,9 @@
       return;
     }
 
-    if (kind === 'phone') { send('contact_phone_click', { page_path: path, link_location: where }); return; }
-    if (kind === 'email') { send('contact_email_click', { page_path: path, link_location: where }); return; }
-    if (kind === 'map')   { send('map_click',           { page_path: path, link_location: where }); }
+    if (kind === 'phone') { send('phone_click', { page_path: path, link_location: where }); return; }
+    if (kind === 'email') { send('email_click', { page_path: path, link_location: where }); return; }
+    if (kind === 'map')   { send('maps_click',{ page_path: path, link_location: where }); }
   });
 
   /* --- sticky mobile booking bar ----------------------------------------- *
@@ -156,9 +130,9 @@
 /* ============================================================================
    Offer banner on /book.html
    ----------------------------------------------------------------------------
-   The promotional calls to action land on /book.html?offer=school-holiday. The
-   banner there tells the patient which appointment type to choose and repeats
-   the terms, so the price they were shown in the ad and the price at the
+   The promotional calls to action land on /book.html?offer=spring. The
+   banner there tells the patient to choose Initial Consultation, gives the
+   code to type in the booking notes and repeats the terms, so the price they were shown in the ad and the price at the
    checkout are the same number.
 
    /book.html is a static file, so this one check happens in the browser. It
@@ -171,7 +145,7 @@
 
   var banner = document.getElementById('offer-banner');
   if (!banner) return;
-  if (new URLSearchParams(location.search).get('offer') !== 'school-holiday') return;
+  if (new URLSearchParams(location.search).get('offer') !== 'spring') return;
 
   var c = window.BRP && window.BRP.campaign;
   if (!c || !c.endsAt) return;
