@@ -93,7 +93,8 @@ enquiry went through when it did not.
 THE AFFILIATION LOGOS AND WHAT SITS BEHIND THEM
 -----------------------------------------------
 The eight logos appear on index.html, about.html and cricket.html. Each one
-links to its own entry in the professional experience list on about.html
+links to its own entry in the professional experience list on about.html,
+where the same logo sits at the start of the row
 (#exp-cricket-victoria, #exp-melbourne-stars and so on). Add or remove a logo
 and the matching entry has to move with it, or a logo links to nothing.
 
@@ -111,6 +112,6 @@ Renegades for the 2021 Big Bash League season.
 
 Also in the CV but not shown as logos: St Kilda Football Club (AFL), the
 Sydney Sixers and Sydney Thunder academies, and the Cricket & Sports Medicine
-Centre. The about page names St Kilda Football Club in prose but shows no AFL
-logo. Richmond Football Club was removed from the about page at Thihan's
-request; do not add it back.
+Centre. At Thihan's request the site names no AFL club: the about page and
+the campaign pages say "consulting work for AFL teams". Do not add St Kilda,
+Richmond or any other club name back.

@@ -725,17 +725,60 @@ a.marquee__item:focus-visible{outline:3px solid var(--ochre);outline-offset:3px}
 }
 
 /* =====================================================================
-   Professional experience list (/about.html).
-   One entry per organisation, each the landing point for its logo.
+   About page layout.
+   ---------------------------------------------------------------------
+   Sections sit a little closer together than the site default, and each
+   one uses the full container width: headings on the left with their
+   intro beside them, content underneath.
    ===================================================================== */
-.roles{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(1.25rem,3vw,2rem);
-  margin-top:clamp(2rem,4vw,2.75rem)}
-.role{padding-top:1.15rem;border-top:1px solid var(--line);scroll-margin-top:7rem}
-.role:target{border-top-color:var(--green)}
+.section--tight{padding-block:clamp(3.5rem,6vw,5.5rem)}
+.founder--about{align-items:start}
+.founder--about .founder__img{position:sticky;top:7.5rem}
+.founder__text h2{margin-bottom:1.25rem}
+.founder__text p+p{margin-top:1rem}
+.founder__text p{max-width:62ch}
+.founder__text .note{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--line)}
+
+/* Heading on the left, its intro on the right, so a section header uses the
+   width instead of sitting in a narrow centred column. */
+.exp__head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem clamp(2rem,5vw,4rem);
+  align-items:end;margin-bottom:clamp(2rem,4vw,2.75rem)}
+.exp__head h2{font-size:clamp(1.7rem,3vw,2.4rem)}
+.exp__head>p{color:var(--stone);max-width:52ch}
+
+/* Professional experience: one row per organisation, read like a CV.
+   Logo | organisation, title, years | what the work involved.
+   Each row is the landing point for its logo on the home and cricket pages. */
+.roles{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.role{display:grid;grid-template-columns:72px minmax(0,19rem) minmax(0,1fr);gap:.5rem clamp(1.25rem,3vw,2.5rem);
+  align-items:start;padding-block:1.4rem;border-bottom:1px solid var(--line);scroll-margin-top:7rem;
+  transition:background-color .3s}
+.role:target{background:var(--green-pale);box-shadow:-1rem 0 0 var(--green-pale),1rem 0 0 var(--green-pale)}
 .role:target .role__org{color:var(--green)}
-.role__org{font-family:var(--serif);font-size:1.12rem;font-weight:600;letter-spacing:-0.015em;
-  margin-bottom:.3rem;transition:color .3s}
-.role__what{font-size:.86rem;letter-spacing:.06em;text-transform:uppercase;color:var(--stone);
-  font-weight:600;margin-bottom:.5rem}
-.role__detail{font-size:.95rem;color:var(--stone);max-width:44ch}
-@media(max-width:700px){.roles{grid-template-columns:1fr}}
+.role__logo{width:72px;height:72px;display:flex;align-items:center;justify-content:center;background:#fff;
+  border:1px solid var(--line);border-radius:12px;padding:8px}
+.role__logo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
+.role__org{font-family:var(--serif);font-size:1.15rem;font-weight:600;letter-spacing:-0.015em;margin-bottom:.25rem;
+  transition:color .3s}
+.role__what{font-size:.92rem;font-weight:600;color:var(--ink)}
+.role__years{font-size:.86rem;color:var(--stone);margin-top:.15rem;font-variant-numeric:tabular-nums}
+.role__detail{color:var(--stone);font-size:.97rem;max-width:68ch}
+.exp__note{margin-top:1.5rem}
+
+/* How I work: six short principles in a grid rather than a narrow list. */
+.how-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:clamp(1rem,2vw,1.5rem)}
+.how-grid li{border:1px solid var(--line);border-radius:18px;padding:1.4rem 1.5rem;background:#fff}
+.how-grid h3{font-family:var(--sans);font-size:1.02rem;font-weight:600;letter-spacing:0;color:var(--green-dark);
+  margin-bottom:.45rem}
+.how-grid p{color:var(--stone);font-size:.96rem}
+
+@media(max-width:1000px){.how-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:900px){
+  .founder--about .founder__img{position:relative;top:auto;max-width:420px}
+  .exp__head{grid-template-columns:1fr;align-items:start}
+  .role{grid-template-columns:56px minmax(0,1fr)}
+  .role__logo{width:56px;height:56px;padding:6px}
+  .role__detail{grid-column:2}
+}
+@media(max-width:600px){.how-grid{grid-template-columns:1fr}}
