@@ -61,6 +61,8 @@ body.home .hdr:not(.scrolled) .nav__right .btn--primary:hover{background:#fff;co
 .eyebrow{display:inline-flex;align-items:center;gap:.6em;font-size:.74rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);margin-bottom:1.5rem}
 .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--ochre);box-shadow:0 0 0 4px rgba(200,119,46,.2)}
 .hero h1{margin-bottom:1.5rem;color:#fff}
+.hero h1 .eyebrow{display:flex;width:fit-content;font-family:var(--sans);line-height:1.4}
+.hero__title{display:block}
 .hero h1 .reveal-word>span{color:#fff}
 .hero__sub{font-size:clamp(1.08rem,2vw,1.26rem);color:rgba(255,255,255,.82);max-width:54ch;margin-bottom:2.25rem;line-height:1.6}
 .hero__ctas{display:flex;flex-wrap:wrap;gap:.85rem;align-items:center}
@@ -443,7 +445,7 @@ body.home .hdr:not(.scrolled) .topbar span{color:rgba(255,255,255,.82)}
 body.home .hdr:not(.scrolled) .topbar__place:hover,
 body.home .hdr:not(.scrolled) .topbar__place:hover span{color:#fff}
 
-/* Narrow: keep the address, drop the hours line and the gym note. Call and
+/* Narrow: keep the address and the gym note, drop the hours line. Call and
    Book already live in the fixed bar at the bottom. */
 @media(max-width:900px){
   .topbar{font-size:.69rem}
@@ -451,7 +453,7 @@ body.home .hdr:not(.scrolled) .topbar__place:hover span{color:#fff}
   .topbar__hours{display:none}
 }
 @media(max-width:420px){
-  .topbar__sub{display:none}
+  .topbar{font-size:.66rem}
 }
 
 /* Printing the page, the address belongs in the body text, not a nav strip */
