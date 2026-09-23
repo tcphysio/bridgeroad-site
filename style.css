@@ -486,3 +486,15 @@ body.home .hdr:not(.scrolled) .topbar__place:hover span{color:#fff}
 .trust-strip__reviews a{color:var(--green);font-weight:600;text-decoration:underline;text-underline-offset:3px;min-height:44px;display:inline-flex;align-items:center}
 [data-google-rating][hidden]{display:none}
 ol.plist{list-style:none;padding-left:0}
+
+/* ===== Service pages: byline, contents, images, per-service FAQ ===== */
+.byline{font-size:.9rem;color:var(--stone);margin-top:.9rem}
+.byline a{color:var(--green);font-weight:600}
+.svc-toc{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:1.5rem}
+.svc-toc a{font-size:.88rem;color:var(--green-dark);background:var(--green-pale);border:1px solid rgba(58,90,64,.12);border-radius:999px;padding:.5rem .85rem;min-height:44px;display:inline-flex;align-items:center}
+.sd__summary{font-size:1.06rem;color:var(--ink)!important;font-weight:500}
+.sd h3{font-family:var(--sans);font-size:1rem;font-weight:600;letter-spacing:0;margin:1.5rem 0 .5rem}
+.sd__img{margin:1.25rem 0;border-radius:18px;overflow:hidden;border:1px solid var(--line)}
+.sd__img img{display:block;width:100%;height:auto}
+.faq-list{border-top:1px solid var(--line)}
+.sd__links{display:flex;flex-wrap:wrap;gap:.25rem 1.5rem;margin-top:1.25rem}
