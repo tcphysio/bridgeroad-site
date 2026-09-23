@@ -319,3 +319,12 @@ Photos to take:
 2. Optional: arrival seating area, treatment space, building from across Bridge Road.
 
 GTM dashboard setup is in the session notes: GA4 tag, `brp_event` trigger, `brp_action` and `brp_detail` variables, Ads conversion tags for `phone_click`, `book_click` and `enquiry_submit`, and a Conversion Linker.
+
+## Update, 23 September 2026 (Thihan's answers)
+
+Resolved and applied: opening hours (Mon to Fri 8am to 8pm, weekends by prior appointment; in schema and on every page), APA membership (about page, Person schema, trust strip), locked door (call the clinic), parking (Bridge Road two-hour paid with first hour free, clearway in the afternoon; free one and two-hour on Palmer Street), transport (tram is easier than walking from a station), access (kept as "contact me before"), article references (not added, by decision), photo rights (confirmed), entrance photo (real photo in place of the placeholder).
+
+Still open:
+- `REVIEW(Thihan)` clinical wording on services.html (five answers) and cricket.html (junior fast bowler answer).
+- Team logo permissions and AFL detail (not answered).
+- Google rating figures, if and when the stars go on.
