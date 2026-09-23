@@ -64,29 +64,23 @@ window.BRP = (function () {
        Do not make it a primary homepage call to action. */
     writeReviewUrl: 'https://search.google.com/local/writereview?placeid=' + PLACE_ID,
 
-    /* --- Google review proof shown on the homepage ---------------------- *
-       DORMANT BY DECISION (2026-09-17). Thihan chose not to copy review
-       excerpts or a star rating onto the site. The homepage section stays as
-       a heading, one line of text and the "Read our Google reviews" button,
-       which sends people to the profile itself. Nothing here needs doing.
+    /* --- Google star rating shown on the homepage --------------------- *
+       DECISION (2026-09-23): Thihan chose to show the Google star rating and
+       review count with a link to the reviews. Review excerpts are never
+       shown on this site, and there is no Review or AggregateRating schema.
 
-       Left in place because the wiring costs nothing and the decision is
-       reversible. Fill these in and the rating chip and review cards render;
-       leave them null and neither appears, so the site never shows a rating
-       it cannot stand behind.
+       Nothing renders while rating or reviewCount is null, so the site never
+       shows a figure it cannot stand behind. To switch it on, copy the
+       current figures from the Google Business Profile and today's date.
+       Re-check at least monthly: an out-of-date rating is misleading.
 
-       If they are ever filled in: use only genuine Google reviews for Bridge
-       Road Physiotherapy, copy the text verbatim (trim with an ellipsis if
-       long), use the reviewer's Google display name, and never write one
-       yourself. There is no free Google API that returns a live rating
-       without a billable Places API key, so this is a manual job.        */
+       AHPRA caution: AHPRA treats reproducing patient reviews, including
+       ratings, in your own advertising as a possible testimonial. Read the
+       AHPRA testimonial guidance before filling these in.               */
     google: {
-      rating: null,        // e.g. 5.0
+      rating: null,        // e.g. 5.0, exactly as shown on Google
       reviewCount: null,   // e.g. 27
-      lastChecked: null,   // e.g. '2026-09-16'
-      reviews: [
-        // { text: 'Verbatim review text…', author: 'First name L.', stars: 5 }
-      ]
+      lastChecked: null    // e.g. '2026-09-23'
     },
 
     /* --- Fees (source of truth for humans: /fees.html) ------------------ *
@@ -159,42 +153,30 @@ window.BRP = (function () {
   });
 
   /* --------------------------------------------------------------------- */
-  /* Google review block (homepage)                                         */
+  /* Google star rating (homepage)                                          */
   /* --------------------------------------------------------------------- */
   function stars(n) {
     var full = Math.round(n || 0), out = '';
-    for (var i = 0; i < 5; i++) out += i < full ? '★' : '☆';
+    for (var i = 0; i < 5; i++) out += i < full ? '\u2605' : '\u2606';
     return out;
   }
 
-  function renderReviews() {
+  function renderRating() {
     var g = cfg.google;
-
-    var head = document.getElementById('google-rating');
-    if (head && g.rating && g.reviewCount) {
-      head.innerHTML =
-        '<span class="review-rating"><span class="stars" aria-hidden="true">' + stars(g.rating) + '</span>' +
-        '<span>' + g.rating.toFixed(1) + ' from ' + g.reviewCount + ' Google reviews</span></span>';
-      head.hidden = false;
-    }
-
-    var list = document.getElementById('google-reviews');
-    if (list && g.reviews && g.reviews.length) {
-      list.innerHTML = g.reviews.map(function (r) {
-        return '<figure class="review">' +
-          '<span class="review__stars" aria-label="' + (r.stars || 5) + ' out of 5 stars">' + stars(r.stars || 5) + '</span>' +
-          '<blockquote class="review__text">' + r.text + '</blockquote>' +
-          '<figcaption class="review__who">' + r.author + ' &middot; Google review</figcaption>' +
-          '</figure>';
-      }).join('');
-      list.hidden = false;
-    }
+    if (!g || !g.rating || !g.reviewCount) return;
+    var html =
+      '<span class="review-rating"><span class="stars" aria-hidden="true">' + stars(g.rating) + '</span>' +
+      '<span>' + g.rating.toFixed(1) + ' on Google from ' + g.reviewCount + ' reviews</span></span>';
+    [].forEach.call(document.querySelectorAll('[data-google-rating]'), function (el) {
+      el.innerHTML = html;
+      el.hidden = false;
+    });
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', renderReviews);
+    document.addEventListener('DOMContentLoaded', renderRating);
   } else {
-    renderReviews();
+    renderRating();
   }
 
   return cfg;
