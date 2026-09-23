@@ -20,12 +20,12 @@ fees.html is the source of truth for pricing. No other page repeats the
 numbers. If a price changes: update fees.html, update window.BRP.fees in
 site-config.js, and update Halaxy.
 
-GOOGLE REVIEWS ON THE HOMEPAGE
-------------------------------
-Open site-config.js and find window.BRP.google. Paste in the current rating,
-the review count, today's date, and two or three genuine review excerpts.
-Until you do, the homepage shows only the "Read our Google reviews" button —
-nothing false is ever displayed. Never write review text yourself.
+GOOGLE RATING ON THE HOMEPAGE
+-----------------------------
+Open site-config.js and find window.BRP.google. Enter the current star
+rating, the review count and today's date, copied from the Google Business
+Profile. Until you do, the homepage shows only the "Read our Google reviews"
+link. Review excerpts are never shown. Re-check the figures monthly.
 
 ADDING PHOTOS
 -------------
@@ -44,8 +44,10 @@ Decorative images get alt="".
 CONVERSION TRACKING
 -------------------
 Any element with a data-track attribute fires a named event on click. The
-event names are listed in site-config.js. No third-party tracker is loaded.
-If Google Analytics or GTM is added later, it picks these up automatically.
+event names are listed in site-config.js. Google Tag Manager
+(GTM-MZ36ZHQQ) is loaded on every page and receives these as the custom
+event brp_event, with brp_action and brp_detail as data layer variables.
+If a new kind of tag is added in GTM, update the privacy policy to match.
 
 THE EMBEDDED MAP
 ----------------

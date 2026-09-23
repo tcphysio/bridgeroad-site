@@ -1,9 +1,62 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
-    { "source": "/sessions.html", "destination": "/fees.html", "permanent": true },
-    { "source": "/sessions", "destination": "/fees.html", "permanent": true },
-    { "source": "/Thihan.jpeg", "destination": "/thihan-chandramohan-physiotherapist-richmond.jpeg", "permanent": true },
-    { "source": "/thihan.jpeg", "destination": "/thihan-chandramohan-physiotherapist-richmond.jpeg", "permanent": true }
+    {
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/sessions.html",
+      "destination": "/fees.html",
+      "permanent": true
+    },
+    {
+      "source": "/sessions",
+      "destination": "/fees.html",
+      "permanent": true
+    },
+    {
+      "source": "/Thihan.jpeg",
+      "destination": "/thihan-chandramohan-physiotherapist-richmond.jpeg",
+      "permanent": true
+    },
+    {
+      "source": "/thihan.jpeg",
+      "destination": "/thihan-chandramohan-physiotherapist-richmond.jpeg",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=(), interest-cohort=()"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)\\.(webp|jpg|jpeg|png|svg|ico)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, stale-while-revalidate=86400"
+        }
+      ]
+    }
   ]
 }

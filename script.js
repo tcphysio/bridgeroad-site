@@ -3,18 +3,20 @@ function closeMenu(){const m=document.getElementById('m');if(m)m.classList.remov
 /* Header on scroll. Two independent things: the background turns opaque
    once you leave the top, and the address strip tucks away when you scroll
    down and comes back when you scroll up, the way a phone browser hides its
-   own chrome. Near the top the strip is always shown. */
+   own chrome. Near the top the strip is always shown. On phones it never
+   tucks: the page already moves enough under a thumb. */
 const hdr=document.getElementById('hdr');
 if(hdr){
   var lastY = scrollY, queued = false;
   var KEEP_OPEN_ABOVE = 140;  // never tuck while still near the top
   var JITTER = 6;             // ignore trackpad noise and rubber-banding
+  var PHONE = matchMedia('(max-width: 820px)'); // on phones the strip stays put: less movement while scrolling
 
   function onHeaderScroll(){
     var y = scrollY < 0 ? 0 : scrollY;   // iOS overscrolls past the top
     hdr.classList.toggle('scrolled', y > 20);
 
-    if (y <= KEEP_OPEN_ABOVE) {
+    if (y <= KEEP_OPEN_ABOVE || PHONE.matches) {
       hdr.classList.remove('hdr--tucked');
     } else if (Math.abs(y - lastY) > JITTER) {
       hdr.classList.toggle('hdr--tucked', y > lastY);
@@ -29,7 +31,13 @@ if(hdr){
   }, { passive: true });
   onHeaderScroll();
 }
-const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});document.querySelectorAll('.r').forEach(el=>io.observe(el));
+/* Scroll fade. The .io class is what hides not-yet-seen blocks, so it is only
+   added once the observer exists. No script, no observer: everything shows. */
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.05,rootMargin:'0px 0px 10% 0px'});
+  document.querySelectorAll('.r').forEach(el=>io.observe(el));
+  document.documentElement.classList.add('io');
+}
 function faq(b){var item=b.parentElement;item.classList.toggle('open');b.setAttribute('aria-expanded',item.classList.contains('open'));}
 addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
 document.querySelectorAll('#m a').forEach(a=>a.addEventListener('click',closeMenu));
