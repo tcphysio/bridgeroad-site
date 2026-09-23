@@ -1,6 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /PHOTO-GUIDE.txt
 
 # landing.html and sessions.html are deliberately left crawlable so that the
 # noindex tag and the 301 to /fees.html can actually be seen.
