@@ -782,3 +782,61 @@ a.marquee__item:focus-visible{outline:3px solid var(--ochre);outline-offset:3px}
   .role__detail{grid-column:2}
 }
 @media(max-width:600px){.how-grid{grid-template-columns:1fr}}
+
+/* =====================================================================
+   Homepage split hero and photo service cards.
+   ---------------------------------------------------------------------
+   Recovered from the September homepage redesign (commit 7f9a5e6) and
+   fitted to the current copy. The hero text sits on the deep green
+   field and the photograph bleeds off the right edge on desktop; on a
+   phone the photograph drops below the calls to action so the booking
+   button stays on the first screen.
+   ===================================================================== */
+.tlink{display:inline-flex;align-items:center;gap:.4em;font-weight:600;font-size:.95rem;
+  color:var(--green);transition:gap .25s}
+.tlink:hover{gap:.7em}
+
+.hero__photo{position:absolute;top:0;right:0;bottom:0;width:42vw;z-index:0;overflow:hidden}
+.hero__photo img{width:100%;height:100%;object-fit:cover;object-position:56% 50%}
+/* Left edge dissolves into the green; the top darkens under the header. */
+.hero__photo::after{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,#22361F 0%,rgba(34,54,31,.55) 14%,rgba(34,54,31,0) 42%),
+             linear-gradient(180deg,rgba(18,29,13,.82) 0%,rgba(18,29,13,.55) 9%,rgba(18,29,13,0) 30%)}
+@media(min-width:901px){
+  /* Keep the text clear of the photograph: the container's right edge,
+     minus where the photograph starts (58vw), plus a gap. */
+  .hero--split .hero__inner{max-width:1180px;padding-right:calc(42vw - max(0px,(100vw - 1180px) / 2) + 3rem)}
+  .hero--split h1{font-size:clamp(2.3rem,4.3vw,4rem);letter-spacing:-0.04em}
+  .hero--split .hero__sub{max-width:44ch}
+}
+
+.svc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:clamp(2rem,4vw,3.25rem) clamp(1.5rem,3.5vw,3rem);margin-top:clamp(2.25rem,4.5vw,3rem)}
+.svc-card{position:relative;display:flex;flex-direction:column}
+.svc-card__media{position:relative;aspect-ratio:4/3;border-radius:16px;overflow:hidden;
+  background:var(--paper);margin-bottom:1.25rem}
+.svc-card__media img{width:100%;height:100%;object-fit:cover;
+  transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.svc-card:hover .svc-card__media img{transform:scale(1.04)}
+.svc-card__n{position:absolute;left:0;top:0;z-index:1;background:var(--green);color:#fff;
+  font-family:var(--serif);font-weight:600;font-size:.95rem;line-height:1;
+  padding:.72rem .95rem;border-bottom-right-radius:14px;letter-spacing:.02em}
+.svc-card h3{font-size:clamp(1.3rem,2.1vw,1.7rem);margin-bottom:.55rem}
+.svc-card p{color:var(--stone);font-size:1rem;max-width:46ch;margin-bottom:1rem}
+.svc-card .tlink{margin-top:auto}
+/* One target for the whole card; the visible link carries the name. */
+.svc-card__hit{position:absolute;inset:0;z-index:2}
+.svc-card .tlink{position:relative;z-index:3}
+.svc-card .tlink:focus-visible{outline:3px solid var(--ochre);outline-offset:3px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){.svc-card__media img{transition:none}.svc-card:hover .svc-card__media img{transform:none}}
+
+@media(max-width:900px){
+  .hero--split{flex-direction:column;align-items:stretch;padding-bottom:0}
+  /* Positioned so the absolutely placed .hero__bg gradient does not paint
+     over it. */
+  .hero__photo{position:relative;z-index:1;width:auto;margin-top:clamp(1.5rem,4vw,2.25rem)}
+  .hero__photo img{aspect-ratio:3/2;height:auto}
+  .hero__photo::after{background:linear-gradient(180deg,rgba(20,32,14,.35) 0%,rgba(20,32,14,0) 30%)}
+  .svc-grid{grid-template-columns:1fr;gap:2.5rem}
+  .svc-card p{max-width:none}
+}
