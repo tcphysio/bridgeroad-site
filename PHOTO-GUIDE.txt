@@ -44,8 +44,10 @@ Decorative images get alt="".
 CONVERSION TRACKING
 -------------------
 Any element with a data-track attribute fires a named event on click. The
-event names are listed in site-config.js. No third-party tracker is loaded.
-If Google Analytics or GTM is added later, it picks these up automatically.
+event names are listed in site-config.js. Google Tag Manager
+(GTM-MZ36ZHQQ) is loaded on every page and receives these as the custom
+event brp_event, with brp_action and brp_detail as data layer variables.
+If a new kind of tag is added in GTM, update the privacy policy to match.
 
 THE EMBEDDED MAP
 ----------------

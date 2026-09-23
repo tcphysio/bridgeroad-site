@@ -179,7 +179,7 @@ Rendered at 375 x 812 and 414 x 812.
 | 7.6 | Favicon set: ico, 16, 32, apple-touch. No web manifest. | Low | Optional `site.webmanifest`. |
 | 7.7 | 404.html has a canonical to `/404.html` alongside noindex. | Low | Remove the canonical. |
 | 7.8 | Heading order is logical on every page. | None | Good. |
-| 7.9 | **GTM not installed.** The brief lists GTM-MZ36ZHQQ. site-config.js already pushes named events to `dataLayer`, so GTM would pick them up with no markup changes. | Decision | Confirm you want GTM live. If yes: add the snippet to every page head plus the noscript iframe, and update privacy.html to mention analytics. |
+| 7.9 | **Done 23 Sep: GTM installed on all served pages, privacy policy updated.** Was: **GTM not installed.** The brief lists GTM-MZ36ZHQQ. site-config.js already pushes named events to `dataLayer`, so GTM would pick them up with no markup changes. | Decision | Confirm you want GTM live. If yes: add the snippet to every page head plus the noscript iframe, and update privacy.html to mention analytics. |
 | 7.10 | Formspree not used. Forms post to `/api/enquiry`, which sends via Resend. | Info | No change. Brief is out of date. |
 | 7.11 | Unused files: `logo-cream.svg`, `fast-bowler-delivery-stride.webp`, plus the three photos in 3.1. | Low | Use or delete. |
 

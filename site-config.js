@@ -117,10 +117,13 @@ window.BRP = (function () {
   /* --------------------------------------------------------------------- */
   /* Conversion tracking                                                    */
   /* --------------------------------------------------------------------- */
-  /* No third-party tracker is loaded by this site. Any element carrying a
-     data-track attribute fires a named event on click, which is pushed to
-     window.dataLayer and dispatched as a DOM event. If Google Analytics,
-     GTM or similar is added later, it picks these up with no markup changes.
+  /* Google Tag Manager (GTM-MZ36ZHQQ) is loaded in the <head> of every page.
+     Any element carrying a data-track attribute fires a named event on click,
+     which is pushed to window.dataLayer as event 'brp_event' and dispatched
+     as a DOM event. In GTM, trigger on the custom event brp_event and read
+     the Data Layer Variables brp_action and brp_detail.
+     If tags are added in GTM beyond Analytics and Google Ads, update the
+     "Website analytics and advertising" section of privacy.html to match.
 
      Event names in use:
        book_click                 Book now / Book an appointment
