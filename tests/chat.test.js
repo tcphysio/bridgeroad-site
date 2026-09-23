@@ -85,6 +85,25 @@ test('the rules cover emergencies, advice and advertising', () => {
   assert.match(s, /Do not diagnose/);
   assert.match(s, /Never use or quote testimonials/);
   assert.match(s, /Do not ask for names/);
+  assert.match(s, /Never use em dashes or en dashes/);
+});
+
+/* The widget's backstop for dashes lives inside chat.js, which runs in the
+   browser, so its function is lifted out of the file and run here. */
+function widgetPlain() {
+  const src = fs.readFileSync(path.join(ROOT, 'chat.js'), 'utf8');
+  const fn = src.match(/function plain\(text\) \{[\s\S]*?\n  \}/);
+  assert.ok(fn, 'plain() not found in chat.js');
+  return new Function(fn[0] + '; return plain;')();
+}
+
+test('dashes in a reply become commas, and ranges read "to"', () => {
+  const plain = widgetPlain();
+  assert.strictEqual(plain('I cannot suggest exercises \u2014 Thihan works that out.'), 'I cannot suggest exercises, Thihan works that out.');
+  assert.strictEqual(plain('Open 8am\u20138pm'), 'Open 8am to 8pm');
+  assert.strictEqual(plain('Monday\u2014Friday'), 'Monday to Friday');
+  assert.strictEqual(plain('Ends here \u2014.'), 'Ends here.');
+  assert.strictEqual(plain('A 45-minute consult, $180.'), 'A 45-minute consult, $180.');
 });
 
 /* ---- What the browser may send ----------------------------------------- */
