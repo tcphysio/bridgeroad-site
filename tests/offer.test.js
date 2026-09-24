@@ -3,9 +3,8 @@
    ----------------------------------------------------------------------------
    Run:  node --test tests/offer.test.js
 
-   No test framework and no dependencies, because the site has no build step
-   and no package.json, and adding one for two landing pages is not worth it.
-   node --test has been in Node since 18.
+   No test framework and no test dependencies. node --test has been in Node
+   since 18.
    ========================================================================== */
 
 'use strict';
