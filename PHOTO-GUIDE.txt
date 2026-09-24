@@ -30,7 +30,7 @@ link. Review excerpts are never shown. Re-check the figures monthly.
 ADDING PHOTOS
 -------------
 Images sit in the repository root. Name them descriptively in lowercase with
-hyphens, e.g. thihan-chandramohan-physiotherapist-richmond.jpeg.
+hyphens, e.g. thihan-chandramohan-bridge-road-physiotherapy.jpg.
 
 For every meaningful image:
   - descriptive filename
