@@ -2,34 +2,38 @@
 
 This replaces the 23 September plan, which stays in git history. Gzip is left out, as asked.
 
-## Status: items 1 to 4 built, not yet live
+## Status
 
-Built on the `claude/site-speed-improvement-5ycar0` branch. Nothing reaches the live site until the branch is merged.
+### Live since 24 September (PR #24)
 
-| # | Change | What it does |
-|---|---|---|
-| 1 | Fonts self-hosted in `fonts/`, two preloads per page | No Google Fonts stylesheet, two fewer servers to connect to |
-| 2 | Right-sized WebP for the hero, portrait, entrance photo and logos | Homepage images much lighter on phones. The blog author box no longer loads the 153 KB portrait for a 62px photo |
-| 3 | `tools/stamp-assets.js` runs at deploy | Joins site-config.js and script.js into site.js, adds `?v=<hash>` to CSS and JS, caches those for a year, publishes the site from `public/` |
-| 4 | A day of stale-while-revalidate on the offer page and chat status | Ad clicks rarely wait on a cold function |
+Self-hosted fonts, right-sized WebP images, versioned CSS and JS with a year-long cache, and longer stale serving on the offer page and chat status.
 
-**Before and after (measured).** Lighthouse mobile, median of three runs. The old and new site were both served from the same machine with compression on, with GTM, Maps and Halaxy blocked in both. Absolute numbers will differ on the live site. The gap between the columns is the reliable part.
+Measured on the live site: Lighthouse mobile, median of three runs, same setup as the review below (Google Tag Manager and Maps blocked by the test environment in both).
 
 | Page | Score | First paint | Main content (LCP) |
 |---|---|---|---|
-| Home | 85 → 99 | 2.7 s → 0.9 s | 3.4 s → **2.1 s** |
-| Book | 90 to 100 → 100 | 2.7 s → 0.9 s | 2.7 s → 1.8 s |
+| Home | 81 to 91 → 95 | 2.6 s → 1.3 s | 3.7 s → 2.5 s (runs: 2.39, 2.46, 2.50) |
+| Book | 87 to 99 → 95 to 100 | 2.8 s → 1.6 s | 3.1 s → 2.2 s |
+| Contact | 89 to 99 → 99 to 100 | 2.7 s → 1.2 s | 3.0 s → 1.6 s |
+| Knee pain | 89 to 98 → 96 to 99 | 1.8 s → 1.3 s | 1.9 s → 2.0 s |
 
-The homepage now clears Google's 2.5 s LCP target in this test. Preloading both fonts beat preloading one or none.
+Homepage download: 431 KB → 253 KB. Every page now loads from one server before Tag Manager, down from three.
 
-**Checked:**
+The homepage sits right on the 2.5 s line with no margin, and real visitors also load Tag Manager. The largest remaining delay is style.css (about 0.3 s). The next lever is the Tag Manager check in `docs/owner-actions.md`.
 
-- Pixel comparison of nine pages at phone and desktop widths: layout identical, differences only inside the re-encoded photos.
-- Menu, chat, fonts and globals work the same with the joined site.js. No console errors.
-- `npm test`: 72 pass, including new tests for the stamping, the `public/` copy and missing files.
-- The Vercel preview builds. A stamped style.css comes back with `max-age=31536000, immutable`, Brotli and the security headers.
+### Second round (this branch)
 
-**Not checked on the preview.** Vercel's access link for protected previews stopped working after one request, so pages, the offer page, the chat status call and the font headers weren't fetched from the preview itself. Click through the preview before merging.
+- **Homepage map loads on request.** A "Show the map" tile replaces the embed. The embed loads in the same box when tapped, tracked as `map_open`. The contact page keeps its map loaded as normal, because people go there to find the clinic. Without JavaScript the tile opens Google Maps.
+- **Unused files removed:** `logo-cream.svg`, `hero-rehabilitation-richmond-640.webp`.
+- **Lockfile resynced** with package.json.
+- **`docs/owner-actions.md`** covers the Google Analytics setup, the Tag Manager check, the offer launch checks, Search Console and directory listings.
+
+### Looked at and left alone
+
+- **Ask button shift.** The phone bar's Book button narrows when the chat check returns. It scores 0.012, a tenth of Google's limit, on the first page of a visit only. Fixing it needs either a blank slot whenever the chat is off or a build step tied to the API key.
+- **Overlapping phone CSS at 820 and 900px.** Rendered every width from 820 to 901px: the layout switches cleanly at 901px with no overlap or sideways scroll. Merging the rules risks tablet regressions for no visible gain.
+- **Logo SVG.** Optimising it saves 0.4 KB after compression and changes the rendering slightly at large sizes.
+- **Content Security Policy.** Needs the inline click handlers rewritten first. Security headers are already in place.
 
 ---
 

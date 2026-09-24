@@ -34,7 +34,7 @@ section 9 for why the evergreen page is not indexed.
 2. **Set up the GA4 tag in Google Tag Manager.** GTM is installed on every
    page, including both campaign pages. The events in section 4 reach the
    data layer; GTM still needs a GA4 tag triggered on `brp_event` to send
-   them anywhere.
+   them anywhere. Step by step: `docs/owner-actions.md`, section 1.
 3. **`/new-patient-offer` works on Vercel.** Checked on a preview build. Re-check
    after any change to `vercel.json` or to the template filename: a redirect to
    `/book.html` means the function failed to read it.
