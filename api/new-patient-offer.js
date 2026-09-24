@@ -18,13 +18,15 @@
    read through a literal path off __dirname, which the tracer follows, and is
    also named in the "functions" block of vercel.json as a second guarantee.
 
-   The response is cached at the edge for five minutes, so the page is served
-   from cache rather than a cold function on nearly every hit, and the switch
-   to the ended state lands within five minutes of midnight in Melbourne on
-   1 December 2026. That window is deliberate: it trades an exact-to-the-second
-   cutover for a page that loads like a static file during the campaign, which
-   is what the ads are paying for. The offer terms say the appointment must be
-   attended by 30 November, so nothing turns on those five minutes.
+   The response is fresh at the edge for five minutes, then served stale for
+   up to a day while the edge refreshes it in the background. Ad clicks arrive
+   minutes or hours apart, so with only a short stale window most of them
+   waited on a cold function. Now nearly every click gets the cached page at
+   static speed. The cost is the cutover: if the page sat quiet before
+   midnight in Melbourne on 1 December 2026, the first visitor after it still
+   sees the offer once, and everyone after them sees the ended state. That trade
+   is deliberate. The offer terms say the appointment must be attended by
+   30 November, so nothing turns on one late view.
    ========================================================================== */
 
 'use strict';
@@ -54,6 +56,6 @@ module.exports = (req, res) => {
   }
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=60');
+  res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=86400');
   return res.status(200).send(html);
 };

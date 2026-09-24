@@ -38,6 +38,12 @@ For every meaningful image:
   - width and height attributes, so the page does not jump while loading
   - loading="lazy" for anything below the fold
   - .webp where you can, landscape ~1200px wide, under ~300KB
+  - for a large photo, export two or three widths as separate files
+    (e.g. name-600.webp and name-900.webp) and list them in srcset with a
+    sizes attribute, so phones download the small one. The portrait on the
+    homepage is the example to copy
+  - never overwrite an image under the same filename: browsers keep images
+    for a week, so returning visitors would keep seeing the old one
 
 Decorative images get alt="".
 
