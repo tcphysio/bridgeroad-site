@@ -66,8 +66,9 @@ If the listing ever moves or the map looks wrong:
   1. Open the clinic's listing in Google Maps.
   2. Share -> Embed a map -> Copy HTML.
   3. Take the src="..." value out of that iframe (the long pb= string) and
-     paste it over the iframe src in index.html and contact.html, and into
-     mapEmbedUrl in site-config.js.
+     paste it over the iframe src in contact.html, the data-map-embed value
+     on the homepage's "Show the map" link in index.html, and mapEmbedUrl in
+     site-config.js. npm test fails if the three differ.
   4. The same embed carries the listing's coordinates: !2d is the longitude
      and !3d is the latitude. Update lat/lng in site-config.js and the "geo"
      block in the index.html schema to match.
