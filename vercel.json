@@ -20,12 +20,32 @@
     },
     {
       "source": "/Thihan.jpeg",
-      "destination": "/thihan-chandramohan-physiotherapist-richmond.jpeg",
+      "destination": "/thihan-chandramohan-bridge-road-physiotherapy.jpg",
       "permanent": true
     },
     {
       "source": "/thihan.jpeg",
-      "destination": "/thihan-chandramohan-physiotherapist-richmond.jpeg",
+      "destination": "/thihan-chandramohan-bridge-road-physiotherapy.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/thihan-chandramohan-physiotherapist-richmond.jpeg",
+      "destination": "/thihan-chandramohan-bridge-road-physiotherapy.jpg",
+      "permanent": true
+    },
+    {
+      "source": "/thihan-chandramohan-physiotherapist-richmond-200.webp",
+      "destination": "/thihan-chandramohan-bridge-road-physiotherapy-200.webp",
+      "permanent": true
+    },
+    {
+      "source": "/thihan-chandramohan-physiotherapist-richmond-600.webp",
+      "destination": "/thihan-chandramohan-bridge-road-physiotherapy-600.webp",
+      "permanent": true
+    },
+    {
+      "source": "/thihan-chandramohan-physiotherapist-richmond-900.webp",
+      "destination": "/thihan-chandramohan-bridge-road-physiotherapy-900.webp",
       "permanent": true
     },
     {
