@@ -147,6 +147,8 @@ window.BRP = (function () {
        phone_click                Any tel: link
        email_click                Any mailto: link
        maps_click                 Open in Google Maps
+       map_open                   Show the map tapped on the homepage; the
+                                  embed loads only then
        directions_click           Get directions (Google Maps route)
        google_reviews_click       Read our Google reviews
        google_review_write_click  Leave a Google review

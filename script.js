@@ -400,3 +400,21 @@ function toTop(){
     });
   });
 })();
+
+/* Homepage map. The box is a Google Maps link until someone taps "Show the
+   map"; only then does the embed load, in the same box. The embed pulls in
+   dozens of files from several Google servers, and most visitors use Get
+   directions instead. Without JavaScript the link opens Google Maps. The
+   contact page keeps its map loaded as normal. */
+document.querySelectorAll('[data-map-embed]').forEach(function(link){
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    var frame = document.createElement('iframe');
+    frame.src = link.getAttribute('data-map-embed');
+    frame.title = link.getAttribute('data-map-title') || 'Map';
+    frame.setAttribute('allowfullscreen', '');
+    frame.setAttribute('referrerpolicy', 'strict-origin-when-cross-origin');
+    link.replaceWith(frame);
+    frame.focus();
+  });
+});

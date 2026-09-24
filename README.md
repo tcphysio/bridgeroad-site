@@ -4,6 +4,11 @@ Bridge Road Physiotherapy website
 Static pages served by Vercel, plus three Vercel Functions in `api/`. One small
 deploy step, described under Speed and caching.
 
+## Owner to-do
+
+`docs/owner-actions.md`: the jobs that need a login or a decision, such as
+Google Analytics, the Tag Manager check and directory listings.
+
 ## Tests
 
 ```
