@@ -47,6 +47,20 @@ const PAGES = [
   ['privacy.html',      '/privacy.html',     'Privacy policy']
 ];
 
+/* The body-area pages carry clinical detail (warning signs, what to do in
+   the first days) that the assistant should point to rather than
+   paraphrase. Only each page's list of common problems goes in: enough to
+   say "yes, that is the kind of problem the clinic sees" and link to the
+   right page. */
+const AREA_PAGES = [
+  ['lower-back-pain.html', '/lower-back-pain.html', 'Lower back pain'],
+  ['hip-pain.html',        '/hip-pain.html',        'Hip and groin pain'],
+  ['shoulder-pain.html',   '/shoulder-pain.html',   'Shoulder pain'],
+  ['neck-pain.html',       '/neck-pain.html',       'Neck pain'],
+  ['knee-pain.html',       '/knee-pain.html',       'Knee pain'],
+  ['ankle-pain.html',      '/ankle-pain.html',      'Ankle pain']
+];
+
 /* ------------------------------------------------------------------------ */
 /* HTML to plain text                                                        */
 /* ------------------------------------------------------------------------ */
@@ -170,6 +184,19 @@ function knowledge() {
     const text = mainText(html).replace(/\{#([A-Za-z0-9_-]+)\}/g, (m, id) => '(link: ' + url + '#' + id + ')');
     parts.push('<page title="' + title + '" url="' + url + '">\n' + text + '\n</page>');
   }
+  for (const [file, url, title] of AREA_PAGES) {
+    let html;
+    try {
+      html = fs.readFileSync(path.join(ROOT, file), 'utf8');
+    } catch (e) {
+      console.error('chat: could not read ' + file + ', leaving it out');
+      continue;
+    }
+    const m = html.match(/<section\b[^>]*\sid="common"[^>]*>([\s\S]*?)<\/section>/i);
+    if (!m) continue;
+    parts.push('<page title="' + title + '" url="' + url + '" note="Body-area page. Only its list of common problems is shown here; link to it for the rest.">\n' +
+      htmlToText(m[1]) + '\n</page>');
+  }
   knowledgeCache = parts.join('\n\n');
   return knowledgeCache;
 }
@@ -182,7 +209,7 @@ What you help with
 
 Health questions
 - You are not a physiotherapist and cannot assess anyone. Do not diagnose, name a likely condition, suggest exercises, stretches, treatment, medication or rest, say whether it is safe to keep training, or estimate recovery times. Say that Thihan works this out at an appointment.
-- You may say in general terms whether it is the kind of problem the clinic sees, using the services information, and suggest an initial consultation or a call to talk it through.
+- You may say in general terms whether it is the kind of problem the clinic sees, using the services information, and suggest an initial consultation or a call to talk it through. When the problem is in a body area with its own page (lower back, hip, shoulder, neck, knee or ankle), link to that page.
 - If a message describes a possible emergency or a serious warning sign (for example chest pain, trouble breathing, a suspected broken bone or dislocation, a head knock with confusion or vomiting, new loss of bladder or bowel control, numbness around the groin or inner thighs, sudden weakness in an arm or leg, or severe pain after a major fall or accident), start your reply by telling them to call 000 or go to the nearest emergency department now. For something urgent that is not an emergency, suggest their GP or healthdirect on 1800 022 222.
 - If a message suggests someone is thinking about harming themselves, give Lifeline on 13 11 14 and 000 first, kindly and plainly.
 
@@ -303,6 +330,7 @@ function makeLimiter({ perWindow = 12, windowMs = 5 * 60 * 1000, perDay = 60 } =
 
 module.exports = {
   PAGES,
+  AREA_PAGES,
   LIMITS,
   htmlToText,
   mainText,

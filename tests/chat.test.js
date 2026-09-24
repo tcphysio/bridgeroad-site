@@ -160,7 +160,8 @@ test('the rate limit stops a burst and lets up afterwards', () => {
 
 const STANDARD = ['404.html', 'about.html', 'accessibility.html', 'book.html', 'cancellation.html', 'contact.html',
   'cricket.html', 'disclaimer.html', 'faq.html', 'fees.html', 'index.html', 'privacy.html', 'services.html',
-  'terms.html', 'blog/index.html', 'blog/lumbar-stress-fast-bowlers/index.html'];
+  'terms.html', 'blog/index.html', 'blog/lumbar-stress-fast-bowlers/index.html',
+  'lower-back-pain.html', 'hip-pain.html', 'shoulder-pain.html', 'neck-pain.html', 'knee-pain.html', 'ankle-pain.html'];
 
 for (const page of STANDARD) {
   test(page + ' has the left drawer, the Menu button first, and the chat hooks', () => {
@@ -182,4 +183,74 @@ test('vercel.json ships the site pages with the chat function', () => {
   const fn = cfg.functions && cfg.functions['api/chat.js'];
   assert.ok(fn, 'api/chat.js has no functions entry');
   assert.strictEqual(fn.includeFiles, '*.html');
+});
+
+/* ---- Body-area pages ---------------------------------------------------- */
+
+const AREAS = chat.AREA_PAGES.map(([file]) => file);
+const read = (f) => fs.readFileSync(path.join(ROOT, f), 'utf8');
+const visible = (s) => chat.htmlToText(s.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)[1]);
+
+test('the assistant sees each body-area page as a list of common problems only', () => {
+  const k = chat.knowledge();
+  for (const [, url] of chat.AREA_PAGES) assert.ok(k.includes('url="' + url + '"'), url + ' missing from the knowledge');
+  assert.match(k, /Frozen shoulder/);
+  assert.doesNotMatch(k, /Ottawa ankle rules/, 'clinical detail from the page body leaked in');
+});
+
+for (const file of AREAS) {
+  test(file + ' is complete, in the house style and inside the advertising rules', () => {
+    const s = read(file);
+    const text = visible(s);
+    const slug = file.replace('.html', '');
+
+    assert.ok(s.includes('<link rel="canonical" href="https://www.bridgeroad.physio/' + file + '">'));
+    assert.ok(read('sitemap.xml').includes('<loc>https://www.bridgeroad.physio/' + file + '</loc>'), 'not in the sitemap');
+    assert.match(s, /id="urgent"[\s\S]*tel:000/, 'no 000 guidance');
+    assert.match(text, /healthdirect on 1800 022 222/);
+
+    /* The site is written without em or en dashes. */
+    assert.doesNotMatch(text, /[–—]/, 'dash in visible copy');
+
+    /* AHPRA: no outcome promises, superlatives, testimonials or "specialist". */
+    assert.doesNotMatch(text, /\b(cures?|guarantee[sd]?|specialists?|best|leading|miracle|pain[- ]free|permanent(ly)?|testimonials?)\b|100%/i);
+
+    /* The FAQ answers shown on the page and in the structured data agree. */
+    const shown = [...s.matchAll(/onclick="faq\(this\)">(.*?)<span/g)].map((m) => m[1].replace(/&rsquo;/g, '’'));
+    const faqLd = [...s.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+      .map((m) => JSON.parse(m[1])).find((j) => j['@type'] === 'FAQPage');
+    assert.deepStrictEqual(faqLd.mainEntity.map((q) => q.name), shown);
+
+    /* In the drawer, this page is the current one and its group is open. */
+    const drawer = s.slice(s.indexOf('class="drawer"'), s.indexOf('class="drawer__foot"'));
+    assert.ok(drawer.includes('<a href="' + file + '" aria-current="page">'), 'not marked current in the drawer');
+    assert.ok(drawer.includes('aria-controls="m-areas"') && !/id="m-areas" hidden/.test(drawer), 'body-area group not open');
+    assert.ok(!s.slice(0, s.indexOf('<main')).includes('class="active"'), 'a header link is marked active');
+  });
+}
+
+test('titles and descriptions are unique across the body-area pages', () => {
+  const titles = AREAS.map((f) => read(f).match(/<title>(.*?)<\/title>/)[1]);
+  const descs = AREAS.map((f) => read(f).match(/<meta name="description" content="([^"]*)"/)[1]);
+  assert.strictEqual(new Set(titles).size, AREAS.length);
+  assert.strictEqual(new Set(descs).size, AREAS.length);
+});
+
+test('every page links to all six body-area pages from the drawer', () => {
+  for (const page of STANDARD) {
+    const s = read(page);
+    const prefix = page.startsWith('blog/') ? '/' : '';
+    const drawer = s.slice(s.indexOf('class="drawer"'), s.indexOf('class="drawer__foot"'));
+    for (const f of AREAS) assert.ok(drawer.includes('href="' + prefix + f + '"'), page + ' drawer is missing ' + f);
+  }
+});
+
+test('the FAQ answers payment methods and running late, and its schema matches', () => {
+  const s = read('faq.html');
+  assert.match(s, /EFTPOS, Mastercard, Visa or American Express/);
+  assert.match(s, /running late[\s\S]*phone call or text message/);
+  const shown = [...s.matchAll(/onclick="faq\(this\)">(.*?)<span/g)].map((m) => m[1]);
+  const faqLd = [...s.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+    .map((m) => JSON.parse(m[1])).find((j) => j['@type'] === 'FAQPage');
+  assert.deepStrictEqual(faqLd.mainEntity.map((q) => q.name), shown);
 });

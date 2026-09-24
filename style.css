@@ -1062,3 +1062,26 @@ html.menu-open,html.menu-open body{overflow:hidden}
    the footer Book button at 62% white on green, under 4.5:1. */
 .foot a.btn--primary{color:#fff}
 .foot a.btn--primary:hover{color:#fff}
+
+/* ===================================================================== *
+   Body-area pages (lower back, hip, shoulder, neck, knee, ankle).
+   The "where it hurts" links reuse the services page pill style. The
+   urgent box is the one place on those pages that uses red: it holds the
+   000 and GP warning signs.
+   ===================================================================== */
+.svc-toc__label{margin-top:1.75rem;font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--stone);max-width:none}
+.svc-toc__label+.svc-toc{margin-top:.6rem}
+.section .svc-toc__label:first-child{margin-top:0}
+.svc-toc--areas a{background:#fff;border-color:var(--line);font-weight:600}
+.svc-toc--areas a:hover{border-color:var(--green);background:var(--green-pale)}
+.alert-box--urgent{background:#fff;border-left:4px solid #A83226;padding:clamp(1.1rem,3vw,1.6rem)}
+.alert-box--urgent h2{margin-bottom:.5rem}
+.alert-box--urgent p{margin-top:1.1rem}
+.alert-box--urgent a{color:#8C2A20;font-weight:600}
+.alert-box--urgent .plist li::before{background:#A83226}
+.drawer__sub a{position:relative}
+.drawer__sub a[aria-current="page"]::before{left:-2rem}
+/* Phone numbers inside the warning box sit in a sentence. The site-wide
+   44px tap padding on tel: links pushed those lines apart; links inside a
+   sentence are exempt from the target-size rule. */
+main .alert-box--urgent a[href^="tel:"]:not(.btn){display:inline;padding-block:0}
