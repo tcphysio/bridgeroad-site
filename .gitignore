@@ -1,3 +1,4 @@
 node_modules/
-# Written by tools/stamp-assets.js at deploy. Never commit it.
+# Written by tools/stamp-assets.js at deploy. Never commit them.
 site.js
+public/

@@ -13,7 +13,7 @@ const os = require('node:os');
 const path = require('node:path');
 const vm = require('node:vm');
 
-const { hash, joinSiteJs, stampHtml, run } = require('../tools/stamp-assets.js');
+const { hash, joinSiteJs, stampHtml, run, NOT_PUBLIC } = require('../tools/stamp-assets.js');
 
 const ROOT = path.join(__dirname, '..');
 const V = { 'style.css': 'aaaaaaaaaa', 'site.js': 'bbbbbbbbbb', 'chat.js': 'cccccccccc', 'campaign.js': 'dddddddddd' };
@@ -65,27 +65,43 @@ test('once stamped, no deployed page still loads an unversioned CSS or JS file',
   }
 });
 
-test('a dry run writes nothing', () => {
+test('a dry run writes nothing; a real run stamps in place and publishes only the site', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'stamp-'));
-  for (const f of ['site-config.js', 'script.js', 'chat.js', 'campaign.js', 'style.css']) fs.writeFileSync(path.join(dir, f), '/* ' + f + ' */');
+  for (const f of ['site-config.js', 'script.js', 'chat.js', 'campaign.js', 'style.css', 'package.json']) fs.writeFileSync(path.join(dir, f), '/* ' + f + ' */');
+  fs.mkdirSync(path.join(dir, 'api'));
+  fs.writeFileSync(path.join(dir, 'api', 'chat.js'), '/* function source */');
+  fs.mkdirSync(path.join(dir, 'blog'));
   const page = '<link href="style.css"><script src="site-config.js"></script><script src="script.js"></script>';
   fs.writeFileSync(path.join(dir, 'index.html'), page);
+  fs.writeFileSync(path.join(dir, 'blog', 'index.html'), page.replace(/"(?=\w)/g, '"/'));
+
   const dry = run(dir, false);
-  assert.strictEqual(dry.pages, 1);
+  assert.strictEqual(dry.pages, 2);
   assert.strictEqual(fs.readFileSync(path.join(dir, 'index.html'), 'utf8'), page);
-  assert.ok(!fs.existsSync(path.join(dir, 'site.js')));
+  assert.ok(!fs.existsSync(path.join(dir, 'site.js')) && !fs.existsSync(path.join(dir, 'public')));
+
   run(dir, true);
-  assert.ok(fs.readFileSync(path.join(dir, 'index.html'), 'utf8').includes('site.js?v=' + hash(fs.readFileSync(path.join(dir, 'site.js'), 'utf8'))));
+  const v = hash(fs.readFileSync(path.join(dir, 'site.js'), 'utf8'));
+  assert.ok(fs.readFileSync(path.join(dir, 'index.html'), 'utf8').includes('site.js?v=' + v), 'root copy stamped for the functions');
+  assert.ok(fs.readFileSync(path.join(dir, 'public', 'index.html'), 'utf8').includes('site.js?v=' + v));
+  assert.ok(fs.readFileSync(path.join(dir, 'public', 'blog', 'index.html'), 'utf8').includes('/site.js?v=' + v));
+  for (const f of ['site.js', 'site-config.js', 'script.js', 'style.css']) assert.ok(fs.existsSync(path.join(dir, 'public', f)), f + ' not published');
+  for (const f of ['api', 'package.json', 'public']) assert.ok(!fs.existsSync(path.join(dir, 'public', f)), f + ' published');
+
+  run(dir, true); // runs twice cleanly, and never nests public/public
+  assert.ok(!fs.existsSync(path.join(dir, 'public', 'public')));
   fs.rmSync(dir, { recursive: true, force: true });
 });
 
 test('Vercel ships the build script, and runs it', () => {
   const ignored = fs.readFileSync(path.join(ROOT, '.vercelignore'), 'utf8').split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
   for (const rule of ['tools', 'tools/', 'tools/*', 'tools/stamp-assets.js']) assert.ok(!ignored.includes(rule), '.vercelignore drops the build script: ' + rule);
-  assert.strictEqual(JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8')).buildCommand, 'node tools/stamp-assets.js');
+  const cfg = JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8'));
+  assert.strictEqual(cfg.buildCommand, 'node tools/stamp-assets.js');
+  assert.strictEqual(cfg.outputDirectory, 'public');
 });
 
-test('every local image, font and preload a page points at exists', () => {
+test('every local image, font and preload a page points at exists and gets published', () => {
   const missing = [];
   for (const file of pages()) {
     const html = fs.readFileSync(file, 'utf8');
@@ -100,6 +116,7 @@ test('every local image, font and preload a page points at exists', () => {
       if (/^(?:https?:|data:|mailto:|tel:|#)/.test(ref)) continue;
       const target = ref.startsWith('/') ? path.join(ROOT, ref) : path.join(path.dirname(file), ref);
       if (!fs.existsSync(target.split('?')[0])) missing.push(path.relative(ROOT, file) + ' -> ' + ref);
+      else if (NOT_PUBLIC.has(path.relative(ROOT, target).split(path.sep)[0])) missing.push(path.relative(ROOT, file) + ' -> ' + ref + ' (never published)');
     }
   }
   const css = fs.readFileSync(path.join(ROOT, 'style.css'), 'utf8');

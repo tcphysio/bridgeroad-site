@@ -7,6 +7,11 @@
         page makes one request for them instead of two
      2. rewrites every style.css, site.js, chat.js and campaign.js reference
         in the HTML to carry ?v=<first 10 characters of the file's hash>
+     3. copies the site into public/, which Vercel serves once a project has
+        a build step. api/, node_modules, tests, tools and the package files
+        stay out, so the function source and dependencies are never public.
+        The HTML is also stamped where it sits, because the offer and chat
+        functions read the root copies.
 
    vercel.json caches any .css or .js request that carries ?v= for a year.
    A changed file gets a new hash, so the next deployment's pages ask for a
@@ -30,7 +35,11 @@ const crypto = require('crypto');
 
 const ROOT = path.join(__dirname, '..');
 const STAMPED = ['style.css', 'site.js', 'chat.js', 'campaign.js'];
-const SKIP_DIRS = new Set(['.git', '.vercel', 'node_modules', 'docs', 'tests', 'tools']);
+const SKIP_DIRS = new Set(['.git', '.vercel', 'node_modules', 'docs', 'tests', 'tools', 'public']);
+/* Never copied into public/. .vercelignore already drops the notes files on
+   Vercel; this list covers what has to be in the build but not on the web. */
+const NOT_PUBLIC = new Set(['.git', '.vercel', '.gitignore', '.vercelignore', 'node_modules', 'api', 'docs', 'tests', 'tools', 'public',
+  'package.json', 'package-lock.json', 'vercel.json', 'README.md', 'CAMPAIGN.md', 'PHOTO-GUIDE.txt']);
 
 function hash(text) {
   return crypto.createHash('sha256').update(text).digest('hex').slice(0, 10);
@@ -85,8 +94,21 @@ function run(root, write) {
     report.push(path.relative(root, file) + ': ' + stamped + ' stamped' + (joined ? ', scripts joined' : ''));
     if (write) fs.writeFileSync(file, html);
   }
-  if (write) fs.writeFileSync(path.join(root, 'site.js'), siteJs);
+  if (write) {
+    fs.writeFileSync(path.join(root, 'site.js'), siteJs);
+    publish(root);
+  }
   return { versions, pages, report };
+}
+
+function publish(root) {
+  const out = path.join(root, 'public');
+  fs.rmSync(out, { recursive: true, force: true });
+  fs.mkdirSync(out);
+  for (const name of fs.readdirSync(root)) {
+    if (NOT_PUBLIC.has(name)) continue;
+    fs.cpSync(path.join(root, name), path.join(out, name), { recursive: true });
+  }
 }
 
 if (require.main === module) {
@@ -100,7 +122,7 @@ if (require.main === module) {
     console.error('stamp-assets: no page references a stamped file. Check the patterns against the HTML.');
     process.exit(1);
   }
-  console.log(write ? pages + ' pages stamped, site.js written.' : 'Dry run, nothing written. ' + pages + ' pages would change. Pass --write to apply.');
+  console.log(write ? pages + ' pages stamped, site.js written, site copied to public/.' : 'Dry run, nothing written. ' + pages + ' pages would change. Pass --write to apply.');
 }
 
-module.exports = { hash, joinSiteJs, stampHtml, run };
+module.exports = { hash, joinSiteJs, stampHtml, run, NOT_PUBLIC };
