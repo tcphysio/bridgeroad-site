@@ -78,3 +78,19 @@ test('the business listing data names the suburbs patients come from', () => {
     assert.ok(names.includes(x + ', Victoria'), 'areaServed missing ' + x);
   }
 });
+
+test('the five-column footer layout only applies on wide screens', () => {
+  /* Unscoped, it outranked the two-column phone footer and split it into
+     five squeezed columns wider than a 320px screen. */
+  const css = read('style.css');
+  const bare = css.replace(/@media[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g, '');
+  assert.doesNotMatch(bare, /\.foot__grid--5\s*\{[^}]*grid-template-columns/, 'foot__grid--5 columns set outside a media query');
+});
+
+test('the phone header centres the logo with the Menu button on the left', () => {
+  const css = read('style.css');
+  assert.match(css, /@media\(max-width:900px\)\{\s*\.nav\{display:grid;grid-template-columns:1fr auto 1fr/);
+  for (const page of STANDARD) {
+    assert.ok(read(page).includes('<div class="container nav"><button class="burger"'), page + ': Menu button is not first in the header');
+  }
+});
