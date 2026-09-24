@@ -85,7 +85,12 @@ function readBody(req) {
 
 module.exports = async function handler(req, res) {
   if (req.method === 'GET') {
-    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=60');
+    /* Fresh at the edge for five minutes, then served stale for up to a day
+       while the edge refreshes it in the background, so a visitor after a
+       quiet spell does not wait on a cold function. The answer only changes
+       with an environment variable, and that needs a redeploy, which clears
+       the edge cache anyway. */
+    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=300, stale-while-revalidate=86400');
     return res.status(200).json({ enabled: enabled() });
   }
 

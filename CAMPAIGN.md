@@ -206,8 +206,9 @@ From midnight in Melbourne on 1 December 2026, `/new-patient-offer`:
 
 The decision is made on the server using the Melbourne clock, so a visitor in
 another timezone, or with JavaScript off, sees the same thing. The page is
-cached at the edge for five minutes, so the switch lands within five minutes of
-midnight.
+cached at the edge and refreshed in the background, so ad clicks rarely wait on
+the server. The cost: if the page sat quiet before midnight, the first visitor
+after it still sees the offer once. Everyone after them sees the ended state.
 
 The offer banner on `/book.html` disappears at the same moment. That one check
 runs in the browser, and it fails closed: no JavaScript means no banner.
