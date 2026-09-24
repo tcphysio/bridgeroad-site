@@ -1,5 +1,127 @@
-function toggleMenu(btn){const m=document.getElementById('m');m.classList.toggle('open');const open=m.classList.contains('open');if(btn)btn.setAttribute('aria-expanded',open);}
-function closeMenu(){const m=document.getElementById('m');if(m)m.classList.remove('open');const b=document.querySelector('.burger');if(b)b.setAttribute('aria-expanded','false');}
+/* Menu drawer. Slides in from the left below 1181px. Closes on the Close
+   button, a tap on the backdrop, a swipe to the left, Escape, or a link.
+   While it is open the page behind is locked and inert, so a screen reader
+   or the Tab key stays inside the menu, and focus goes back to the Menu
+   button afterwards. toggleMenu and closeMenu stay global because the chat
+   assistant and any older inline handlers call them. */
+(function(){
+  var drawer = document.getElementById('m');
+  var scrim = document.querySelector('.drawer-scrim');
+  var root = document.documentElement;
+  var opener = null, inerted = [];
+
+  function isOpen(){ return root.classList.contains('menu-open'); }
+  function setExpanded(v){
+    document.querySelectorAll('[data-menu-open]').forEach(function(b){ b.setAttribute('aria-expanded', v ? 'true' : 'false'); });
+  }
+
+  function open(trigger){
+    if (!drawer || isOpen()) return;
+    opener = trigger || document.activeElement;
+    root.classList.add('menu-open');
+    [].forEach.call(document.body.children, function(el){
+      if (el === drawer || el === scrim || el.tagName === 'SCRIPT' || el.hasAttribute('inert')) return;
+      el.setAttribute('inert', '');
+      inerted.push(el);
+    });
+    setExpanded(true);
+    var first = drawer.querySelector('.drawer__close');
+    if (first) first.focus({ preventScroll: true });
+    if (window.BRP) window.BRP.track('menu_open');
+  }
+
+  function close(opts){
+    if (!drawer || !isOpen()) return;
+    root.classList.remove('menu-open');
+    inerted.forEach(function(el){ el.removeAttribute('inert'); });
+    inerted = [];
+    drawer.style.transform = '';
+    if (scrim) scrim.style.opacity = '';
+    setExpanded(false);
+    if (!(opts && opts.leaving) && opener && opener.focus) opener.focus({ preventScroll: true });
+    opener = null;
+  }
+
+  window.toggleMenu = function(btn){ isOpen() ? close() : open(btn); };
+  window.closeMenu = close;
+  if (!drawer) return;
+
+  document.addEventListener('click', function(e){
+    var t = e.target.closest ? e.target : null;
+    if (!t) return;
+    var btn = t.closest('[data-menu-open]');
+    if (btn) { e.preventDefault(); window.toggleMenu(btn); return; }
+    if (t.closest('[data-menu-close]')) { close(); return; }
+    var sub = t.closest('[data-menu-sub]');
+    if (sub) {
+      var panel = document.getElementById(sub.getAttribute('aria-controls'));
+      var expanded = sub.getAttribute('aria-expanded') === 'true';
+      sub.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      if (panel) panel.hidden = expanded;
+      return;
+    }
+    /* Choosing a page closes the drawer straight away, so a same-page
+       anchor scrolls the unlocked page rather than the locked one. */
+    if (t.closest('#m a[href]')) close({ leaving: true });
+  });
+
+  addEventListener('keydown', function(e){ if (e.key === 'Escape' && isOpen()) close(); });
+
+  /* Browsers without inert: pull stray focus back into the drawer. */
+  document.addEventListener('focusin', function(e){
+    if (isOpen() && !drawer.contains(e.target)) {
+      var c = drawer.querySelector('.drawer__close');
+      if (c) c.focus({ preventScroll: true });
+    }
+  });
+
+  /* Wider than the drawer breakpoint the full nav is showing, so a drawer
+     left open from a rotated tablet has nothing to sit beside. */
+  var WIDE = matchMedia('(min-width: 1181px)');
+  var onWide = function(e){ if (e.matches) close({ leaving: true }); };
+  if (WIDE.addEventListener) WIDE.addEventListener('change', onWide); else if (WIDE.addListener) WIDE.addListener(onWide);
+  addEventListener('pageshow', function(e){ if (e.persisted) close({ leaving: true }); });
+
+  /* Swipe left to close. The drawer follows the finger, and closes if it is
+     dragged a third of the way or flicked. touch-action:pan-y in the CSS
+     leaves vertical scrolling of the menu to the browser. */
+  var x0 = 0, y0 = 0, t0 = 0, dx = 0, decided = false, dragging = false;
+  function start(e){
+    if (!isOpen() || e.touches.length !== 1) return;
+    x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; t0 = Date.now();
+    dx = 0; decided = false; dragging = false;
+  }
+  function move(e){
+    if (!isOpen() || e.touches.length !== 1) return;
+    var x = e.touches[0].clientX - x0, y = e.touches[0].clientY - y0;
+    if (!decided) {
+      if (Math.abs(x) < 8 && Math.abs(y) < 8) return;
+      decided = true;
+      dragging = x < 0 && Math.abs(x) > Math.abs(y);
+      if (dragging) drawer.classList.add('is-dragging');
+    }
+    if (!dragging) return;
+    dx = Math.min(0, x);
+    drawer.style.transform = 'translateX(' + dx + 'px)';
+    if (scrim) scrim.style.opacity = String(Math.max(0, 1 + dx / drawer.offsetWidth));
+  }
+  function end(){
+    if (!dragging) return;
+    dragging = false;
+    drawer.classList.remove('is-dragging');
+    var flick = dx < -40 && Date.now() - t0 < 250;
+    if (dx < -drawer.offsetWidth / 3 || flick) close();
+    drawer.style.transform = '';
+    if (scrim) scrim.style.opacity = '';
+  }
+  [drawer, scrim].forEach(function(el){
+    if (!el) return;
+    el.addEventListener('touchstart', start, { passive: true });
+    el.addEventListener('touchmove', move, { passive: true });
+    el.addEventListener('touchend', end);
+    el.addEventListener('touchcancel', end);
+  });
+})();
 /* Header on scroll. Two independent things: the background turns opaque
    once you leave the top, and the address strip tucks away when you scroll
    down and comes back when you scroll up, the way a phone browser hides its
@@ -39,8 +161,6 @@ if('IntersectionObserver' in window){
   document.documentElement.classList.add('io');
 }
 function faq(b){var item=b.parentElement;item.classList.toggle('open');b.setAttribute('aria-expanded',item.classList.contains('open'));}
-addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu();});
-document.querySelectorAll('#m a').forEach(a=>a.addEventListener('click',closeMenu));
 
 /* Source tracking: capture UTM/ad-click params on landing, persist for the visit,
    forward into enquiry forms as hidden fields, and tag the Halaxy booking link
