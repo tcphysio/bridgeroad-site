@@ -1,6 +1,39 @@
 # Site speed review and plan, 24 September 2026
 
-Review and plan only. Nothing on the site changed. This replaces the 23 September plan, which stays in git history. Gzip is left out, as asked.
+This replaces the 23 September plan, which stays in git history. Gzip is left out, as asked.
+
+## Status: items 1 to 4 built, not yet live
+
+Built on the `claude/site-speed-improvement-5ycar0` branch. Nothing reaches the live site until the branch is merged.
+
+| # | Change | What it does |
+|---|---|---|
+| 1 | Fonts self-hosted in `fonts/`, two preloads per page | No Google Fonts stylesheet, two fewer servers to connect to |
+| 2 | Right-sized WebP for the hero, portrait, entrance photo and logos | Homepage images much lighter on phones. The blog author box no longer loads the 153 KB portrait for a 62px photo |
+| 3 | `tools/stamp-assets.js` runs at deploy | Joins site-config.js and script.js into site.js, adds `?v=<hash>` to CSS and JS, caches those for a year, publishes the site from `public/` |
+| 4 | A day of stale-while-revalidate on the offer page and chat status | Ad clicks rarely wait on a cold function |
+
+**Before and after (measured).** Lighthouse mobile, median of three runs. The old and new site were both served from the same machine with compression on, with GTM, Maps and Halaxy blocked in both. Absolute numbers will differ on the live site. The gap between the columns is the reliable part.
+
+| Page | Score | First paint | Main content (LCP) |
+|---|---|---|---|
+| Home | 85 → 99 | 2.7 s → 0.9 s | 3.4 s → **2.1 s** |
+| Book | 90 to 100 → 100 | 2.7 s → 0.9 s | 2.7 s → 1.8 s |
+
+The homepage now clears Google's 2.5 s LCP target in this test. Preloading both fonts beat preloading one or none.
+
+**Checked:**
+
+- Pixel comparison of nine pages at phone and desktop widths: layout identical, differences only inside the re-encoded photos.
+- Menu, chat, fonts and globals work the same with the joined site.js. No console errors.
+- `npm test`: 72 pass, including new tests for the stamping, the `public/` copy and missing files.
+- The Vercel preview builds. A stamped style.css comes back with `max-age=31536000, immutable`, Brotli and the security headers.
+
+**Not checked on the preview.** Vercel's access link for protected previews stopped working after one request, so pages, the offer page, the chat status call and the font headers weren't fetched from the preview itself. Click through the preview before merging.
+
+---
+
+*The review below was written before items 1 to 4 were built. Its figures describe the live site as it stands today.*
 
 ## What changed since 23 September
 
