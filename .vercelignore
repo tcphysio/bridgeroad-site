@@ -6,4 +6,6 @@ docs/
 # Campaign notes, tests and the share-image source
 CAMPAIGN.md
 tests/
-tools/
+# tools/stamp-assets.js stays: Vercel runs it at deploy.
+tools/og-render.js
+tools/og-new-patient-offer.html

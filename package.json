@@ -1,8 +1,9 @@
 {
   "name": "bridgeroad-site",
   "private": true,
-  "description": "Bridge Road Physiotherapy website. Static pages plus Vercel Functions in api/. No build step.",
+  "description": "Bridge Road Physiotherapy website. Static pages plus Vercel Functions in api/. One deploy step: tools/stamp-assets.js.",
   "scripts": {
+    "build": "node tools/stamp-assets.js",
     "test": "node --test tests/*.test.js"
   },
   "dependencies": {

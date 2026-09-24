@@ -1,7 +1,8 @@
 # bridgeroad-site
 Bridge Road Physiotherapy website
 
-Static pages served by Vercel, plus three Vercel Functions in `api/`. No build step.
+Static pages served by Vercel, plus three Vercel Functions in `api/`. One small
+deploy step, described under Speed and caching.
 
 ## Tests
 
@@ -34,3 +35,19 @@ The assistant's rules are in `api/_chat.js`. Its knowledge is read from the
 pages listed there, so updating a page updates the assistant on the next
 deployment. `privacy.html#chat` describes the chat to patients: change it if
 the provider or the data handling changes.
+
+## Speed and caching
+
+- **CSS and JS.** On every deployment Vercel runs `tools/stamp-assets.js`. It
+  joins `site-config.js` and `script.js` into `site.js`, then adds
+  `?v=<hash>` to `style.css`, `site.js`, `chat.js` and `campaign.js` in every
+  page. Those URLs are cached for a year, and a changed file gets a new hash.
+  Edit the files as normal: the copies in git are never stamped.
+  `npm run build` shows what it would change without writing anything.
+- **New pages** need nothing extra, as long as they load the styles and
+  scripts the same way the other pages do. `npm test` checks that.
+- **Fonts** live in `fonts/` and are cached for a year. A changed font needs a
+  new filename.
+- **Photos.** Give each size its own file (`...-600.webp`, `...-900.webp`) and
+  list them in `srcset`. Never replace an image under the same name: browsers
+  keep images for a week. The originals stay in the repo as masters.
